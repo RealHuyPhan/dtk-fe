@@ -3,6 +3,7 @@ import { RouterConfig } from './router/routerConfig'
 import { Box, useMediaQuery } from '@mui/material'
 import TopBar from './app/TopBar'
 import LeftBar from './app/LeftBar'
+import Footer from './app/footer'
 
 function App() {
 
@@ -26,7 +27,7 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
       <TopBar
         onMenuClick={handleDrawerToggle}
         isMobile={isMobile}
@@ -45,6 +46,7 @@ const Layout = ({ children }) => {
         })}>
         {children}
       </Box>
+      <Footer />
     </Box>
 
   )

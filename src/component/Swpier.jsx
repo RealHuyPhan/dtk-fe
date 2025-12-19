@@ -1,111 +1,199 @@
-import React, { useEffect, useState } from "react";
-import { Box } from "@mui/material";
+import React, { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 
-export default function ImageSwiper({
-    images = [],
-    autoPlayDelay = 4000,
-    // 1. Tăng chiều cao mặc định lên để phù hợp với ảnh dọc
-    height = 600,
-}) {
-    const [index, setIndex] = useState(0);
+// Hook đơn giản để kiểm tra kích thước màn hình
+const useIsMobile = () => {
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        if (!images.length) return;
-        const timer = setInterval(next, autoPlayDelay);
-        return () => clearInterval(timer);
-    }, [index, autoPlayDelay, images.length]);
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile(); // Check ngay lần đầu render
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
 
-    const next = () => setIndex((prev) => (prev + 1) % images.length);
+    return isMobile;
+};
 
-    const handleImageClick = (clickedIndex) => {
-        if (clickedIndex !== index) {
-            setIndex(clickedIndex);
+const transitionSpec = {
+    type: "spring",
+    stiffness: 180,
+    damping: 25,
+    mass: 1,
+};
+
+const Poster3DSwiper = ({ images = [], autoPlayDelay = 6000, height = 550 }) => {
+    const [activeIndex, setActiveIndex] = useState(0);
+    const isMobile = useIsMobile();
+
+    // 1. CẤU HÌNH KÍCH THƯỚC RESPONSIVE
+    // Mobile: Card rộng 70% màn hình, cao 400px
+    // PC: Card rộng theo tỉ lệ height * 0.65, cao theo props
+    const cardWidth = isMobile ? "70vw" : height * 0.65;
+    const cardHeight = isMobile ? "450px" : height * 0.9;
+    const containerHeight = isMobile ? "500px" : height;
+
+    // 2. TẠO VARIANTS ĐỘNG (Dựa theo isMobile để chỉnh khoảng cách)
+    const variants = useMemo(() => {
+        // Trên mobile khoảng cách x cần nhỏ hơn hoặc lớn hơn tùy ý đồ hiển thị
+        // Ở đây mình dùng % kích thước thẻ cha, frame-motion sẽ tự tính toán dựa trên width của element
+        const xOffset = isMobile ? "55%" : "60%";
+        const scaleSide = isMobile ? 0.8 : 0.85; // Mobile cho ảnh bên nhỏ hơn chút nữa để thoáng
+
+        return {
+            center: {
+                x: 0,
+                y: 0,
+                z: 0,
+                scale: 1.05,
+                rotateY: 0,
+                zIndex: 10,
+                opacity: 1,
+                filter: "brightness(100%) blur(0px)",
+                boxShadow: "0px 25px 50px -12px rgba(0,0,0,0.35)",
+                transition: transitionSpec,
+            },
+            left: {
+                x: `-${xOffset}`,
+                y: 0,
+                z: -100,
+                scale: scaleSide,
+                rotateY: 35,
+                zIndex: 5,
+                opacity: 0.8,
+                filter: "brightness(85%) blur(2px)",
+                boxShadow: "0px 15px 30px rgba(0,0,0,0.2)",
+                transition: transitionSpec,
+            },
+            right: {
+                x: xOffset,
+                y: 0,
+                z: -100,
+                scale: scaleSide,
+                rotateY: -35,
+                zIndex: 5,
+                opacity: 0.8,
+                filter: "brightness(85%) blur(2px)",
+                boxShadow: "0px 15px 30px rgba(0,0,0,0.2)",
+                transition: transitionSpec,
+            },
+            hiddenLeft: {
+                x: "-120%", // Đẩy xa hơn để khuất hẳn trên mobile
+                y: 0,
+                z: -200,
+                scale: 0.5,
+                rotateY: 60,
+                zIndex: 1,
+                opacity: 0,
+                filter: "brightness(50%) blur(10px)",
+                transition: transitionSpec,
+            },
+            hiddenRight: {
+                x: "120%",
+                y: 0,
+                z: -200,
+                scale: 0.5,
+                rotateY: -60,
+                zIndex: 1,
+                opacity: 0,
+                filter: "brightness(50%) blur(10px)",
+                transition: transitionSpec,
+            },
+        };
+    }, [isMobile]);
+
+    // Tự động chạy
+    useEffect(() => {
+        if (images.length === 0) return;
+        const interval = setInterval(() => {
+            setActiveIndex((prev) => (prev + 1) % images.length);
+        }, autoPlayDelay);
+        return () => clearInterval(interval);
+    }, [images.length, autoPlayDelay, activeIndex]);
+
+    const handleImageClick = (index) => {
+        if (index !== activeIndex) {
+            setActiveIndex(index);
         }
     };
 
-    if (!images.length) return null;
+    const getPosition = (index) => {
+        const len = images.length;
+        let offset = (index - activeIndex + len) % len;
+        if (offset > len / 2) offset -= len;
+
+        if (offset === 0) return "center";
+        if (offset === -1) return "left";
+        if (offset === 1) return "right";
+        return offset < 0 ? "hiddenLeft" : "hiddenRight";
+    };
 
     return (
-        <Box
-            sx={{
-                position: "relative",
+        <div
+            style={{
+                height: containerHeight,
                 width: "100%",
-                height,
+                position: "relative",
                 display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
                 justifyContent: "center",
-                perspective: "1000px", // Giảm perspective để 3D rõ hơn với ảnh dọc
-                overflow: "hidden",
-                py: 4,
+                alignItems: "center",
+                perspective: "1200px",
+                // overflow: "hidden", // Có thể bật lại nếu muốn cắt phần thừa sát lề
+                backgroundColor: "#ffffff",
             }}
         >
-            <Box sx={{ position: "relative", width: "100%", height: "100%", transformStyle: "preserve-3d" }}>
-                {images.map((img, i) => {
-                    let offset = i - index;
-                    if (i === 0 && index === images.length - 1) offset = 1;
-                    if (i === images.length - 1 && index === 0) offset = -1;
+            {images.map((src, index) => {
+                const position = getPosition(index);
+                return (
+                    <motion.div
+                        key={index}
+                        initial="hiddenRight"
+                        animate={position}
+                        variants={variants}
+                        onClick={() => handleImageClick(index)}
+                        style={{
+                            position: "absolute",
+                            // Áp dụng kích thước động đã tính ở trên
+                            width: cardWidth,
+                            height: cardHeight,
 
-                    const isVisible = Math.abs(offset) <= 1;
-                    if (!isVisible) return null;
+                            borderRadius: "20px",
+                            cursor: position === "center" ? "default" : "pointer",
+                            pointerEvents: position.includes("hidden") ? "none" : "auto",
+                            backgroundColor: "#fff",
+                            overflow: "hidden",
+                        }}
+                    >
+                        <img
+                            src={src}
+                            alt={`Poster ${index}`}
+                            style={{
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "cover",
+                                display: "block",
+                                userSelect: "none",
+                                WebkitUserDrag: "none",
+                            }}
+                        />
 
-                    return (
-                        <Box
-                            key={i}
-                            component={motion.div}
-                            initial={false}
-                            onClick={() => handleImageClick(i)}
+                        {/* Lớp phủ tối màu */}
+                        <motion.div
                             animate={{
-                                // 2. Điều chỉnh khoảng cách (x)
-                                // Vì ảnh hẹp đi nên khoảng cách giữa các ảnh (260px) cần giảm xuống (vd: 180px)
-                                x: `calc(-50% + ${offset * 180}px)`,
-
-                                // Có thể dùng scaleY nếu muốn kéo dài ảnh ra (nhưng dễ vỡ hình), 
-                                // tốt nhất là giữ nguyên scale tỷ lệ đều.
-                                scale: offset === 0 ? 1 : 0.85,
-                                rotateY: offset * -45,
-                                z: offset === 0 ? 0 : -100, // Đẩy ảnh phụ gần hơn một chút
-                                opacity: offset === 0 ? 1 : 0.6,
-                                filter: offset === 0 ? "blur(0px)" : "blur(2px)",
+                                opacity: position === 'center' ? 0 : 0.3 // Mobile cho tối hơn chút để rõ ảnh giữa
                             }}
-                            transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                            sx={{
-                                position: "absolute",
-                                top: "50%",
-                                left: "50%",
-                                // 3. CHỈNH TỈ LỆ DỌC TẠI ĐÂY (QUAN TRỌNG NHẤT)
-                                // Giảm width xuống để khung hình thành hình chữ nhật đứng
-                                width: { xs: "60%", md: "30%" }, // Mobile: 60%, PC: 30%
-                                height: "80%", // Chiều cao chiếm 80% container cha
-
-                                cursor: "pointer",
-                                zIndex: offset === 0 ? 10 : 5,
-                                transformStyle: "preserve-3d",
+                            style={{
+                                position: 'absolute',
+                                top: 0, left: 0, right: 0, bottom: 0,
+                                backgroundColor: '#000',
+                                pointerEvents: 'none'
                             }}
-                        >
-                            <Box
-                                component="img"
-                                src={img.src}
-                                alt={img.alt}
-                                sx={{
-                                    width: "100%",
-                                    height: "100%",
-                                    objectFit: "cover", // Đảm bảo ảnh lấp đầy khung dọc
-                                    borderRadius: "16px",
-                                    boxShadow: offset === 0
-                                        ? "0 25px 50px -12px rgba(0,0,0,0.5)" // Bóng đổ đậm hơn cho ảnh dọc
-                                        : "0 10px 20px rgba(0,0,0,0.2)",
-                                    transition: "0.3s",
-                                    "&:hover": {
-                                        filter: "brightness(0.9)",
-                                    }
-                                }}
-                            />
-                        </Box>
-                    );
-                })}
-            </Box>
-        </Box>
+                        />
+                    </motion.div>
+                );
+            })}
+        </div>
     );
-}
+};
+
+export default Poster3DSwiper;

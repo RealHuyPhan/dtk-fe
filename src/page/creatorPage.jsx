@@ -29,6 +29,7 @@ import {
 import { motion } from 'framer-motion';
 import { Rocket, DollarSign, Award, TrendingUp, Users, Star, Check, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import CardInfo from '@/component/CardInfo';
 
 // Nếu chưa có component ImageWithFallback, bạn có thể dùng thẻ img hoặc Box component="img"
 // import { ImageWithFallback } from '../components/figma/ImageWithFallback';
@@ -36,32 +37,32 @@ import { Link } from 'react-router-dom';
 // --- DATA ---
 const benefits = [
     {
-        icon: DollarSign,
+        icon: <DollarSign size={28} />,
         title: 'Thu nhập ổn định',
         description: 'Nhận được các dự án liên tục từ các thương hiệu uy tín',
     },
     {
-        icon: Rocket,
+        icon: <Rocket size={28} />,
         title: 'Phát triển sự nghiệp',
         description: 'Cơ hội hợp tác với các thương hiệu lớn và nâng tầm ảnh hưởng',
     },
     {
-        icon: Award,
+        icon: <Award size={28} />,
         title: 'Hỗ trợ chuyên nghiệp',
         description: 'Đội ngũ hỗ trợ 24/7 trong quá trình làm việc',
     },
     {
-        icon: TrendingUp,
+        icon: <TrendingUp size={28} />,
         title: 'Tăng trưởng nhanh',
         description: 'Công cụ và chiến lược để phát triển kênh của bạn',
     },
     {
-        icon: Users,
+        icon: <Users size={28} />,
         title: 'Cộng đồng creator',
         description: 'Kết nối và học hỏi từ cộng đồng creator đông đảo',
     },
     {
-        icon: Star,
+        icon: <Star size={28} />,
         title: 'Thương hiệu cá nhân',
         description: 'Xây dựng và phát triển thương hiệu cá nhân mạnh mẽ',
     },
@@ -82,25 +83,76 @@ const requirements = [
     'Chuyên nghiệp trong giao tiếp',
 ];
 
-const processSteps = [
-    {
-        step: '01',
-        title: 'Đăng ký thông tin',
-        description: 'Điền form đăng ký với thông tin chi tiết về kênh của bạn',
-    },
-    {
-        step: '02',
-        title: 'Xét duyệt',
-        description: 'Team của chúng tôi sẽ review và liên hệ trong vòng 48h',
-    },
-    {
-        step: '03',
-        title: 'Bắt đầu làm việc',
-        description: 'Nhận các dự án phù hợp và bắt đầu kiếm tiền',
-    },
-];
+const BenefitSection = () => {
+    return (
+        <Box
+            component={motion.div}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={staggerContainer}
+            sx={{ py: '6rem' }}
+        >
+            <Box sx={{ mb: 6, textAlign: 'center' }}>
+                <Typography
+                    component={motion.div} variants={fadeInUp} // Animation
+                    align="center" gutterBottom
+                    sx={{
+                        fontWeight: 600,
+                        fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+                    }}>
+                    Dịch vụ của chúng tôi
+                </Typography>
 
-// --- ANIMATION VARIANTS ---
+                <Typography
+                    component={motion.div} variants={fadeInUp} // Animation
+                    align="center"
+                    sx={{
+                        fontSize: { xs: '1rem', md: '1.4rem' },
+                        color: 'text.secondary',
+                        maxWidth: '800px',
+                        margin: '0 auto'
+                    }}>
+                    Giải pháp toàn diện cho chiến lược marketing của bạn
+                </Typography>
+            </Box>
+            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                <Box sx={{
+                    width: '80%',
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    gap: '1.6rem',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    "@media (max-width: 1080px)": {
+                        gridTemplateColumns: '1fr',
+                        gap: '1rem',
+                    },
+                }}>
+                    {benefits.map((item, index) => (
+                        <Box
+                            component={motion.div} variants={fadeInUp} // Animation từng thẻ
+                            sx={{
+                                width: '100%',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}
+                            key={index}
+                        >
+                            <CardInfo
+                                title={item.title}
+                                description={item.description}
+                                icon={item.icon}
+                            />
+                        </Box>
+                    ))}
+                </Box>
+            </Box>
+        </Box >
+    );
+};
+
 const fadeInUp = {
     hidden: { opacity: 0, y: 60 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } }
@@ -116,24 +168,40 @@ const staggerContainer = {
     }
 };
 
-
 const CreatorPage = () => {
     const theme = useTheme();
 
     return (
-        <Box sx={{ minHeight: '100vh', bgcolor: '#fff', overflowX: 'hidden' }}>
+        <Box sx={{ bgcolor: '#fff', overflowX: 'hidden' }}>
 
             {/* 1. HERO SECTION */}
             <Box sx={{
                 position: 'relative',
                 overflow: 'hidden',
                 background: 'linear-gradient(135deg, #fdf2f8 0%, #faf5ff 50%, #eff6ff 100%)', // pink-50, purple-50, blue-50
-                py: { xs: 10, md: 15 },
             }}>
-                <Container maxWidth="lg">
-                    <Grid container spacing={6} alignItems="center">
-                        {/* Left Side: Text */}
-                        <Grid item xs={12} md={6}>
+                {/* 1 */}
+                <Box sx={{
+                    py: "5rem",
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    width: '100%',
+                }}>
+                    <Box sx={{
+                        width: '80%',
+                        display: 'grid',
+                        gridTemplateColumns: '1.4fr 1fr',
+                        gap: '8rem',
+                        alignItems: 'start',
+                        mt: 6,
+                        "@media (max-width: 1080px)": {
+                            gridTemplateColumns: '1fr',
+                            gap: '1rem',
+                        },
+                    }}>
+                        <Box width={'100%'}>
                             <Box component={motion.div}
                                 initial={{ opacity: 0, x: -50 }}
                                 animate={{ opacity: 1, x: 0 }}
@@ -187,38 +255,39 @@ const CreatorPage = () => {
                                     </Button>
                                 </Link>
                             </Box>
-                        </Grid>
+                        </Box>
 
-                        {/* Right Side: Image */}
-                        <Grid item xs={12} md={6}>
-                            <Box component={motion.div}
-                                initial={{ opacity: 0, x: 50 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.6 }}
-                                sx={{ position: 'relative' }}
-                            >
-                                <Box
-                                    component="img"
-                                    src="https://images.unsplash.com/photo-1640725804478-ebf80960a3f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb250ZW50JTIwY3JlYXRvciUyMHNvY2lhbCUyMG1lZGlhfGVufDF8fHx8MTc2NjExMTYxN3ww&ixlib=rb-4.1.0&q=80&w=1080"
-                                    alt="Content Creator"
-                                    sx={{
-                                        width: '100%',
-                                        height: 'auto',
-                                        borderRadius: '16px',
-                                        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', // shadow-2xl
-                                        display: 'block'
-                                    }}
-                                />
-                            </Box>
-                        </Grid>
-                    </Grid>
-                </Container>
+                        {/* Phần text Creator có animation trượt từ phải sang */}
+                        <Box
+                            component={motion.div}
+                            initial={{ opacity: 0, x: 50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.2 }}>
+                            <Box
+                                component="img"
+                                src="https://images.unsplash.com/photo-1640725804478-ebf80960a3f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb250ZW50JTIwY3JlYXRvciUyMHNvY2lhbCUyMG1lZGlhfGVufDF8fHx8MTc2NjExMTYxN3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                                alt="Content Creator"
+                                sx={{
+                                    width: '100%',
+                                    height: 'auto',
+                                    borderRadius: '16px',
+                                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', // shadow-2xl
+                                    display: 'block'
+                                }}
+                            />
+                        </Box>
+                    </Box>
+                </Box>
+
+
+
             </Box>
 
             {/* 2. STATS SECTION */}
             <Box sx={{ py: 8, bgcolor: 'white' }}>
                 <Container maxWidth="lg">
-                    <Grid container spacing={4}>
+                    <Grid container spacing={4} sx={{justifyContent: 'space-around'}}>
                         {stats.map((stat, index) => (
                             <Grid item xs={6} md={3} key={index}>
                                 <Box
@@ -250,67 +319,15 @@ const CreatorPage = () => {
             </Box>
 
             {/* 3. BENEFITS SECTION */}
-            <Box sx={{ py: { xs: 8, md: 12 } }}>
-                <Container maxWidth="lg">
-                    <Box component={motion.div}
-                        initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
-                        sx={{ textAlign: 'center', mb: 8 }}
-                    >
-                        <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 2, fontSize: { xs: '2rem', md: '2.5rem' } }}>
-                            Lợi ích khi tham gia
-                        </Typography>
-                        <Typography variant="h6" sx={{ color: 'text.secondary', fontWeight: 400 }}>
-                            Những giá trị mà chúng tôi mang lại cho creator
-                        </Typography>
-                    </Box>
-
-                    <Grid container spacing={4}>
-                        {benefits.map((benefit, index) => (
-                            <Grid item xs={12} sm={6} md={4} key={index}>
-                                <Card
-                                    component={motion.div}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: index * 0.1 }}
-                                    whileHover={{ y: -10, scale: 1.02 }}
-                                    elevation={0}
-                                    sx={{
-                                        height: '100%',
-                                        p: 2,
-                                        borderRadius: '16px',
-                                        boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-                                        '&:hover': {
-                                            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-                                        },
-                                        transition: 'all 0.3s ease'
-                                    }}
-                                >
-                                    <CardContent>
-                                        <Box sx={{
-                                            width: 64,
-                                            height: 64,
-                                            borderRadius: '12px',
-                                            background: 'linear-gradient(to right, #fce7f3, #f3e8ff)', // pink-100 to purple-100
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            mb: 3
-                                        }}>
-                                            <benefit.icon size={32} color="#db2777" /> {/* pink-600 */}
-                                        </Box>
-                                        <Typography variant="h5" component="h3" sx={{ fontWeight: 'bold', mb: 2 }}>
-                                            {benefit.title}
-                                        </Typography>
-                                        <Typography variant="body1" color="text.secondary">
-                                            {benefit.description}
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-                        ))}
-                    </Grid>
-                </Container>
+            <Box sx={{
+                py: "2.4rem",
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+                backgroundColor: '#f9f9f9'
+            }}>
+                <BenefitSection />
             </Box>
 
             {/* 4. REQUIREMENTS SECTION */}
@@ -367,7 +384,7 @@ const CreatorPage = () => {
             </Box>
 
             {/* 5. PROCESS SECTION */}
-            <Box sx={{ py: { xs: 8, md: 12 } }}>
+            {/* <Box sx={{ py: { xs: 8, md: 12 } }}>
                 <Container maxWidth="lg">
                     <Box component={motion.div}
                         initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
@@ -414,9 +431,9 @@ const CreatorPage = () => {
                         ))}
                     </Grid>
                 </Container>
-            </Box>
+            </Box> */}
 
-            {/* 6. CTA SECTION */}
+
             <Box sx={{ py: { xs: 8, md: 12 } }}>
                 <Container maxWidth="md">
                     <Box
@@ -465,7 +482,7 @@ const CreatorPage = () => {
                 </Container>
             </Box>
 
-        </Box>
+        </Box >
     );
 }
 

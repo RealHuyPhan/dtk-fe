@@ -181,7 +181,7 @@ const Footer = () => {
                 {/* COPYRIGHT */}
                 <Box sx={{ mt: 10, pt: 3, borderTop: '1px solid #f0f0f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 2 }}>
                     <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.8rem' }}>
-                        © 2024 DTK MEDIA. All rights reserved.
+                        © 2025 DTK MEDIA. All rights reserved.
                     </Typography>
 
                     <Stack direction="row" spacing={4} divider={<Divider orientation="vertical" flexItem sx={{ height: 12, my: 'auto' }} />}>

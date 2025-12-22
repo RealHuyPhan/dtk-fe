@@ -68,7 +68,6 @@ const staggerContainer = {
     }
 };
 
-
 const ServiceSection = () => {
     return (
         <Box
@@ -77,6 +76,7 @@ const ServiceSection = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             variants={staggerContainer}
+            sx={{ py: '6rem' }}
         >
             <Box sx={{ mb: 6, textAlign: 'center' }}>
                 <Typography
@@ -142,7 +142,7 @@ const EcosystemSection = () => {
     return (
         <Box
             sx={{
-                py: 8,
+                py: '6rem',
                 background: `url(${globalBg}) center center / cover no-repeat`,
                 color: 'white',
                 position: 'relative',
@@ -252,13 +252,12 @@ const Home = () => {
 
             {/* CREATOR SECTION */}
             <Box sx={{
-                py: "2.4rem",
+                py: "8rem",
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
                 flexDirection: 'column',
                 width: '100%',
-                overflow: 'hidden' // Tránh lỗi scroll ngang khi animation bay vào
             }}>
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}

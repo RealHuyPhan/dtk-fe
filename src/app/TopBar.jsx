@@ -2,6 +2,8 @@ import { AppBar, Toolbar, Box, Button } from "@mui/material";
 import { ROUTES } from "../router/routerConstants";
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import { useNavigate } from "react-router";
+import logo from "@/assets/logo/dtkLogo.png";
+import logoNoText from "@/assets/logo/dtkLogoNoText.png";
 
 export default function TopBar({ onMenuClick, isMobile }) {
     const navigate = useNavigate();
@@ -17,7 +19,8 @@ export default function TopBar({ onMenuClick, isMobile }) {
         <AppBar
             position="fixed"
             sx={(theme) => ({
-                minHeight: '64px',
+                minHeight: '74px',
+                justifyContent: 'center',
                 backgroundColor: 'rgba(255, 255, 255, 0.8)',
                 backdropFilter: 'blur(12px)',
                 WebkitBackdropFilter: 'blur(12px)',
@@ -33,8 +36,8 @@ export default function TopBar({ onMenuClick, isMobile }) {
                     alignItems: 'center'
                 }}>
 
-                    <Box sx={{ cursor: 'pointer', fontWeight: 'bold' }} >
-                        LOGO
+                    <Box sx={{ cursor: 'pointer', marginLeft: '1rem' }} >
+                        <img src={logo} alt="Logo" style={{ height: '3rem', width: '5rem' }} />
                     </Box>
 
                     <Box sx={{ display: 'flex', gap: 2 }}>
@@ -62,9 +65,12 @@ export default function TopBar({ onMenuClick, isMobile }) {
                         cursor: 'pointer',
                         flexGrow: 1,
                         display: 'flex',
-                        justifyContent: 'flex-end',
+                        justifyContent: 'space-between',
                         alignItems: 'center'
                     }}>
+                    <Box sx={{ cursor: 'pointer', }} >
+                        <img src={logoNoText} alt="Logo" style={{ height: '3rem', width: '4.4rem' }} />
+                    </Box>
                     <MenuOutlinedIcon />
                 </Box>}
             </Toolbar>

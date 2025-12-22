@@ -42,7 +42,7 @@ const Layout = ({ children }) => {
         sx={(theme) => ({
           minHeight: '100vh',
           flexGrow: 1,
-          paddingTop: '64px',
+          paddingTop: '74px',
         })}>
         {children}
       </Box>

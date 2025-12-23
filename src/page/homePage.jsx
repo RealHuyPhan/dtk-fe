@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, Container, Grid } from '@mui/material';
 import { motion } from 'framer-motion'; // Import animation library
 import {
@@ -18,7 +18,59 @@ import creator1 from '../assets/creator/creator1.png';
 import creator2 from '../assets/creator/creator2.png';
 import creator3 from '../assets/creator/creator3.png';
 import creator4 from '../assets/creator/creator4.png';
-import creator5 from '../assets/creator/creator5.png';
+import creator5 from '../assets/creator/creator5.jpg';
+import creator6 from '../assets/creator/creator6.jpg';
+
+const creatorsData = {
+    creator1: {
+        name: "Lê Minh Travel",
+        ig: "@leminh_wonders",
+        FOLLOWERS: 1200000,
+        CATEGORIES: ["Travel", "Photography", "Adventure"],
+        description: "Khám phá vẻ đẹp Việt Nam và thế giới qua lăng kính cinematic.",
+        image: creator1
+    },
+    creator2: {
+        name: "Sarah Cooking",
+        ig: "@sarah.bakes",
+        FOLLOWERS: 850000,
+        CATEGORIES: ["Food", "Lifestyle", "Baking"],
+        description: "Chia sẻ công thức làm bánh healthy và lối sống tối giản.",
+        image: creator2
+    },
+    creator3: {
+        name: "Tech Với Huy",
+        ig: "@huy.techreview",
+        FOLLOWERS: 45000,
+        CATEGORIES: ["Technology", "Review", "Gadgets"],
+        description: "Review chân thực các sản phẩm công nghệ mới nhất.",
+        image: creator3
+    },
+    creator4: {
+        name: "Fit & Strong",
+        ig: "@fit.tuannguyen",
+        FOLLOWERS: 320000,
+        CATEGORIES: ["Fitness", "Health", "Motivation"],
+        description: "Huấn luyện viên cá nhân online. Thay đổi vóc dáng và tư duy.",
+        image: creator4
+    },
+    creator5: {
+        name: "Mộc Art",
+        ig: "@moc.art.studio",
+        FOLLOWERS: 150000,
+        CATEGORIES: ["Art", "Design", "DIY"],
+        description: "Nơi chia sẻ các tác phẩm hội họa và hướng dẫn làm đồ thủ công.",
+        image: creator5
+    },
+    creator6: {
+        name: "Mộc Art",
+        ig: "@moc.art.studio",
+        FOLLOWERS: 150000,
+        CATEGORIES: ["Art", "Design", "DIY"],
+        description: "Nơi chia sẻ các tác phẩm hội họa và hướng dẫn làm đồ thủ công.",
+        image: creator6
+    }
+};
 
 // --- DATA ---
 const servicesData = [
@@ -193,7 +245,6 @@ const EcosystemSection = () => {
                                     bgcolor: 'rgba(0, 0, 0, 0.75)',
                                     backdropFilter: 'blur(10px)',
                                     boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
-                                    // ------------------------------
 
                                     display: 'flex',
                                     alignItems: 'center',
@@ -221,6 +272,10 @@ const EcosystemSection = () => {
 };
 
 const Home = () => {
+    const creatorsArray = Object.values(creatorsData);
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const activeCreator = creatorsArray[currentIndex];
     return (
         <Box>
             {/* HERO SECTION */}
@@ -281,48 +336,75 @@ const Home = () => {
                     gap: '8rem',
                     alignItems: 'start',
                     mt: 6,
+                    mx: 'auto', // Canh giữa màn hình
                     "@media (max-width: 1080px)": {
                         gridTemplateColumns: '1fr',
                         gap: '1rem',
                     },
                 }}>
+                    {/* PHẦN 1: SWIPER 3D */}
                     <Box width={'100%'}>
                         <Poster3DSwiper
                             autoPlayDelay={5000}
                             height={500}
-                            images={[creator1, creator2, creator3, creator4, creator5]}
+                            // Truyền mảng các đường dẫn ảnh vào đây
+                            images={creatorsArray.map(c => c.image)}
+                            // Nhận lại index đang active để update Text
+                            onActiveChange={(index) => setCurrentIndex(index)}
                         />
                     </Box>
 
-                    {/* Phần text Creator có animation trượt từ phải sang */}
+                    {/* PHẦN 2: TEXT INFO (Render data động) */}
                     <Box
+                        // Dùng AnimatePresence và key để tạo hiệu ứng fade khi đổi text
                         component={motion.div}
+                        key={currentIndex} // Quan trọng: key thay đổi thì animation sẽ chạy lại
                         initial={{ opacity: 0, x: 50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5 }}
                     >
                         <Typography variant="h5" fontWeight="bold">
-                            Diep Bao Ngoc Actress
+                            {activeCreator.name}
                         </Typography>
+
                         <Typography color="text.secondary" sx={{ mb: 2 }}>
-                            @diepbaongoc18
+                            {activeCreator.ig}
                         </Typography>
 
                         <Grid container spacing={2} sx={{ mb: 2 }}>
-                            <Grid >
-                                <Typography fontWeight="bold" variant="h6">1.2M</Typography>
+                            <Grid item>
+                                <Typography fontWeight="bold" variant="h6">
+                                    {/* Format số followers cho đẹp (VD: 1.200.000) */}
+                                    {new Intl.NumberFormat('en-US', { notation: "compact", compactDisplay: "short" }).format(activeCreator.FOLLOWERS)}
+                                </Typography>
                                 <Typography variant="caption" color="text.secondary">FOLLOWERS</Typography>
                             </Grid>
-                            <Grid >
-                                <Typography fontWeight="bold" variant="h6">Actress</Typography>
-                                <Typography variant="caption" color="text.secondary">CATEGORIES</Typography>
+                            <Grid item>
+                                <Typography fontWeight="bold" variant="h6">
+                                    {/* Lấy category đầu tiên hoặc join tất cả */}
+                                    {activeCreator.CATEGORIES[0]}
+                                </Typography>
+                                <Typography variant="caption" color="text.secondary">CATEGORY</Typography>
                             </Grid>
                         </Grid>
 
                         <Typography sx={{ lineHeight: 1.8, color: '#555' }}>
-                            Diep Bao Ngoc is a movie actor who is gaining attention after the success of the movie Flip Face 6. As a model and actress who emerged from the Miss Teen 2010 contest, Diep not only possesses a beautiful face, Bao Ngoc also has an honest and flexible acting style that makes the audience love him.
+                            {activeCreator.description}
                         </Typography>
+
+                        <Box sx={{ mt: 2, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                            {activeCreator.CATEGORIES.map((cat, idx) => (
+                                <Box key={idx} sx={{
+                                    bgcolor: '#f0f0f0',
+                                    px: 1, py: 0.5,
+                                    borderRadius: 1,
+                                    fontSize: '0.75rem',
+                                    color: '#666'
+                                }}>
+                                    {cat}
+                                </Box>
+                            ))}
+                        </Box>
                     </Box>
                 </Box>
             </Box>

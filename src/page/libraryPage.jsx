@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useGetCategoryQuery } from '@/store/helper/helperAction';
 
 // Styled component cho tiêu đề gradient
 const GradientText = styled('span')({
@@ -126,7 +127,8 @@ const itemVariants = {
 
 export default function LibraryPage() {
     const [selectedCategory, setSelectedCategory] = useState('all');
-
+    const { data: category, isLoading } = useGetCategoryQuery({});
+    console.log(category, 'category data')
     const handleCategoryChange = (event, newValue) => {
         setSelectedCategory(newValue);
     };

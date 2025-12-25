@@ -12,6 +12,7 @@ export default function TopBar({ onMenuClick, isMobile }) {
         { label: "For Brand", path: ROUTES.BRAND },
         { label: "For Creator", path: ROUTES.CREATOR },
         { label: "Library", path: ROUTES.LIBRARY },
+        { label: "About", path: ROUTES.ABOUT },
         { label: "Contact Us", path: ROUTES.CONTACT },
     ];
 

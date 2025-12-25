@@ -1,21 +1,20 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { API_URL } from '../../utils/ApiConstant';
 import { axiosBaseQuery } from '../../services/axiosBaseQuery';
+import { API_URL } from '@/utils/ApiConstant';
 
 export const helperApi = createApi({
-    reducerPath: 'voucherApi',
+    reducerPath: 'helperApi',
     baseQuery: axiosBaseQuery(),
     endpoints: (builder) => ({
-        //getItemRecommend
-        // getDetailVoucher: builder.query({
-        //     query: (params) => ({
-        //         url: API_URL.VOUCHER_REWARD + `/${params?.voucherNo}`,
-        //         method: 'GET',
-        //         params: {
-
-        //         },
-        //     }),
-        // }),
+        getCategory: builder.query({
+            query: (params) => ({
+                url: `${API_URL.CATEGORY}?populate=*`,
+                method: 'GET',
+                params: {
+                    ...params
+                },
+            }),
+        }),
         // getRateLevel: builder.query({
         //     query: (params) => ({
         //         url: API_URL.VOUCHER_RATELEVEL,
@@ -57,8 +56,5 @@ export const helperApi = createApi({
 });
 
 export const {
-    // useGetDetailVoucherQuery,
-    // useGetRateLevelQuery,
-    // useGetVoucherListQuery,
-    // usePostRatingMutation,
+    useGetCategoryQuery
 } = helperApi;

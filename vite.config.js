@@ -16,5 +16,14 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-  }
+    proxy: {
+      // Khi gặp đường dẫn bắt đầu bằng /api, nó sẽ chuyển sang backend
+      '/api': {
+        target: 'http://localhost:1337', // Đổi port này thành port backend của bạn
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
+
 })

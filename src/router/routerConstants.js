@@ -3,5 +3,6 @@ export const ROUTES = {
     BRAND: "/brand",
     CREATOR: "/creator",
     LIBRARY: "/library",
+    ABOUT: 'about',
     CONTACT: "/contact",
 };

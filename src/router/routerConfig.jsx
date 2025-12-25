@@ -6,6 +6,7 @@ import CreatorPage from "../page/creatorPage";
 import LibraryPage from "../page/libraryPage";
 import ContactUsPage from "../page/contactUsPage";
 import ScrollToTop from "@/app/ScrollToTop";
+import { AboutUsPage } from "@/page/aboutUsPage";
 
 
 export const RouterConfig = () => {
@@ -32,6 +33,11 @@ export const RouterConfig = () => {
                 <Route
                     path={ROUTES.CONTACT}
                     element={<ContactUsPage />}
+                />
+
+                <Route
+                    path={ROUTES.ABOUT}
+                    element={<AboutUsPage />}
                 />
 
                 <Route path="*" element={<Navigate to={ROUTES.HOME} replace />} />

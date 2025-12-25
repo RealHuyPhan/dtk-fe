@@ -1,4 +1,6 @@
 export const API_URL = {
   //user
-  PACKAGE: "api/package"
+  CATEGORY: '/api/categories',
+  CREATOR: '/api/creators',
+  BRAND: '/api/brands',
 };

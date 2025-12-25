@@ -13,8 +13,8 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-    hepler: helperReducer,
-
+    helper: helperReducer,
+    [helperApi.reducerPath]: helperApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -20,10 +20,10 @@ const http = axios.create({
 http.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem(LOCAL_STORAGE_NAME.TOKEN);
-    if (token) {
-      config.headers["Authorization"] = "Bearer " + token;
-    }
-    config.headers["X-Request-Source"] = "web-app";
+    // if (token) {
+    //   config.headers["Authorization"] = "Bearer " + token;
+    // }
+    // config.headers["X-Request-Source"] = "web-app";
     // config.headers["Content-Type"] = "application/json";
     return config;
   },

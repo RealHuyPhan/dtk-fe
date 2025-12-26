@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Box, Typography, Container, Grid } from '@mui/material';
-import { motion } from 'framer-motion'; // Import animation library
+import React, { useState, useMemo, useRef, useEffect } from 'react';
+import { Box, Typography, Container, Grid, CircularProgress } from '@mui/material';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
     UsersRound, TrendingUp, CircleStar,
     Building2, Clapperboard, MonitorPlay,
@@ -11,68 +11,16 @@ import {
 import sample from '@/assets/background.mp4';
 import CardInfo from '@/component/CardInfo';
 import Poster3DSwiper from '@/component/Swpier';
-
 import globalBg from '../assets/globalBG.png';
 
-import creator1 from '../assets/creator/creator1.png';
-import creator2 from '../assets/creator/creator2.png';
-import creator3 from '../assets/creator/creator3.png';
-import creator4 from '../assets/creator/creator4.png';
-import creator5 from '../assets/creator/creator5.jpg';
-import creator6 from '../assets/creator/creator6.jpg';
+// Import Query
+import { useGetCreatorQuery } from '@/store/helper/helperAction';
 
-const creatorsData = {
-    creator1: {
-        name: "Lê Minh Travel",
-        ig: "@leminh_wonders",
-        FOLLOWERS: 1200000,
-        CATEGORIES: ["Travel", "Photography", "Adventure"],
-        description: "Khám phá vẻ đẹp Việt Nam và thế giới qua lăng kính cinematic.",
-        image: creator1
-    },
-    creator2: {
-        name: "Sarah Cooking",
-        ig: "@sarah.bakes",
-        FOLLOWERS: 850000,
-        CATEGORIES: ["Food", "Lifestyle", "Baking"],
-        description: "Chia sẻ công thức làm bánh healthy và lối sống tối giản.",
-        image: creator2
-    },
-    creator3: {
-        name: "Tech Với Huy",
-        ig: "@huy.techreview",
-        FOLLOWERS: 45000,
-        CATEGORIES: ["Technology", "Review", "Gadgets"],
-        description: "Review chân thực các sản phẩm công nghệ mới nhất.",
-        image: creator3
-    },
-    creator4: {
-        name: "Fit & Strong",
-        ig: "@fit.tuannguyen",
-        FOLLOWERS: 320000,
-        CATEGORIES: ["Fitness", "Health", "Motivation"],
-        description: "Huấn luyện viên cá nhân online. Thay đổi vóc dáng và tư duy.",
-        image: creator4
-    },
-    creator5: {
-        name: "Mộc Art",
-        ig: "@moc.art.studio",
-        FOLLOWERS: 150000,
-        CATEGORIES: ["Art", "Design", "DIY"],
-        description: "Nơi chia sẻ các tác phẩm hội họa và hướng dẫn làm đồ thủ công.",
-        image: creator5
-    },
-    creator6: {
-        name: "Mộc Art",
-        ig: "@moc.art.studio",
-        FOLLOWERS: 150000,
-        CATEGORIES: ["Art", "Design", "DIY"],
-        description: "Nơi chia sẻ các tác phẩm hội họa và hướng dẫn làm đồ thủ công.",
-        image: creator6
-    }
-};
+// --- CẤU HÌNH ---
+// Thay đổi URL này thành đường dẫn backend Strapi thực tế của bạn
+const STRAPI_URL = import.meta.env.VITE_API_URL || 'http://localhost:1337';
 
-// --- DATA ---
+// --- DATA TĨNH CHO SERVICE & ECOSYSTEM (Giữ nguyên) ---
 const servicesData = [
     {
         title: "ĐÀO TẠO VÀ QUẢN LÝ CREATORS",
@@ -120,6 +68,7 @@ const staggerContainer = {
     }
 };
 
+// --- COMPONENTS CON ---
 const ServiceSection = () => {
     return (
         <Box
@@ -132,7 +81,7 @@ const ServiceSection = () => {
         >
             <Box sx={{ mb: 6, textAlign: 'center' }}>
                 <Typography
-                    component={motion.div} variants={fadeInUp} // Animation
+                    component={motion.div} variants={fadeInUp}
                     align="center" gutterBottom
                     sx={{
                         fontWeight: 600,
@@ -142,7 +91,7 @@ const ServiceSection = () => {
                 </Typography>
 
                 <Typography
-                    component={motion.div} variants={fadeInUp} // Animation
+                    component={motion.div} variants={fadeInUp}
                     align="center"
                     sx={{
                         fontSize: { xs: '1rem', md: '1.4rem' },
@@ -168,7 +117,7 @@ const ServiceSection = () => {
                 }}>
                     {servicesData.map((item, index) => (
                         <Box
-                            component={motion.div} variants={fadeInUp} // Animation từng thẻ
+                            component={motion.div} variants={fadeInUp}
                             sx={{
                                 width: '100%',
                                 display: 'flex',
@@ -241,11 +190,9 @@ const EcosystemSection = () => {
                                     height: '100%',
                                     borderRadius: '16px',
                                     border: '1px solid rgba(255,255,255,0.15)',
-
                                     bgcolor: 'rgba(0, 0, 0, 0.75)',
                                     backdropFilter: 'blur(10px)',
                                     boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
-
                                     display: 'flex',
                                     alignItems: 'center',
                                     gap: 2,
@@ -272,10 +219,56 @@ const EcosystemSection = () => {
 };
 
 const Home = () => {
-    const creatorsArray = Object.values(creatorsData);
+    const [page, setPage] = useState(1);
+    const [allCreators, setAllCreators] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const activeCreator = creatorsArray[currentIndex];
+    const totalPageRef = useRef(1);
+
+    const { data: newData, isFetching } = useGetCreatorQuery(page);
+
+    useEffect(() => {
+        if (newData?.data) {
+            if (newData.meta?.pagination) {
+                totalPageRef.current = newData.meta.pagination.pageCount;
+            }
+
+            const mappedNewCreators = newData.data.map(item => {
+                const imgUrl = item.image?.url
+                    ? (item.image.url.startsWith('http') ? item.image.url : `${STRAPI_URL}${item.image.url}`)
+                    : '';
+
+                return {
+                    id: item.id,
+                    name: item.fullName,
+                    tagName: item.tagName,
+                    FOLLOWERS: item.followers,
+                    CATEGORIES: item.categories?.map(cat => cat.categoryName) || [],
+                    description: item.description,
+                    image: imgUrl
+                };
+            });
+
+            setAllCreators(prev => {
+                const existingIds = new Set(prev.map(c => c.id));
+                const uniqueCreators = mappedNewCreators.filter(c => !existingIds.has(c.id));
+                return [...prev, ...uniqueCreators];
+            });
+        }
+    }, [newData]);
+
+    const handleActiveChange = (index) => {
+        setCurrentIndex(index);
+
+        if (index === allCreators.length - 1 && page < totalPageRef.current && !isFetching) {
+            console.log("Reached end of list. Fetching page:", page + 1);
+            setPage(prev => prev + 1);
+        }
+
+    };
+
+    const activeCreator = allCreators[currentIndex];
+
     return (
         <Box>
             {/* HERO SECTION */}
@@ -329,84 +322,88 @@ const Home = () => {
                     </Typography>
                 </motion.div>
 
-                <Box sx={{
-                    width: '80%',
-                    display: 'grid',
-                    gridTemplateColumns: '1.4fr 1fr',
-                    gap: '8rem',
-                    alignItems: 'start',
-                    mt: 6,
-                    mx: 'auto', // Canh giữa màn hình
-                    "@media (max-width: 1080px)": {
-                        gridTemplateColumns: '1fr',
-                        gap: '1rem',
-                    },
-                }}>
-                    {/* PHẦN 1: SWIPER 3D */}
-                    <Box width={'100%'}>
-                        <Poster3DSwiper
-                            autoPlayDelay={5000}
-                            height={500}
-                            // Truyền mảng các đường dẫn ảnh vào đây
-                            images={creatorsArray.map(c => c.image)}
-                            // Nhận lại index đang active để update Text
-                            onActiveChange={(index) => setCurrentIndex(index)}
-                        />
-                    </Box>
-
-                    {/* PHẦN 2: TEXT INFO (Render data động) */}
-                    <Box
-                        // Dùng AnimatePresence và key để tạo hiệu ứng fade khi đổi text
-                        component={motion.div}
-                        key={currentIndex} // Quan trọng: key thay đổi thì animation sẽ chạy lại
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <Typography variant="h5" fontWeight="bold">
-                            {activeCreator.name}
-                        </Typography>
-
-                        <Typography color="text.secondary" sx={{ mb: 2 }}>
-                            {activeCreator.ig}
-                        </Typography>
-
-                        <Grid container spacing={2} sx={{ mb: 2 }}>
-                            <Grid item>
-                                <Typography fontWeight="bold" variant="h6">
-                                    {/* Format số followers cho đẹp (VD: 1.200.000) */}
-                                    {new Intl.NumberFormat('en-US', { notation: "compact", compactDisplay: "short" }).format(activeCreator.FOLLOWERS)}
+                {allCreators.length > 0 ? (
+                    <Box sx={{
+                        width: '80%', display: 'grid', gridTemplateColumns: '1.4fr 1fr',
+                        gap: '8rem', alignItems: 'start', mt: 6, mx: 'auto',
+                        "@media (max-width: 1080px)": { gridTemplateColumns: '1fr', gap: '1rem' },
+                    }}>
+                        {/* PHẦN 1: SWIPER 3D */}
+                        <Box width={'100%'}>
+                            <Poster3DSwiper
+                                autoPlayDelay={5000}
+                                height={500}
+                                // Truyền toàn bộ mảng đã tích lũy vào đây
+                                images={allCreators.map(c => c.image)}
+                                onActiveChange={handleActiveChange}
+                            />
+                            {/* Loading indicator nhỏ khi đang tải trang tiếp theo */}
+                            {isFetching && page > 1 && (
+                                <Typography variant="caption" sx={{ display: 'block', textAlign: 'center', mt: 1, color: '#888' }}>
+                                    Loading more creators...
                                 </Typography>
-                                <Typography variant="caption" color="text.secondary">FOLLOWERS</Typography>
-                            </Grid>
-                            <Grid item>
-                                <Typography fontWeight="bold" variant="h6">
-                                    {/* Lấy category đầu tiên hoặc join tất cả */}
-                                    {activeCreator.CATEGORIES[0]}
-                                </Typography>
-                                <Typography variant="caption" color="text.secondary">CATEGORY</Typography>
-                            </Grid>
-                        </Grid>
+                            )}
+                        </Box>
 
-                        <Typography sx={{ lineHeight: 1.8, color: '#555' }}>
-                            {activeCreator.description}
-                        </Typography>
+                        {/* PHẦN 2: TEXT INFO */}
+                        <Box>
+                            <AnimatePresence mode='wait'>
+                                {activeCreator && (
+                                    <motion.div
+                                        key={activeCreator.id} // Quan trọng: key đổi thì animation mới chạy
+                                        initial={{ opacity: 0, x: 50 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        exit={{ opacity: 0, x: -20 }}
+                                        transition={{ duration: 0.5 }}
+                                    >
+                                        <Typography variant="h5" fontWeight="bold">
+                                            {activeCreator.name}
+                                        </Typography>
 
-                        <Box sx={{ mt: 2, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                            {activeCreator.CATEGORIES.map((cat, idx) => (
-                                <Box key={idx} sx={{
-                                    bgcolor: '#f0f0f0',
-                                    px: 1, py: 0.5,
-                                    borderRadius: 1,
-                                    fontSize: '0.75rem',
-                                    color: '#666'
-                                }}>
-                                    {cat}
-                                </Box>
-                            ))}
+                                        <Typography color="text.secondary" sx={{ mb: 2 }}>
+                                            {activeCreator.tagName}
+                                        </Typography>
+
+                                        <Grid container spacing={2} sx={{ mb: 2 }}>
+                                            <Grid item>
+                                                <Typography fontWeight="bold" variant="h6">
+                                                    {new Intl.NumberFormat('en-US', { notation: "compact", compactDisplay: "short" }).format(activeCreator.FOLLOWERS)}
+                                                </Typography>
+                                                <Typography variant="caption" color="text.secondary">FOLLOWERS</Typography>
+                                            </Grid>
+                                            <Grid item>
+                                                <Typography fontWeight="bold" variant="h6">
+                                                    {activeCreator.CATEGORIES[0] || 'N/A'}
+                                                </Typography>
+                                                <Typography variant="caption" color="text.secondary">CATEGORY</Typography>
+                                            </Grid>
+                                        </Grid>
+
+                                        <Typography sx={{ lineHeight: 1.8, color: '#555' }}>
+                                            {activeCreator.description}
+                                        </Typography>
+
+                                        <Box sx={{ mt: 2, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                                            {activeCreator.CATEGORIES.map((cat, idx) => (
+                                                <Box key={idx} sx={{
+                                                    bgcolor: '#f0f0f0', px: 1, py: 0.5, borderRadius: 1,
+                                                    fontSize: '0.75rem', color: '#666'
+                                                }}>
+                                                    {cat}
+                                                </Box>
+                                            ))}
+                                        </Box>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </Box>
                     </Box>
-                </Box>
+                ) : (
+                    // Loading ban đầu (khi chưa có bất kỳ dữ liệu nào)
+                    <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+                        {isFetching ? <CircularProgress /> : <Typography>Không tìm thấy dữ liệu.</Typography>}
+                    </Box>
+                )}
             </Box>
 
             {/* SERVICE SECTION */}
@@ -421,7 +418,7 @@ const Home = () => {
                 <ServiceSection />
             </Box>
 
-            {/* ECOSYSTEM SECTION (MỚI THÊM) */}
+            {/* ECOSYSTEM SECTION */}
             <Box sx={{ width: '100%' }}>
                 <EcosystemSection />
             </Box>

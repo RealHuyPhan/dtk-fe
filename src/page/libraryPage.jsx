@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
     Container,
     Typography,
@@ -6,13 +6,20 @@ import {
     Tabs,
     Tab,
     Grid,
-    Fade
+    CircularProgress,
+    Button
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'; // Icon mũi tên cho nút xem thêm
 import { motion, AnimatePresence } from 'framer-motion';
-import { useGetCategoryQuery } from '@/store/helper/helperAction';
 
-// Styled component cho tiêu đề gradient
+// Import hook từ store của bạn
+import { useGetCategoryQuery, useGetCreatorQuery } from '@/store/helper/helperAction';
+
+// --- CONFIG ---
+const STRAPI_BASE_URL = 'http://localhost:1337';
+
+// --- STYLED COMPONENTS ---
 const GradientText = styled('span')({
     background: 'linear-gradient(to right, #9333ea, #db2777)',
     WebkitBackgroundClip: 'text',
@@ -20,98 +27,43 @@ const GradientText = styled('span')({
     fontWeight: 'bold',
 });
 
-// --- Dữ liệu (Giữ nguyên) ---
-const creators = [
-    {
-        id: 1,
-        name: 'Nguyễn Minh Anh',
-        category: 'fashion',
-        followers: '500K',
-        engagement: '4.2%',
-        image: 'https://images.unsplash.com/photo-1516763296043-f676c1105999?auto=format&fit=crop&q=80&w=1080',
-        specialties: ['Thời trang cao cấp', 'Street style', 'Phụ kiện'],
-    },
-    {
-        id: 2,
-        name: 'Lê Thu Hà',
-        category: 'beauty',
-        followers: '350K',
-        engagement: '5.1%',
-        image: 'https://images.unsplash.com/photo-1522108098940-de49801b5b40?auto=format&fit=crop&q=80&w=1080',
-        specialties: ['Skincare', 'Makeup tutorial', 'Product review'],
-    },
-    {
-        id: 3,
-        name: 'Trần Văn Nam',
-        category: 'food',
-        followers: '420K',
-        engagement: '6.8%',
-        image: 'https://images.unsplash.com/photo-1639059699363-041b0bf00ce7?auto=format&fit=crop&q=80&w=1080',
-        specialties: ['Ẩm thực Việt', 'Công thức độc đáo', 'Food vlog'],
-    },
-    {
-        id: 4,
-        name: 'Phạm Thị Lan',
-        category: 'fashion',
-        followers: '280K',
-        engagement: '3.9%',
-        image: 'https://images.unsplash.com/photo-1516763296043-f676c1105999?auto=format&fit=crop&q=80&w=1080',
-        specialties: ['Fashion trend', 'Outfit ideas', 'Shopping haul'],
-    },
-    {
-        id: 5,
-        name: 'Hoàng Minh Tuấn',
-        category: 'other',
-        followers: '380K',
-        engagement: '4.5%',
-        image: 'https://images.unsplash.com/photo-1640725804478-ebf80960a3f4?auto=format&fit=crop&q=80&w=1080',
-        specialties: ['Lifestyle', 'Travel', 'Photography'],
-    },
-    {
-        id: 6,
-        name: 'Vũ Ngọc Mai',
-        category: 'beauty',
-        followers: '310K',
-        engagement: '5.5%',
-        image: 'https://images.unsplash.com/photo-1522108098940-de49801b5b40?auto=format&fit=crop&q=80&w=1080',
-        specialties: ['Nails art', 'Hair care', 'Beauty tips'],
-    },
-    {
-        id: 7,
-        name: 'Đỗ Quang Huy',
-        category: 'food',
-        followers: '295K',
-        engagement: '5.8%',
-        image: 'https://images.unsplash.com/photo-1639059699363-041b0bf00ce7?auto=format&fit=crop&q=80&w=1080',
-        specialties: ['Baking', 'Dessert', 'Food styling'],
-    },
-    {
-        id: 8,
-        name: 'Ngô Thị Hương',
-        category: 'other',
-        followers: '260K',
-        engagement: '4.1%',
-        image: 'https://images.unsplash.com/photo-1640725804478-ebf80960a3f4?auto=format&fit=crop&q=80&w=1080',
-        specialties: ['Fitness', 'Yoga', 'Wellness'],
-    },
-];
+// --- HELPER FUNCTIONS ---
 
-const categories = [
-    { id: 'all', name: 'Tất cả', icon: '🌟' },
-    { id: 'fashion', name: 'Fashion', icon: '👗' },
-    { id: 'beauty', name: 'Beauty', icon: '💄' },
-    { id: 'food', name: 'Food', icon: '🍜' },
-    { id: 'other', name: 'Khác', icon: '✨' },
-];
+const getCategoryIcon = (name) => {
+    const map = {
+        'Fashion': '👗',
+        'Beauty': '💄',
+        'Food': '🍜',
+        'Dance': '💃',
+        'Other': '✨'
+    };
+    return map[name] || '🌟';
+};
 
-// --- Animation Variants ---
+const getCreatorImage = (creator) => {
+    if (!creator.image) {
+        const placeholders = [
+            'https://images.unsplash.com/photo-1516763296043-f676c1105999?auto=format&fit=crop&q=80&w=1080',
+            'https://images.unsplash.com/photo-1522108098940-de49801b5b40?auto=format&fit=crop&q=80&w=1080',
+            'https://images.unsplash.com/photo-1639059699363-041b0bf00ce7?auto=format&fit=crop&q=80&w=1080',
+        ];
+        return placeholders[creator.id % placeholders.length];
+    }
+    const formats = creator.image.formats;
+    const imageUrl = formats?.medium?.url || formats?.small?.url || formats?.thumbnail?.url || creator.image.url;
+
+    if (imageUrl && imageUrl.startsWith('/')) {
+        return `${STRAPI_BASE_URL}${imageUrl}`;
+    }
+    return imageUrl;
+};
+
+// --- ANIMATION VARIANTS ---
 const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
-        transition: {
-            staggerChildren: 0.1 // Mỗi phần tử con sẽ hiện cách nhau 0.1s
-        }
+        transition: { staggerChildren: 0.1 }
     }
 };
 
@@ -126,21 +78,84 @@ const itemVariants = {
 };
 
 export default function LibraryPage() {
+    // 1. STATE QUẢN LÝ PAGE
+    const [page, setPage] = useState(1);
     const [selectedCategory, setSelectedCategory] = useState('all');
-    const { data: category, isLoading } = useGetCategoryQuery({});
-    console.log(category, 'category data')
+
+    // 2. GỌI API VỚI PAGINATION
+    // Lấy thêm `isFetching` để hiện loading icon trên nút bấm
+    const {
+        data: listCreator,
+        isLoading: isCreatorLoading,
+        isFetching: isCreatorFetching
+    } = useGetCreatorQuery({
+        pagination: {
+            page: page,
+            pageSize: 25 // Số lượng item mỗi trang
+        }
+    });
+
+    const { data: categoryData, isLoading: isCategoryLoading } = useGetCategoryQuery({});
+
+    // Loading lần đầu tiên (khi chưa có dữ liệu nào)
+    const isInitialLoading = (isCreatorLoading || isCategoryLoading) && page === 1;
+
+    // 3. XỬ LÝ LOGIC TAB CATEGORY
     const handleCategoryChange = (event, newValue) => {
         setSelectedCategory(newValue);
     };
 
-    const filteredCreators =
-        selectedCategory === 'all'
-            ? creators
-            : creators.filter((creator) => creator.category === selectedCategory);
+    const categoriesList = useMemo(() => {
+        const defaultTab = [{ id: 'all', name: 'Tất cả', icon: '🌟' }];
+        if (!categoryData?.data) return defaultTab;
+
+        const apiCategories = categoryData.data.map(cat => ({
+            id: cat.id,
+            name: cat.categoryName,
+            icon: getCategoryIcon(cat.categoryName)
+        }));
+
+        return [...defaultTab, ...apiCategories];
+    }, [categoryData]);
+
+    // 4. FILTER DỮ LIỆU TẠI CLIENT
+    const filteredCreators = useMemo(() => {
+        if (!listCreator?.data) return [];
+
+        if (selectedCategory === 'all') {
+            return listCreator.data;
+        }
+
+        return listCreator.data.filter(creator =>
+            creator.categories &&
+            Array.isArray(creator.categories) &&
+            creator.categories.some(cat => cat.id === selectedCategory)
+        );
+    }, [listCreator, selectedCategory]);
+
+    // 5. LOGIC LOAD MORE
+    const handleLoadMore = () => {
+        setPage(prev => prev + 1);
+    };
+
+    // Lấy thông tin meta từ response Strapi
+    const meta = listCreator?.meta?.pagination;
+    // Kiểm tra xem còn trang tiếp theo không
+    const hasMore = meta ? meta.page < meta.pageCount : false;
+
+    // --- RENDER ---
+
+    if (isInitialLoading) {
+        return (
+            <Box sx={{ display: 'flex', justifyContent: 'center', py: 10, minHeight: '60vh', alignItems: 'center' }}>
+                <CircularProgress color="secondary" size={60} thickness={4} />
+            </Box>
+        );
+    }
 
     return (
         <Container maxWidth="lg" sx={{ py: 8 }}>
-            {/* Header Animation */}
+            {/* Header Title */}
             <Box
                 component={motion.div}
                 initial={{ opacity: 0, y: -20 }}
@@ -157,8 +172,8 @@ export default function LibraryPage() {
                 </Typography>
             </Box>
 
-            {/* Category Filters */}
-            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 6, }}>
+            {/* Category Tabs */}
+            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 6 }}>
                 <Tabs
                     value={selectedCategory}
                     onChange={handleCategoryChange}
@@ -173,7 +188,7 @@ export default function LibraryPage() {
                         },
                     }}
                 >
-                    {categories.map((cat) => (
+                    {categoriesList.map((cat) => (
                         <Tab
                             key={cat.id}
                             value={cat.id}
@@ -187,36 +202,30 @@ export default function LibraryPage() {
                                 textTransform: 'none',
                                 fontSize: '1rem',
                                 transition: 'all 0.3s ease',
-                                '&:hover': {
-                                    borderColor: '#9333ea',
-                                }
+                                '&:hover': { borderColor: '#9333ea' }
                             }}
                         />
                     ))}
                 </Tabs>
             </Box>
 
-            {/* Creators Grid with Animation */}
-            {/* AnimatePresence cho phép animate khi component unmount (lọc data) */}
+            {/* Main Creator Grid */}
             <AnimatePresence mode="popLayout">
                 <Grid
                     container
                     spacing={3}
                     sx={{ justifyContent: 'center' }}
-                    component={motion.div} // Biến Grid thành motion component
+                    component={motion.div}
                     variants={containerVariants}
                     initial="hidden"
                     animate="visible"
-                // Key quan trọng để reset animation khi đổi category nếu muốn
-                // key={selectedCategory} 
                 >
                     {filteredCreators.map((creator) => (
                         <Grid
                             item
                             key={creator.id}
-                            // Component motion.div trực tiếp trên Grid Item để xử lý layout
                             component={motion.div}
-                            layout // Magic prop: Tự động animate vị trí khi danh sách thay đổi
+                            layout
                             variants={itemVariants}
                             initial="hidden"
                             animate="visible"
@@ -226,7 +235,6 @@ export default function LibraryPage() {
                                 maxWidth: { xs: '100%', sm: '50%', md: '33.33%', lg: '20%' }
                             }}
                         >
-                            {/* Card Content với Hover Effect */}
                             <Box
                                 component={motion.div}
                                 whileHover={{
@@ -240,15 +248,18 @@ export default function LibraryPage() {
                                     justifyContent: 'flex-start',
                                     bgcolor: 'background.paper',
                                     borderRadius: '1rem',
-                                    padding: '0.5rem', // Thêm chút padding cho đẹp
-                                    cursor: 'pointer'
+                                    padding: '0.5rem',
+                                    cursor: 'pointer',
+                                    height: '100%',
+                                    position: 'relative',
+                                    overflow: 'hidden' // Giữ layout gọn gàng
                                 }}
                             >
                                 <Box sx={{ overflow: 'hidden', borderRadius: '0.8rem' }}>
                                     <motion.img
-                                        src={creator.image}
-                                        alt={creator.name}
-                                        whileHover={{ scale: 1.05 }} // Zoom nhẹ ảnh khi hover
+                                        src={getCreatorImage(creator)}
+                                        alt={creator.fullName}
+                                        whileHover={{ scale: 1.05 }}
                                         transition={{ duration: 0.3 }}
                                         style={{
                                             height: '15rem',
@@ -258,11 +269,16 @@ export default function LibraryPage() {
                                     />
                                 </Box>
                                 <Box sx={{ mt: 2, px: 1 }}>
-                                    <Typography sx={{ fontWeight: 'bold', fontSize: '1.1rem' }}>
-                                        {creator.name}
+                                    <Typography sx={{ fontWeight: 'bold', fontSize: '1.1rem' }} noWrap>
+                                        {creator.fullName}
                                     </Typography>
                                     <Typography sx={{ fontWeight: 400, fontSize: '0.9rem', color: 'text.secondary' }}>
-                                        @{creator.category} • {creator.followers} followers
+                                        {creator.tagName || (creator.categories && creator.categories.length > 0
+                                            ? `@${creator.categories[0].categoryName}`
+                                            : '@Creator')}
+                                    </Typography>
+                                    <Typography variant="caption" sx={{ color: '#db2777', fontWeight: 600 }}>
+                                        {creator.followers ? `${creator.followers.toLocaleString()} followers` : 'New Creator'}
                                     </Typography>
                                 </Box>
                             </Box>
@@ -271,8 +287,8 @@ export default function LibraryPage() {
                 </Grid>
             </AnimatePresence>
 
-            {/* Empty State Animation */}
-            {filteredCreators.length === 0 && (
+            {/* Empty State */}
+            {filteredCreators.length === 0 && !isCreatorFetching && (
                 <Box
                     component={motion.div}
                     initial={{ opacity: 0 }}
@@ -281,8 +297,61 @@ export default function LibraryPage() {
                     py={10}
                 >
                     <Typography variant="h6" color="text.secondary">
-                        Không tìm thấy creator nào trong danh mục này 😢
+                        Chưa có creator nào trong danh mục này 😢
                     </Typography>
+                </Box>
+            )}
+
+            {/* --- LOAD MORE BUTTON AREA --- */}
+            {hasMore && (
+                <Box
+                    component={motion.div}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    sx={{ display: 'flex', justifyContent: 'center', mt: 8 }}
+                >
+                    <Button
+                        variant="outlined"
+                        onClick={handleLoadMore}
+                        disabled={isCreatorFetching} // Disable khi đang gọi API
+                        endIcon={
+                            isCreatorFetching ?
+                                <CircularProgress size={20} color="inherit" /> :
+                                <KeyboardArrowDownIcon />
+                        }
+                        sx={{
+                            borderRadius: '50px',
+                            px: 5,
+                            py: 1.5,
+                            borderWidth: '2px',
+                            borderColor: '#db2777',
+                            color: '#db2777',
+                            fontWeight: 'bold',
+                            textTransform: 'none',
+                            fontSize: '1rem',
+                            transition: 'all 0.3s',
+                            '&:hover': {
+                                borderWidth: '2px', // Giữ viền dày khi hover
+                                borderColor: '#9333ea',
+                                color: '#9333ea',
+                                background: 'rgba(147, 51, 234, 0.04)',
+                                transform: 'translateY(-2px)'
+                            },
+                            '&:disabled': {
+                                borderColor: '#e0e0e0',
+                                color: '#9e9e9e'
+                            }
+                        }}
+                    >
+                        {isCreatorFetching ? 'Đang tải thêm...' : 'Xem thêm Creator'}
+                    </Button>
+                </Box>
+            )}
+
+            {/* Hết danh sách */}
+            {!hasMore && listCreator?.data?.length > 0 && (
+                <Box sx={{ textAlign: 'center', mt: 6, opacity: 0.5 }}>
+                    {/* <Typography variant="caption">✨ Bạn đã xem hết danh sách ✨</Typography> */}
                 </Box>
             )}
         </Container>

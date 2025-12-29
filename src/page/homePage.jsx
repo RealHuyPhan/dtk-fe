@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Box, Typography, Container, Grid, CircularProgress } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -7,20 +7,15 @@ import {
     Brush, Scissors, Lightbulb
 } from 'lucide-react';
 
-// Import assets
 import sample from '@/assets/background.mp4';
-import CardInfo from '@/component/CardInfo';
+import CardInfo from '@/component/CardInfoRectangle';
 import Poster3DSwiper from '@/component/Swpier';
 import globalBg from '../assets/globalBG.png';
 
-// Import Query
 import { useGetCreatorQuery } from '@/store/helper/helperAction';
 
-// --- CẤU HÌNH ---
-// Thay đổi URL này thành đường dẫn backend Strapi thực tế của bạn
 const STRAPI_URL = import.meta.env.VITE_API_URL || 'http://localhost:1337';
 
-// --- DATA TĨNH CHO SERVICE & ECOSYSTEM (Giữ nguyên) ---
 const servicesData = [
     {
         title: "ĐÀO TẠO VÀ QUẢN LÝ CREATORS",
@@ -28,7 +23,7 @@ const servicesData = [
         icon: <UsersRound size={28} />
     },
     {
-        title: "PHÁT TRIỂN THƯƠNG HIỆU CÁ NHÂN",
+        title: "THƯƠNG HIỆU CÁ NHÂN",
         description: "Xây dựng phong cách độc đáo, khác biệt, phù hợp với hình ảnh cá nhân.",
         icon: <TrendingUp size={28} />
     },
@@ -225,7 +220,7 @@ const Home = () => {
 
     const totalPageRef = useRef(1);
 
-    const { data: newData, isFetching } = useGetCreatorQuery(page);
+    const { data: newData, isFetching } = useGetCreatorQuery(page, { refetchOnMountOrArgChange: true });
 
     useEffect(() => {
         if (newData?.data) {
@@ -261,7 +256,6 @@ const Home = () => {
         setCurrentIndex(index);
 
         if (index === allCreators.length - 1 && page < totalPageRef.current && !isFetching) {
-            console.log("Reached end of list. Fetching page:", page + 1);
             setPage(prev => prev + 1);
         }
 

@@ -1,15 +1,3 @@
-// import React from 'react';
-
-// const CreatorPage = () => {
-
-//     return (
-//         <div>123</div>
-//     );
-// }
-// export default CreatorPage;
-
-
-
 import React from 'react';
 import {
     Box,
@@ -17,10 +5,7 @@ import {
     Container,
     Grid,
     Button,
-    Card,
-    CardContent,
     useTheme,
-    useMediaQuery,
     List,
     ListItem,
     ListItemIcon,
@@ -29,12 +14,9 @@ import {
 import { motion } from 'framer-motion';
 import { Rocket, DollarSign, Award, TrendingUp, Users, Star, Check, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import CardInfo from '@/component/CardInfo';
+import CardInfo from '@/component/CardInfoRectangle';
+import bgBrand from '../assets/globalBG.png'
 
-// Nếu chưa có component ImageWithFallback, bạn có thể dùng thẻ img hoặc Box component="img"
-// import { ImageWithFallback } from '../components/figma/ImageWithFallback';
-
-// --- DATA ---
 const benefits = [
     {
         icon: <DollarSign size={28} />,
@@ -83,6 +65,25 @@ const requirements = [
     'Chuyên nghiệp trong giao tiếp',
 ];
 
+const processSteps = [
+    {
+        step: '01',
+        title: 'Đăng ký thông tin',
+        description: 'Điền form đăng ký với thông tin chi tiết về kênh của bạn',
+    },
+    {
+        step: '02',
+        title: 'Xét duyệt',
+        description: 'Team của chúng tôi sẽ review và liên hệ trong vòng 48h',
+    },
+    {
+        step: '03',
+        title: 'Bắt đầu làm việc',
+        description: 'Nhận các dự án phù hợp và bắt đầu kiếm tiền',
+    },
+];
+
+
 const BenefitSection = () => {
     return (
         <Box
@@ -126,7 +127,7 @@ const BenefitSection = () => {
                     alignItems: 'center',
                     "@media (max-width: 1080px)": {
                         gridTemplateColumns: '1fr',
-                        gap: '1rem',
+                        gap: '1.6rem',
                     },
                 }}>
                     {benefits.map((item, index) => (
@@ -182,7 +183,7 @@ const CreatorPage = () => {
             }}>
                 {/* 1 */}
                 <Box sx={{
-                    py: "5rem",
+                    py: "3rem",
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -198,9 +199,28 @@ const CreatorPage = () => {
                         mt: 6,
                         "@media (max-width: 1080px)": {
                             gridTemplateColumns: '1fr',
-                            gap: '1rem',
+                            gap: '1.8rem',
                         },
                     }}>
+                        <Box
+                            component={motion.div}
+                            initial={{ opacity: 0, x: 50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.2 }}>
+                            <Box
+                                component="img"
+                                src={bgBrand}
+                                alt="Content Creator"
+                                sx={{
+                                    width: '100%',
+                                    height: 'auto',
+                                    borderRadius: '16px',
+                                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', // shadow-2xl
+                                    display: 'block'
+                                }}
+                            />
+                        </Box>
                         <Box width={'100%'}>
                             <Box component={motion.div}
                                 initial={{ opacity: 0, x: -50 }}
@@ -258,25 +278,7 @@ const CreatorPage = () => {
                         </Box>
 
                         {/* Phần text Creator có animation trượt từ phải sang */}
-                        <Box
-                            component={motion.div}
-                            initial={{ opacity: 0, x: 50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.2 }}>
-                            <Box
-                                component="img"
-                                src="https://images.unsplash.com/photo-1640725804478-ebf80960a3f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb250ZW50JTIwY3JlYXRvciUyMHNvY2lhbCUyMG1lZGlhfGVufDF8fHx8MTc2NjExMTYxN3ww&ixlib=rb-4.1.0&q=80&w=1080"
-                                alt="Content Creator"
-                                sx={{
-                                    width: '100%',
-                                    height: 'auto',
-                                    borderRadius: '16px',
-                                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', // shadow-2xl
-                                    display: 'block'
-                                }}
-                            />
-                        </Box>
+
                     </Box>
                 </Box>
 
@@ -285,9 +287,9 @@ const CreatorPage = () => {
             </Box>
 
             {/* 2. STATS SECTION */}
-            <Box sx={{ py: 8, bgcolor: 'white' }}>
+            <Box sx={{ py: '4rem', bgcolor: 'white' }}>
                 <Container maxWidth="lg">
-                    <Grid container spacing={4} sx={{justifyContent: 'space-around'}}>
+                    <Grid container spacing={4} sx={{ justifyContent: 'space-around' }}>
                         {stats.map((stat, index) => (
                             <Grid item xs={6} md={3} key={index}>
                                 <Box
@@ -320,7 +322,7 @@ const CreatorPage = () => {
 
             {/* 3. BENEFITS SECTION */}
             <Box sx={{
-                py: "2.4rem",
+                py: "1rem",
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -331,7 +333,7 @@ const CreatorPage = () => {
             </Box>
 
             {/* 4. REQUIREMENTS SECTION */}
-            <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: '#f9fafb' }}> {/* gray-50 */}
+            <Box sx={{ pb: '4rem', bgcolor: '#f9fafb' }}> {/* gray-50 */}
                 <Container maxWidth="md">
                     <Box component={motion.div}
                         initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
@@ -384,7 +386,7 @@ const CreatorPage = () => {
             </Box>
 
             {/* 5. PROCESS SECTION */}
-            {/* <Box sx={{ py: { xs: 8, md: 12 } }}>
+            <Box sx={{ py: '2rem' }}>
                 <Container maxWidth="lg">
                     <Box component={motion.div}
                         initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
@@ -397,44 +399,66 @@ const CreatorPage = () => {
                             Chỉ 3 bước đơn giản để bắt đầu
                         </Typography>
                     </Box>
-
-                    <Grid container spacing={4}>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            gap: '2.5rem',
+                            width: '100%',
+                        }}
+                    >
                         {processSteps.map((item, index) => (
-                            <Grid item xs={12} md={4} key={index}>
-                                <Box
-                                    component={motion.div}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: index * 0.2 }}
-                                    sx={{ position: 'relative', p: 2 }}
-                                >
-                                    <Typography variant="h1" sx={{
+                            <Box
+                                key={index}
+                                component={motion.div}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.2 }}
+                                sx={{
+                                    position: 'relative',
+                                    padding: '1.5rem',
+                                    maxWidth: '900px',
+                                }}
+                            >
+                                <Typography
+                                    sx={{
                                         fontWeight: 900,
                                         fontSize: '4rem',
                                         background: 'linear-gradient(to right, #db2777, #9333ea)',
                                         WebkitBackgroundClip: 'text',
                                         WebkitTextFillColor: 'transparent',
-                                        mb: 2,
-                                        opacity: 0.2
-                                    }}>
-                                        {item.step}
-                                    </Typography>
-                                    <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>
-                                        {item.title}
-                                    </Typography>
-                                    <Typography variant="body1" color="text.secondary">
-                                        {item.description}
-                                    </Typography>
-                                </Box>
-                            </Grid>
+                                        opacity: 0.2,
+                                        lineHeight: 1,
+                                        mb: 1,
+                                    }}
+                                >
+                                    {item.step}
+                                </Typography>
+
+                                <Typography
+                                    sx={{
+                                        fontSize: '1.4rem',
+                                        fontWeight: 'bold',
+                                        mb: 1,
+                                    }}
+                                >
+                                    {item.title}
+                                </Typography>
+
+                                <Typography color="text.secondary">
+                                    {item.description}
+                                </Typography>
+                            </Box>
                         ))}
-                    </Grid>
+                    </Box>
+
                 </Container>
-            </Box> */}
+            </Box>
 
 
-            <Box sx={{ py: { xs: 8, md: 12 } }}>
+            <Box sx={{ py: '6rem' }}>
                 <Container maxWidth="md">
                     <Box
                         component={motion.div}

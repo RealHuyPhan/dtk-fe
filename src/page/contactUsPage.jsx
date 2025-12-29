@@ -27,7 +27,6 @@ import {
 } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 
-// 1. Styled Component cho Text Gradient
 const GradientText = styled('span')({
     background: 'linear-gradient(to right, #9333ea, #db2777)',
     WebkitBackgroundClip: 'text',
@@ -66,39 +65,38 @@ export default function ContactUsPage() {
         reset();
     };
 
-    // --- 2. CSS "XỊN" CHO INPUT ---
-    // Đây là phần làm đẹp chính: Bo góc, đổi màu nền, hiệu ứng focus
+
     const customTextFieldStyle = {
         '& .MuiOutlinedInput-root': {
-            borderRadius: '16px', // Bo góc mạnh (tròn trịa hơn)
-            backgroundColor: '#f8fafc', // Màu nền xám cực nhạt (sang hơn nền trắng tinh)
+            borderRadius: '16px',
+            backgroundColor: '#f8fafc',
             transition: 'all 0.3s ease',
             '& fieldset': {
-                borderColor: '#e2e8f0', // Viền mặc định màu nhạt
+                borderColor: '#e2e8f0',
                 borderWidth: '1px',
             },
             '&:hover fieldset': {
-                borderColor: '#9333ea', // Hover vào hiện màu tím
+                borderColor: '#9333ea',
             },
             '&.Mui-focused': {
-                backgroundColor: '#ffffff', // Khi gõ chữ thì nền sáng lên
-                boxShadow: '0 4px 20px rgba(147, 51, 234, 0.1)', // Đổ bóng nhẹ khi focus
+                backgroundColor: '#ffffff',
+                boxShadow: '0 4px 20px rgba(147, 51, 234, 0.1)',
                 '& fieldset': {
                     borderWidth: '2px',
-                    borderColor: '#db2777', // Focus vào hiện màu hồng
+                    borderColor: '#db2777',
                 }
             }
         },
         '& .MuiInputLabel-root': {
-            color: '#64748b', // Màu chữ label xám trung tính
+            color: '#64748b',
             fontWeight: 500,
             '&.Mui-focused': {
-                color: '#db2777', // Label đổi màu hồng khi focus
+                color: '#db2777',
                 fontWeight: 600
             }
         },
         '& .MuiInputBase-input': {
-            padding: '16px 14px', // Tăng padding để chữ thở
+            padding: '16px 14px',
             fontSize: '1rem',
         }
     };
@@ -114,7 +112,7 @@ export default function ContactUsPage() {
         <Container maxWidth="xl" sx={{ py: 8 }}>
             <Fade in={true} timeout={800}>
                 <Box textAlign="center" mb={6}>
-                    <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: '900', letterSpacing: '-0.02em' }}>
+                    <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 600 }}>
                         <GradientText>Liên hệ hợp tác</GradientText>
                     </Typography>
                     <Typography variant="h6" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto', lineHeight: 1.6 }}>
@@ -123,23 +121,33 @@ export default function ContactUsPage() {
                 </Box>
             </Fade>
 
-            <Grid container spacing={4} sx={{ justifyContent: 'center' }}>
-
-                {/* --- CỘT FORM (65%) --- */}
-                <Grid item xs={12} md={8}>
-                    <Grow in={true} timeout={1000}>
+            <Box
+                sx={{
+                    display: 'flex',
+                    gap: '2rem',
+                    justifyContent: 'center',
+                    alignItems: 'stretch',
+                    width: '100%',
+                    '@media (max-width: 900px)': {
+                        flexDirection: 'column',
+                    },
+                }}
+            >
+                {/* ================= FORM COLUMN ================= */}
+                <Box sx={{ flex: 2 }}>
+                    <Grow in timeout={1000}>
                         <Paper
-                            elevation={0} // Tắt shadow mặc định của MUI
+                            elevation={0}
                             sx={{
                                 p: { xs: 3, md: 6 },
-                                borderRadius: '32px', // Bo góc khung chứa cực lớn
-                                boxShadow: '0 20px 60px -10px rgba(0, 0, 0, 0.08)', // Shadow custom: Mềm và sâu
+                                borderRadius: '32px',
+                                boxShadow: '0 20px 60px -10px rgba(0,0,0,0.08)',
                                 border: '1px solid rgba(0,0,0,0.05)',
-                                height: '100%'
+                                height: '100%',
                             }}
                         >
                             <Box mb={4}>
-                                <Typography variant="h4" fontWeight="800" gutterBottom>
+                                <Typography variant="h4" fontWeight={800} gutterBottom>
                                     Gửi tin nhắn
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
@@ -149,24 +157,20 @@ export default function ContactUsPage() {
 
                             <form onSubmit={handleSubmit(onSubmit)} noValidate>
                                 <Stack spacing={3}>
-
-                                    {/* Select Subject - Highlight */}
+                                    {/* SUBJECT */}
                                     <TextField
                                         fullWidth
                                         select
                                         label="Bạn là đối tượng nào? *"
                                         defaultValue=""
-                                        inputProps={register("subject", { required: "Vui lòng chọn đối tượng" })}
+                                        {...register('subject', { required: 'Vui lòng chọn đối tượng' })}
                                         error={!!errors.subject}
                                         helperText={errors.subject?.message}
                                         sx={{
                                             ...customTextFieldStyle,
-                                            // Style riêng cho dropdown để nó nổi bật hơn
                                             '& .MuiOutlinedInput-root': {
-                                                ...customTextFieldStyle['& .MuiOutlinedInput-root'],
-                                                backgroundColor: '#fff0f7', // Nền màu hồng phấn nhẹ
-                                                '&:hover fieldset': { borderColor: '#db2777' }
-                                            }
+                                                backgroundColor: '#fff0f7',
+                                            },
                                         }}
                                         InputProps={{
                                             startAdornment: (
@@ -176,150 +180,153 @@ export default function ContactUsPage() {
                                             ),
                                         }}
                                     >
-                                        <MenuItem value=""><em>Chọn đối tượng</em></MenuItem>
+                                        <MenuItem value="">
+                                            <em>Chọn đối tượng</em>
+                                        </MenuItem>
                                         <MenuItem value="creator">Creator (KOC/KOL)</MenuItem>
-                                        <MenuItem value="brand">Brand Partner (Nhãn hàng)</MenuItem>
+                                        <MenuItem value="brand">Brand Partner</MenuItem>
                                         <MenuItem value="other">Khác</MenuItem>
                                     </TextField>
 
-                                    {/* Row 1 */}
-                                    <Grid container spacing={3}>
-                                        <Grid item xs={12} sm={6}>
+                                    {/* NAME + EMAIL */}
+                                    <Box sx={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
+                                        <Box sx={{ flex: 1, minWidth: 260 }}>
                                             <TextField
                                                 fullWidth
                                                 label="Họ và tên *"
-                                                placeholder="Nguyễn Văn A"
-                                                {...register("name", { required: "Vui lòng nhập họ tên" })}
+                                                {...register('name', { required: 'Nhập họ tên' })}
                                                 error={!!errors.name}
                                                 helperText={errors.name?.message}
                                                 sx={customTextFieldStyle}
                                             />
-                                        </Grid>
-                                        <Grid item xs={12} sm={6}>
+                                        </Box>
+
+                                        <Box sx={{ flex: 1, minWidth: 260 }}>
                                             <TextField
                                                 fullWidth
-                                                label="Email liên hệ *"
+                                                label="Email *"
                                                 type="email"
-                                                {...register("email", { required: "Vui lòng nhập email", pattern: { value: /^\S+@\S+$/i, message: "Email sai định dạng" } })}
+                                                {...register('email', {
+                                                    required: 'Nhập email',
+                                                    pattern: {
+                                                        value: /^\S+@\S+$/i,
+                                                        message: 'Email không hợp lệ',
+                                                    },
+                                                })}
                                                 error={!!errors.email}
                                                 helperText={errors.email?.message}
                                                 sx={customTextFieldStyle}
                                             />
-                                        </Grid>
-                                    </Grid>
+                                        </Box>
+                                    </Box>
 
-                                    {/* Phone (Full row or split) */}
+                                    {/* PHONE */}
                                     <TextField
                                         fullWidth
                                         label="Số điện thoại *"
-                                        type="tel"
-                                        {...register("phone", { required: "Nhập số điện thoại", pattern: { value: /^[0-9]{9,12}$/, message: "SĐT không hợp lệ" } })}
+                                        {...register('phone', { required: 'Nhập số điện thoại' })}
                                         error={!!errors.phone}
                                         helperText={errors.phone?.message}
                                         sx={customTextFieldStyle}
                                     />
 
-                                    {/* --- DYNAMIC FIELDS: CREATOR --- */}
+                                    {/* CREATOR */}
                                     {isCreator && (
                                         <Fade in={isCreator}>
-                                            <Grid container spacing={3} sx={{ mt: 0 }}>
-                                                <Grid item xs={12} sm={6}>
+                                            <Box sx={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
+                                                <Box sx={{ flex: 1, minWidth: 260 }}>
                                                     <TextField
                                                         fullWidth
-                                                        label="TikTok ID / Social Link *"
-                                                        placeholder="@username"
-                                                        {...register("tiktokId", { required: "Nhập ID kênh" })}
-                                                        error={!!errors.tiktokId}
-                                                        helperText={errors.tiktokId?.message}
+                                                        label="TikTok ID *"
+                                                        {...register('tiktokId', { required: 'Nhập ID kênh' })}
                                                         sx={customTextFieldStyle}
-                                                        InputProps={{
-                                                            startAdornment: <InputAdornment position="start">@</InputAdornment>,
-                                                        }}
                                                     />
-                                                </Grid>
-                                                <Grid item xs={12} sm={6}>
+                                                </Box>
+                                                <Box sx={{ flex: 1, minWidth: 260 }}>
                                                     <TextField
                                                         fullWidth
                                                         select
-                                                        label="Lĩnh vực hoạt động *"
+                                                        label="Lĩnh vực *"
                                                         defaultValue=""
-                                                        inputProps={register("category", { required: "Chọn lĩnh vực" })}
-                                                        error={!!errors.category}
-                                                        helperText={errors.category?.message}
+                                                        {...register('category', { required: 'Chọn lĩnh vực' })}
                                                         sx={customTextFieldStyle}
                                                     >
-                                                        <MenuItem value="beauty">Làm đẹp (Beauty)</MenuItem>
-                                                        <MenuItem value="fashion">Thời trang (Fashion)</MenuItem>
-                                                        <MenuItem value="tech">Công nghệ (Tech)</MenuItem>
-                                                        <MenuItem value="lifestyle">Đời sống (Lifestyle)</MenuItem>
+                                                        <MenuItem value="beauty">Beauty</MenuItem>
+                                                        <MenuItem value="fashion">Fashion</MenuItem>
+                                                        <MenuItem value="tech">Tech</MenuItem>
                                                     </TextField>
-                                                </Grid>
-                                            </Grid>
-                                        </Fade>
-                                    )}
-
-                                    {/* --- DYNAMIC FIELDS: BRAND --- */}
-                                    {isBrand && (
-                                        <Fade in={isBrand}>
-                                            <Box sx={{ p: 3, bgcolor: '#fdf2f8', borderRadius: '20px', border: '1px dashed #db2777' }}>
-                                                <Typography variant="subtitle2" sx={{ color: '#db2777', mb: 2, fontWeight: 'bold' }}>
-                                                    THÔNG TIN DOANH NGHIỆP
-                                                </Typography>
-                                                <Grid container spacing={3}>
-                                                    <Grid item xs={12}>
-                                                        <TextField
-                                                            fullWidth
-                                                            label="Tên Thương hiệu / Shop *"
-                                                            {...register("brandName", { required: "Nhập tên Brand" })}
-                                                            error={!!errors.brandName}
-                                                            sx={customTextFieldStyle}
-                                                            InputProps={{
-                                                                startAdornment: <InputAdornment position="start"><StoreIcon fontSize="small" /></InputAdornment>,
-                                                            }}
-                                                        />
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={6}>
-                                                        <TextField
-                                                            fullWidth
-                                                            select
-                                                            label="Loại hình *"
-                                                            defaultValue=""
-                                                            inputProps={register("businessType", { required: "Chọn loại hình" })}
-                                                            error={!!errors.businessType}
-                                                            sx={customTextFieldStyle}
-                                                        >
-                                                            <MenuItem value="brand">Brand</MenuItem>
-                                                            <MenuItem value="seller">Seller</MenuItem>
-                                                        </TextField>
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={6}>
-                                                        <TextField
-                                                            fullWidth
-                                                            select
-                                                            label="Ngành hàng *"
-                                                            defaultValue=""
-                                                            inputProps={register("category", { required: "Chọn ngành hàng" })}
-                                                            error={!!errors.category}
-                                                            sx={customTextFieldStyle}
-                                                        >
-                                                            <MenuItem value="fmcg">Tiêu dùng (FMCG)</MenuItem>
-                                                            <MenuItem value="health">Sức khỏe</MenuItem>
-                                                            <MenuItem value="electronic">Điện tử</MenuItem>
-                                                        </TextField>
-                                                    </Grid>
-                                                </Grid>
+                                                </Box>
                                             </Box>
                                         </Fade>
                                     )}
 
-                                    {/* Message */}
+                                    {/* BRAND */}
+                                    {isBrand && (
+                                        <Fade in={isBrand}>
+                                            <Box
+                                                sx={{
+                                                    p: 3,
+                                                    bgcolor: '#fdf2f8',
+                                                    borderRadius: '20px',
+                                                    border: '1px dashed #db2777',
+                                                }}
+                                            >
+                                                <Stack spacing={3}>
+                                                    <TextField
+                                                        fullWidth
+                                                        label="Tên thương hiệu *"
+                                                        {...register('brandName', { required: 'Nhập tên brand' })}
+                                                        InputProps={{
+                                                            startAdornment: (
+                                                                <InputAdornment position="start">
+                                                                    <StoreIcon />
+                                                                </InputAdornment>
+                                                            ),
+                                                        }}
+                                                        sx={customTextFieldStyle}
+                                                    />
+
+                                                    <Box sx={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
+                                                        <Box sx={{ flex: 1, minWidth: 260 }}>
+                                                            <TextField
+                                                                fullWidth
+                                                                select
+                                                                label="Loại hình *"
+                                                                defaultValue=""
+                                                                {...register('businessType')}
+                                                                sx={customTextFieldStyle}
+                                                            >
+                                                                <MenuItem value="brand">Brand</MenuItem>
+                                                                <MenuItem value="seller">Seller</MenuItem>
+                                                            </TextField>
+                                                        </Box>
+
+                                                        <Box sx={{ flex: 1, minWidth: 260 }}>
+                                                            <TextField
+                                                                fullWidth
+                                                                select
+                                                                label="Ngành hàng *"
+                                                                defaultValue=""
+                                                                {...register('industry')}
+                                                                sx={customTextFieldStyle}
+                                                            >
+                                                                <MenuItem value="fmcg">FMCG</MenuItem>
+                                                                <MenuItem value="health">Health</MenuItem>
+                                                            </TextField>
+                                                        </Box>
+                                                    </Box>
+                                                </Stack>
+                                            </Box>
+                                        </Fade>
+                                    )}
+
+                                    {/* MESSAGE */}
                                     <TextField
                                         fullWidth
                                         label="Lời nhắn *"
                                         multiline
                                         rows={4}
-                                        placeholder={isCreator ? "Giới thiệu ngắn gọn về kênh và định hướng..." : "Mô tả nhu cầu booking/hợp tác..."}
-                                        {...register("message", { required: "Nhập nội dung" })}
+                                        {...register('message', { required: 'Nhập nội dung' })}
                                         error={!!errors.message}
                                         helperText={errors.message?.message}
                                         sx={customTextFieldStyle}
@@ -327,22 +334,15 @@ export default function ContactUsPage() {
 
                                     <Button
                                         type="submit"
-                                        variant="contained"
                                         size="large"
+                                        variant="contained"
                                         endIcon={<SendIcon />}
                                         sx={{
                                             py: 2,
-                                            borderRadius: '50px', // Nút bo tròn hình viên thuốc (Pill shape)
-                                            background: 'linear-gradient(90deg, #9333ea 0%, #db2777 100%)',
+                                            borderRadius: '50px',
+                                            background: 'linear-gradient(90deg, #9333ea, #db2777)',
+                                            fontWeight: 700,
                                             fontSize: '1.1rem',
-                                            fontWeight: '700',
-                                            textTransform: 'none',
-                                            boxShadow: '0 10px 25px -5px rgba(219, 39, 119, 0.5)', // Bóng màu hồng
-                                            transition: 'transform 0.2s',
-                                            '&:hover': {
-                                                transform: 'translateY(-2px)', // Hiệu ứng nhấc lên khi hover
-                                                boxShadow: '0 15px 30px -5px rgba(219, 39, 119, 0.6)',
-                                            }
                                         }}
                                     >
                                         Gửi tin nhắn ngay
@@ -351,73 +351,58 @@ export default function ContactUsPage() {
                             </form>
                         </Paper>
                     </Grow>
-                </Grid>
+                </Box>
 
-                {/* --- CỘT INFO (35%) --- */}
-                <Grid item xs={12} md={4}>
-                    <Stack spacing={3} sx={{ height: '100%' }}>
-                        <Grow in={true} timeout={1200}>
-                            <Box sx={{
-                                p: 4,
-                                borderRadius: '32px', // Bo đồng bộ với Form
-                                color: 'white',
-                                background: 'linear-gradient(135deg, #1e1b4b 0%, #701a75 100%)', // Màu nền tối sang trọng hơn
-                                boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
-                                position: 'relative',
-                                overflow: 'hidden'
-                            }}>
-                                {/* Decorate circle */}
-                                <Box sx={{ position: 'absolute', top: -20, right: -20, width: 100, height: 100, borderRadius: '50%', bgcolor: 'rgba(255,255,255,0.1)' }} />
+                {/* ================= INFO COLUMN ================= */}
+                <Box sx={{ flex: 1 }}>
+                    <Stack spacing={3} height="100%">
+                        <Grow in timeout={1200}>
+                            <Box
+                                sx={{
+                                    p: 4,
+                                    borderRadius: '32px',
+                                    color: 'white',
+                                    background: 'linear-gradient(135deg,#1e1b4b,#701a75)',
+                                }}
+                            >
+                                <Typography variant="h5" mb={3} fontWeight="bold">
+                                    Thông tin liên hệ
+                                </Typography>
 
-                                <Typography variant="h5" mb={4} fontWeight="bold">Thông tin liên hệ</Typography>
                                 <Stack spacing={3}>
-                                    {contactInfo.map((info, index) => (
-                                        <Box key={index} sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-                                            <Box sx={{
-                                                minWidth: 48, height: 48,
-                                                borderRadius: '16px',
-                                                bgcolor: 'rgba(255,255,255,0.15)',
-                                                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                                backdropFilter: 'blur(5px)'
-                                            }}>
-                                                {info.icon}
-                                            </Box>
-                                            <Box>
-                                                <Typography variant="caption" sx={{ opacity: 0.7, textTransform: 'uppercase', letterSpacing: '1px' }}>
-                                                    {info.title}
-                                                </Typography>
-                                                {info.link ? (
-                                                    <Typography component="a" href={info.link} display="block" sx={{ color: 'white', textDecoration: 'none', fontWeight: 600, '&:hover': { textDecoration: 'underline' } }}>
-                                                        {info.content}
-                                                    </Typography>
-                                                ) : (
-                                                    <Typography variant="body1" fontWeight={600}>{info.content}</Typography>
-                                                )}
-                                            </Box>
+                                    {contactInfo.map((info, i) => (
+                                        <Box key={i} sx={{ display: 'flex', gap: 2 }}>
+                                            {info.icon}
+                                            <Typography fontWeight={600}>{info.content}</Typography>
                                         </Box>
                                     ))}
                                 </Stack>
                             </Box>
                         </Grow>
 
-                        <Grow in={true} timeout={1400}>
-                            <Paper elevation={0} sx={{
-                                flex: 1,
-                                minHeight: 250,
-                                borderRadius: '32px',
-                                bgcolor: '#f1f5f9',
-                                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                border: '1px dashed #cbd5e1'
-                            }}>
-                                <Stack alignItems="center" spacing={1} sx={{ opacity: 0.5 }}>
+                        <Grow in timeout={1400}>
+                            <Paper
+                                elevation={0}
+                                sx={{
+                                    flex: 1,
+                                    minHeight: 250,
+                                    borderRadius: '32px',
+                                    bgcolor: '#f1f5f9',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    border: '1px dashed #cbd5e1',
+                                }}
+                            >
+                                <Stack alignItems="center" spacing={1} sx={{ opacity: 0.6 }}>
                                     <MapPinIcon sx={{ fontSize: 40 }} />
-                                    <Typography fontWeight="600">Google Maps</Typography>
+                                    <Typography fontWeight={600}>Google Maps</Typography>
                                 </Stack>
                             </Paper>
                         </Grow>
                     </Stack>
-                </Grid>
-            </Grid>
+                </Box>
+            </Box>
         </Container>
     );
 }

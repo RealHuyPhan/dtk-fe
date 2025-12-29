@@ -1,14 +1,19 @@
 import React from "react";
-import { Card, CardActionArea, CardContent, Typography, Box } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 
-export default function CardInfo({
+export default function CardInfoRectangle({
     title,
     description,
-    icon
+    icon,
+    isMiddle
 }) {
     return (
         <Box sx={{
-            height: '15rem',
+            minHeight: '15rem',
+            height: '14rem',
+            "@media (max-width: 1080px)": {
+                height: '16rem'
+            },
             width: '100%',
             boxShadow: 1,
             borderRadius: '0.8rem',
@@ -24,6 +29,7 @@ export default function CardInfo({
                 display: 'flex',
                 justifyContent: 'center',
                 flexDirection: 'column',
+                alignItems: isMiddle ? 'center' : 'none',
                 gap: '1.2rem'
             }}>
                 <Box
@@ -40,14 +46,20 @@ export default function CardInfo({
                 >
                     {icon}
                 </Box>
-                <Typography sx={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
+                <Typography sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
                     {title}
                 </Typography>
             </Box>
-
-            <Typography color="text.secondary">
-                {description}
-            </Typography>
+            <Box sx={{ width: '100%' }}>
+                <Typography
+                    color="text.secondary"
+                    sx={{
+                        textAlign: isMiddle ? 'center' : 'left'
+                    }}
+                >
+                    {description}
+                </Typography>
+            </Box>
         </Box>
     );
 }

@@ -1,12 +1,10 @@
-import CardInfo from '@/component/CardInfo';
+import CardInfo from '@/component/CardInfoRectangle';
 import { Box, Typography, Container, Grid, Button } from '@mui/material';
 import { motion } from 'framer-motion'; // Import animation library
-
+import bgBrand from '../assets/globalBG.png'
 import React from 'react';
 import {
     UsersRound, TrendingUp, CircleStar,
-    Building2, Clapperboard, MonitorPlay,
-    Brush, Scissors, Lightbulb
 } from 'lucide-react';
 
 const servicesData = [
@@ -100,7 +98,7 @@ const ServiceSection = () => {
                     alignItems: 'center',
                     "@media (max-width: 1080px)": {
                         gridTemplateColumns: '1fr',
-                        gap: '1rem',
+                        gap: '1.6rem',
                     },
                 }}>
                     {servicesData.map((item, index) => (
@@ -127,15 +125,15 @@ const ServiceSection = () => {
     );
 };
 
-
-
 const BrandPage = () => {
-
     return (
         <Box>
             <Box sx={{
                 background: 'linear-gradient(135deg, #eff6ff 0%, #faf5ff 50%, #fdf2f8 100%)',
-                py: "8rem",
+                py: "3rem",
+                "@media (max-width: 1080px)": {
+                    py: '4rem'
+                },
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -154,6 +152,25 @@ const BrandPage = () => {
                         gap: '1rem',
                     },
                 }}>
+                    <Box component={motion.div}
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6 }}
+                        sx={{ position: 'relative' }}
+                    >
+                        <Box
+                            component="img"
+                            src={bgBrand}
+                            alt="Brand Partnership"
+                            sx={{
+                                width: '100%',
+                                height: 'auto',
+                                borderRadius: '16px',
+                                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', // shadow-2xl
+                                display: 'block'
+                            }}
+                        />
+                    </Box>
                     <Box component={motion.div}
                         initial={{ opacity: 0, x: -50 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -198,25 +215,6 @@ const BrandPage = () => {
                             Bắt đầu ngay
                         </Button>
                     </Box>
-                    <Box component={motion.div}
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6 }}
-                        sx={{ position: 'relative' }}
-                    >
-                        <Box
-                            component="img"
-                            src="https://images.unsplash.com/photo-1726361872261-d59c45e7406d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxicmFuZCUyMHBhcnRuZXJzaGlwJTIwbWFya2V0aW5nfGVufDF8fHx8MTc2NjExMTYxOHww&ixlib=rb-4.1.0&q=80&w=1080"
-                            alt="Brand Partnership"
-                            sx={{
-                                width: '100%',
-                                height: 'auto',
-                                borderRadius: '16px',
-                                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', // shadow-2xl
-                                display: 'block'
-                            }}
-                        />
-                    </Box>
                 </Box>
             </Box>
             <Box sx={{
@@ -239,6 +237,9 @@ const BrandPage = () => {
                     component={motion.div}
                     initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
                     sx={{
+                        "@media (max-width: 1080px)": {
+                            width: '90%',
+                        },
                         width: '60%',
                         background: 'linear-gradient(to right, #2563eb, #9333ea)', // blue-600 to purple-600
                         borderRadius: '16px',

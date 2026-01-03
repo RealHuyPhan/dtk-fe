@@ -3,6 +3,6 @@ export const ROUTES = {
     BRAND: "/brand",
     CREATOR: "/creator",
     LIBRARY: "/library",
-    ABOUT: 'about',
+    ABOUT: '/about',
     CONTACT: "/contact",
 };

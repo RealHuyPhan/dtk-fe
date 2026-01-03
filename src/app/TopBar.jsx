@@ -1,12 +1,15 @@
 import { AppBar, Toolbar, Box, Button } from "@mui/material";
 import { ROUTES } from "../router/routerConstants";
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router"; // 1. Thêm useLocation
 import logo from "@/assets/logo/dtkLogo.png";
 import logoNoText from "@/assets/logo/dtkLogoNoText.png";
 
 export default function TopBar({ onMenuClick, isMobile }) {
     const navigate = useNavigate();
+    const location = useLocation(); 
+    const activeColor = "#C7364A";
+
     const menuItems = [
         { label: "Home", path: ROUTES.HOME },
         { label: "For Brand", path: ROUTES.BRAND },
@@ -37,27 +40,35 @@ export default function TopBar({ onMenuClick, isMobile }) {
                     alignItems: 'center'
                 }}>
 
-                    <Box sx={{ cursor: 'pointer', marginLeft: '1rem' }} >
+                    <Box sx={{ cursor: 'pointer', marginLeft: '1rem' }} onClick={() => navigate(ROUTES.HOME)}>
                         <img src={logo} alt="Logo" style={{ height: '3rem', width: '5rem' }} />
                     </Box>
 
                     <Box sx={{ display: 'flex', gap: 2 }}>
-                        {menuItems.map((item) => (
-                            <Button
-                                onClick={() => navigate(item?.path)}
-                                key={item.label}
-                                sx={{
-                                    color: 'black',
-                                    textTransform: 'none',
-                                    fontSize: '1rem',
-                                    '&:hover': {
-                                        color: 'primary.main',
-                                    }
-                                }}
-                            >
-                                {item.label}
-                            </Button>
-                        ))}
+                        {menuItems.map((item) => {
+                            const isActive = location.pathname === item.path;
+                            
+                            return (
+                                <Button
+                                    onClick={() => navigate(item?.path)}
+                                    key={item.label}
+                                    disableRipple 
+                                    sx={{
+                                        color: isActive ? activeColor : 'black',
+                                        textTransform: 'none',
+                                        fontSize: '1rem',
+                                        fontWeight: isActive ? 600 : 400, 
+                                        backgroundColor: 'transparent', 
+                                        '&:hover': {
+                                            color: activeColor, 
+                                            backgroundColor: 'transparent', 
+                                        }
+                                    }}
+                                >
+                                    {item.label}
+                                </Button>
+                            )
+                        })}
                     </Box>
 
                 </Box> : <Box
@@ -69,7 +80,7 @@ export default function TopBar({ onMenuClick, isMobile }) {
                         justifyContent: 'space-between',
                         alignItems: 'center'
                     }}>
-                    <Box sx={{ cursor: 'pointer', }} >
+                    <Box sx={{ cursor: 'pointer', }} onClick={() => navigate(ROUTES.HOME)}>
                         <img src={logoNoText} alt="Logo" style={{ height: '3rem', width: '4.4rem' }} />
                     </Box>
                     <MenuOutlinedIcon />

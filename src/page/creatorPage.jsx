@@ -92,54 +92,47 @@ const BenefitSection = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             variants={staggerContainer}
-            sx={{ py: '6rem' }}
+            sx={{ width: '100%', py: { xs: 6, md: 10 } }}
         >
-            <Box sx={{ mb: 6, textAlign: 'center' }}>
-                <Typography
-                    component={motion.div} variants={fadeInUp} // Animation
-                    align="center" gutterBottom
-                    sx={{
-                        fontWeight: 600,
-                        fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
-                    }}>
-                    Dịch vụ của chúng tôi
-                </Typography>
+            <Container maxWidth="lg">
+                <Box sx={{ mb: 6, textAlign: 'center' }}>
+                    <Typography
+                        component={motion.div} variants={fadeInUp}
+                        align="center" gutterBottom
+                        sx={{
+                            fontWeight: 600,
+                            fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+                        }}>
+                        Dịch vụ của chúng tôi
+                    </Typography>
 
-                <Typography
-                    component={motion.div} variants={fadeInUp} // Animation
-                    align="center"
-                    sx={{
-                        fontSize: { xs: '1rem', md: '1.4rem' },
-                        color: 'text.secondary',
-                        maxWidth: '800px',
-                        margin: '0 auto'
-                    }}>
-                    Giải pháp toàn diện cho chiến lược marketing của bạn
-                </Typography>
-            </Box>
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                    <Typography
+                        component={motion.div} variants={fadeInUp}
+                        align="center"
+                        sx={{
+                            fontSize: { xs: '1rem', md: '1.4rem' },
+                            color: 'text.secondary',
+                            maxWidth: '800px',
+                            mx: 'auto'
+                        }}>
+                        Giải pháp toàn diện cho sự phát triển của bạn
+                    </Typography>
+                </Box>
+
                 <Box sx={{
-                    width: '80%',
                     display: 'grid',
                     gridTemplateColumns: 'repeat(2, 1fr)',
-                    gap: '1.6rem',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    "@media (max-width: 1080px)": {
+                    gap: 4,
+                    "@media (max-width: 900px)": {
                         gridTemplateColumns: '1fr',
-                        gap: '1.6rem',
+                        gap: 3
                     },
                 }}>
                     {benefits.map((item, index) => (
                         <Box
-                            component={motion.div} variants={fadeInUp} // Animation từng thẻ
-                            sx={{
-                                width: '100%',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}
+                            component={motion.div} variants={fadeInUp}
                             key={index}
+                            sx={{ display: 'flex', justifyContent: 'center' }}
                         >
                             <CardInfo
                                 title={item.title}
@@ -149,8 +142,8 @@ const BenefitSection = () => {
                         </Box>
                     ))}
                 </Box>
-            </Box>
-        </Box >
+            </Container>
+        </Box>
     );
 };
 

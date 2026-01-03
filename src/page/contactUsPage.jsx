@@ -113,7 +113,7 @@ export default function ContactUsPage() {
             <Fade in={true} timeout={800}>
                 <Box textAlign="center" mb={6}>
                     <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 600 }}>
-                        <GradientText>Liên hệ hợp tác</GradientText>
+                        Liên hệ hợp tác
                     </Typography>
                     <Typography variant="h6" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto', lineHeight: 1.6 }}>
                         Kết nối với chúng tôi để hiện thực hóa ý tưởng của bạn.

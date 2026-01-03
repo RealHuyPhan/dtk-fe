@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Box, Typography, Container, Grid, CircularProgress } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -6,37 +6,20 @@ import {
     Building2, Clapperboard, MonitorPlay,
     Brush, Scissors, Lightbulb
 } from 'lucide-react';
-
 import sample from '@/assets/background.mp4';
 import CardInfo from '@/component/CardInfoRectangle';
 import Poster3DSwiper from '@/component/Swpier';
 import globalBg from '../assets/globalBG.png';
 
 import { useGetCreatorQuery } from '@/store/helper/helperAction';
-
-const STRAPI_URL = import.meta.env.VITE_API_URL || 'http://localhost:1337';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeFilterCreator, resetCreatorList, setListCreator } from '@/store/helper/helperSlice';
 
 const servicesData = [
-    {
-        title: "ĐÀO TẠO VÀ QUẢN LÝ CREATORS",
-        description: "Tìm kiếm, đào tạo và quản lý các tài năng trẻ thế hệ mới.",
-        icon: <UsersRound size={28} />
-    },
-    {
-        title: "THƯƠNG HIỆU CÁ NHÂN",
-        description: "Xây dựng phong cách độc đáo, khác biệt, phù hợp với hình ảnh cá nhân.",
-        icon: <TrendingUp size={28} />
-    },
-    {
-        title: "VẬN HÀNH LIVESTREAM",
-        description: "Điều phối và sản xuất hoạt động livestream trên nền tảng TikTok.",
-        icon: <CircleStar size={28} />
-    },
-    {
-        title: "DTK MEDIA MCN",
-        description: "Cung cấp các giải pháp gia tăng doanh thu cho các Creator trên các nền tảng.",
-        icon: <CircleStar size={28} />
-    }
+    { title: "ĐÀO TẠO VÀ QUẢN LÝ CREATORS", description: "Tìm kiếm, đào tạo và quản lý các tài năng trẻ thế hệ mới.", icon: <UsersRound size={28} /> },
+    { title: "THƯƠNG HIỆU CÁ NHÂN", description: "Xây dựng phong cách độc đáo, khác biệt, phù hợp với hình ảnh cá nhân.", icon: <TrendingUp size={28} /> },
+    { title: "VẬN HÀNH LIVESTREAM", description: "Điều phối và sản xuất hoạt động livestream trên nền tảng TikTok.", icon: <CircleStar size={28} /> },
+    { title: "DTK MEDIA MCN", description: "Cung cấp các giải pháp gia tăng doanh thu cho các Creator trên các nền tảng.", icon: <CircleStar size={28} /> }
 ];
 
 const ecosystemData = [
@@ -55,232 +38,172 @@ const fadeInUp = {
 
 const staggerContainer = {
     hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.2
-        }
-    }
+    visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
 };
-
-// --- COMPONENTS CON ---
 const ServiceSection = () => {
     return (
+        // 1. LỚP NGOÀI: Chịu trách nhiệm Full màn hình + Màu nền
         <Box
             component={motion.div}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             variants={staggerContainer}
-            sx={{ py: '6rem' }}
-        >
-            <Box sx={{ mb: 6, textAlign: 'center' }}>
-                <Typography
-                    component={motion.div} variants={fadeInUp}
-                    align="center" gutterBottom
-                    sx={{
-                        fontWeight: 600,
-                        fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
-                    }}>
-                    Dịch vụ của chúng tôi
-                </Typography>
+            sx={{ py: '4rem', bgcolor: '#f9f9f9', width: '100%' }}>
+            {/* 2. LỚP TRONG: Container chuẩn (giống Footer) */}
+            <Container maxWidth="lg">
+                <Box sx={{ mb: 6, textAlign: 'center' }}>
+                    <Typography component={motion.div} variants={fadeInUp} align="center" gutterBottom sx={{ fontWeight: 600, fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' } }}>
+                        Dịch vụ của chúng tôi
+                    </Typography>
+                    <Typography component={motion.div} variants={fadeInUp} align="center" sx={{ fontSize: { xs: '1rem', md: '1.4rem' }, color: 'text.secondary', maxWidth: '800px', margin: '0 auto' }}>
+                        Giải pháp toàn diện cho chiến lược marketing của bạn
+                    </Typography>
+                </Box>
 
-                <Typography
-                    component={motion.div} variants={fadeInUp}
-                    align="center"
-                    sx={{
-                        fontSize: { xs: '1rem', md: '1.4rem' },
-                        color: 'text.secondary',
-                        maxWidth: '800px',
-                        margin: '0 auto'
-                    }}>
-                    Giải pháp toàn diện cho chiến lược marketing của bạn
-                </Typography>
-            </Box>
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                 <Box sx={{
-                    width: '80%',
                     display: 'grid',
                     gridTemplateColumns: 'repeat(2, 1fr)',
-                    gap: '1.6rem',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    "@media (max-width: 1080px)": {
-                        gridTemplateColumns: '1fr',
-                        gap: '1rem',
-                    },
+                    gap: { xs: 2, md: 4 },
+                    "@media (max-width: 900px)": { gridTemplateColumns: '1fr' }
                 }}>
                     {servicesData.map((item, index) => (
-                        <Box
-                            component={motion.div} variants={fadeInUp}
-                            sx={{
-                                width: '100%',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}
-                            key={index}
-                        >
-                            <CardInfo
-                                title={item.title}
-                                description={item.description}
-                                icon={item.icon}
-                            />
+                        <Box component={motion.div} variants={fadeInUp} sx={{ width: '100%' }} key={index}>
+                            <CardInfo title={item.title} description={item.description} icon={item.icon} />
                         </Box>
                     ))}
                 </Box>
-            </Box>
+            </Container>
         </Box >
     );
 };
 
 const EcosystemSection = () => {
     return (
+        // 1. LỚP NGOÀI: Full màn hình + Ảnh nền
         <Box
-            sx={{
-                py: '6rem',
-                background: `url(${globalBg}) center center / cover no-repeat`,
-                color: 'white',
-                position: 'relative',
-            }}
             component={motion.div}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            variants={staggerContainer}>
+            variants={staggerContainer}
+            sx={{
+                py: '8rem',
+                width: '100%',
+                background: `url(${globalBg}) center center / cover no-repeat`,
+                color: 'white',
+                position: 'relative'
+            }}
+        >
             <Box sx={{ position: 'absolute', inset: 0, bgcolor: 'rgba(0,0,0,0.6)', zIndex: 0 }} />
 
-            <Box sx={{ position: 'relative', zIndex: 1 }}>
+            {/* 2. LỚP TRONG: Container chuẩn (giống Footer và ServiceSection ở trên) */}
+            <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
                 <Box sx={{ textAlign: 'center', mb: 6 }}>
-                    <Typography
-                        component={motion.div} variants={fadeInUp}
-                        variant="h3" sx={{ fontWeight: 'bold', textTransform: 'uppercase', mb: 1, fontSize: { xs: '1.8rem', md: '2.5rem' } }}
-                    >
+                    <Typography component={motion.div} variants={fadeInUp} variant="h3" sx={{ fontWeight: 'bold', textTransform: 'uppercase', mb: 1, fontSize: { xs: '1.8rem', md: '2.5rem' } }}>
                         Hệ sinh thái sản xuất
                     </Typography>
                 </Box>
 
-                <Container maxWidth="lg">
-                    <Box
-                        sx={{
-                            display: 'grid',
-                            gridTemplateColumns: 'repeat(3, 1fr)',
-                            gap: 3,
-                            '@media (max-width: 1080px)': {
-                                gridTemplateColumns: 'repeat(2, 1fr)',
-                            },
-                            '@media (max-width: 600px)': {
-                                gridTemplateColumns: '1fr',
-                            }
-                        }}
-                    >
-                        {ecosystemData.map((item, index) => (
-                            <Box
-                                key={index}
-                                component={motion.div}
-                                variants={fadeInUp}
-                                whileHover={{ scale: 1.05, backgroundColor: 'rgba(0, 0, 0, 0.9)' }}
-                                sx={{
-                                    p: 3,
-                                    height: '100%',
-                                    borderRadius: '16px',
-                                    border: '1px solid rgba(255,255,255,0.15)',
-                                    bgcolor: 'rgba(0, 0, 0, 0.75)',
-                                    backdropFilter: 'blur(10px)',
-                                    boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: 2,
-                                    transition: '0.3s',
-                                    cursor: 'pointer',
-                                }}
-                            >
-                                <Box sx={{ color: '#fff' }}>{item.icon}</Box>
-                                <Box>
-                                    <Typography variant="h6" fontWeight="bold" sx={{ fontSize: { xs: '0.9rem', md: '1.1rem' } }}>
-                                        {item.title}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ color: '#aaa', fontSize: '0.8rem' }}>
-                                        {item.sub}
-                                    </Typography>
-                                </Box>
+                <Box sx={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(3, 1fr)',
+                    gap: { xs: 2, md: 4 },
+                    '@media (max-width: 1080px)': { gridTemplateColumns: 'repeat(2, 1fr)' },
+                    '@media (max-width: 600px)': { gridTemplateColumns: '1fr' }
+                }}>
+                    {ecosystemData.map((item, index) => (
+                        <Box
+                            key={index}
+                            component={motion.div}
+                            variants={fadeInUp}
+                            whileHover={{ scale: 1.05, backgroundColor: 'rgba(0, 0, 0, 0.9)' }}
+                            sx={{
+                                p: 3,
+                                height: '100%',
+                                borderRadius: '16px',
+                                border: '1px solid rgba(255,255,255,0.15)',
+                                bgcolor: 'rgba(0, 0, 0, 0.75)',
+                                backdropFilter: 'blur(10px)',
+                                boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 2,
+                                transition: '0.3s',
+                                cursor: 'pointer'
+                            }}
+                        >
+                            <Box sx={{ color: '#fff', minWidth: '40px' }}>{item.icon}</Box>
+                            <Box>
+                                <Typography variant="h6" fontWeight="bold" sx={{ fontSize: { xs: '0.9rem', md: '1.1rem' } }}>{item.title}</Typography>
+                                <Typography variant="body2" sx={{ color: '#aaa', fontSize: '0.8rem' }}>{item.sub}</Typography>
                             </Box>
-                        ))}
-                    </Box>
-                </Container>
-            </Box>
+                        </Box>
+                    ))}
+                </Box>
+            </Container>
         </Box >
     );
 };
 
+
 const Home = () => {
-    const [page, setPage] = useState(1);
-    const [allCreators, setAllCreators] = useState([]);
-    const [currentIndex, setCurrentIndex] = useState(0);
+    const dispatch = useDispatch();
+    const { filterCreator, listCreator } = useSelector((state) => state.helper);
 
-    const totalPageRef = useRef(1);
+    const [activeIndex, setActiveIndex] = useState(0);
 
-    const { data: newData, isFetching } = useGetCreatorQuery(page, { refetchOnMountOrArgChange: true });
+    const activeCreator = listCreator?.[activeIndex];
 
     useEffect(() => {
-        if (newData?.data) {
-            if (newData.meta?.pagination) {
-                totalPageRef.current = newData.meta.pagination.pageCount;
-            }
+        dispatch(resetCreatorList());
+    }, [dispatch]);
 
-            const mappedNewCreators = newData.data.map(item => {
-                const imgUrl = item.image?.url
-                    ? (item.image.url.startsWith('http') ? item.image.url : `${STRAPI_URL}${item.image.url}`)
-                    : '';
+    const [isReady, setIsReady] = useState(false);
+    useEffect(() => {
+        setIsReady(true);
+    }, []);
 
-                return {
-                    id: item.id,
-                    name: item.fullName,
-                    tagName: item.tagName,
-                    FOLLOWERS: item.followers,
-                    CATEGORIES: item.categories?.map(cat => cat.categoryName) || [],
-                    description: item.description,
-                    image: imgUrl
-                };
-            });
+    const shouldSkipInitialFetch = !isReady || (filterCreator.page > 1 && listCreator.length === 0);
 
-            setAllCreators(prev => {
-                const existingIds = new Set(prev.map(c => c.id));
-                const uniqueCreators = mappedNewCreators.filter(c => !existingIds.has(c.id));
-                return [...prev, ...uniqueCreators];
-            });
+    const { data: dataResponse, isFetching } = useGetCreatorQuery(filterCreator, {
+        refetchOnMountOrArgChange: true,
+        skip: shouldSkipInitialFetch,
+    });
+
+    useEffect(() => {
+        if (dataResponse && !shouldSkipInitialFetch) {
+            dispatch(setListCreator(dataResponse));
         }
-    }, [newData]);
+    }, [dataResponse, dispatch, shouldSkipInitialFetch]);
 
     const handleActiveChange = (index) => {
-        setCurrentIndex(index);
+        setActiveIndex(index);
 
-        if (index === allCreators.length - 1 && page < totalPageRef.current && !isFetching) {
-            setPage(prev => prev + 1);
+        if (shouldSkipInitialFetch || isFetching) return;
+
+        const meta = dataResponse?.meta?.pagination;
+        if (!meta) return;
+
+        const totalOnServer = meta.total;
+        const currentLoadedCount = listCreator.length;
+
+        if (currentLoadedCount === 0 || currentLoadedCount >= totalOnServer) return;
+
+        const LOAD_MORE_OFFSET = 2;
+        const isNearEnd = index >= currentLoadedCount - LOAD_MORE_OFFSET;
+
+        if (isNearEnd && filterCreator.page < meta.pageCount) {
+            dispatch(changeFilterCreator({
+                ...filterCreator,
+                page: filterCreator.page + 1
+            }));
         }
-
     };
-
-    const activeCreator = allCreators[currentIndex];
 
     return (
         <Box>
-            {/* HERO SECTION */}
-            <Box sx={{
-                position: 'relative',
-                width: '100%',
-                height: {
-                    xs: '60vh',
-                    sm: '70vh',
-                    md: 'calc(100vh - 64px)'
-                },
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden',
-                color: 'white',
-                bgcolor: 'black'
-            }}>
+            <Box sx={{ position: 'relative', width: '100%', height: { xs: '60vh', sm: '70vh', md: 'calc(100vh - 64px)' }, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', color: 'white', bgcolor: 'black' }}>
                 <video
                     autoPlay loop muted playsInline
                     style={{
@@ -292,127 +215,82 @@ const Home = () => {
                 </video>
             </Box>
 
-            {/* CREATOR SECTION */}
-            <Box sx={{
-                py: "8rem",
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                flexDirection: 'column',
-                width: '100%',
-            }}>
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                >
-                    <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 4, textAlign: 'center' }}>
-                        OUR CREATORS
-                    </Typography>
-                    <Typography variant="h4" sx={{ fontWeight: 'bold', textAlign: 'center', maxWidth: '1000px', textTransform: 'uppercase' }}>
-                        Meet our “livestream by passion”
-                        creator partners
-                    </Typography>
+            <Box sx={{ py: "8rem", display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', width: '100%' }}>
+                <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
+                    <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 4, textAlign: 'center' }}>OUR CREATORS</Typography>
+                    <Typography variant="h4" sx={{ fontWeight: 'bold', textAlign: 'center', maxWidth: '1000px', textTransform: 'uppercase' }}>Meet our “livestream by passion” creator partners</Typography>
                 </motion.div>
 
-                {allCreators.length > 0 ? (
-                    <Box sx={{
-                        width: '80%', display: 'grid', gridTemplateColumns: '1.4fr 1fr',
-                        gap: '8rem', alignItems: 'start', mt: 6, mx: 'auto',
-                        "@media (max-width: 1080px)": { gridTemplateColumns: '1fr', gap: '1rem' },
-                    }}>
-                        {/* PHẦN 1: SWIPER 3D */}
-                        <Box width={'100%'}>
-                            <Poster3DSwiper
-                                autoPlayDelay={5000}
-                                height={500}
-                                // Truyền toàn bộ mảng đã tích lũy vào đây
-                                images={allCreators.map(c => c.image)}
-                                onActiveChange={handleActiveChange}
-                            />
-                            {/* Loading indicator nhỏ khi đang tải trang tiếp theo */}
-                            {isFetching && page > 1 && (
-                                <Typography variant="caption" sx={{ display: 'block', textAlign: 'center', mt: 1, color: '#888' }}>
-                                    Loading more creators...
-                                </Typography>
-                            )}
-                        </Box>
+                <Box sx={{ width: '80%', display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '8rem', alignItems: 'start', mt: 6, mx: 'auto', "@media (max-width: 1080px)": { gridTemplateColumns: '1fr', gap: '1rem' } }}>
 
-                        {/* PHẦN 2: TEXT INFO */}
-                        <Box>
-                            <AnimatePresence mode='wait'>
-                                {activeCreator && (
-                                    <motion.div
-                                        key={activeCreator.id} // Quan trọng: key đổi thì animation mới chạy
-                                        initial={{ opacity: 0, x: 50 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        exit={{ opacity: 0, x: -20 }}
-                                        transition={{ duration: 0.5 }}
-                                    >
-                                        <Typography variant="h5" fontWeight="bold">
-                                            {activeCreator.name}
-                                        </Typography>
+                    {/* SWIPER */}
+                    <Box width={'100%'}>
+                        <Poster3DSwiper
+                            autoPlayDelay={5000}
+                            height={500}
+                            images={listCreator.map(c => c?.image)}
+                            onActiveChange={handleActiveChange}
+                        />
+                    </Box>
 
-                                        <Typography color="text.secondary" sx={{ mb: 2 }}>
-                                            {activeCreator.tagName}
-                                        </Typography>
+                    {/* THÔNG TIN CHI TIẾT */}
+                    <Box>
+                        <AnimatePresence mode='wait'>
+                            {activeCreator && (
+                                <motion.div
+                                    // Dùng ID làm key để trigger animation
+                                    key={activeCreator.id || activeIndex}
+                                    initial={{ opacity: 0, x: 50 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -20 }}
+                                    transition={{ duration: 0.5 }}
+                                >
+                                    <Typography variant="h5" fontWeight="bold">
+                                        {activeCreator.fullName}
+                                    </Typography>
 
-                                        <Grid container spacing={2} sx={{ mb: 2 }}>
-                                            <Grid item>
-                                                <Typography fontWeight="bold" variant="h6">
-                                                    {new Intl.NumberFormat('en-US', { notation: "compact", compactDisplay: "short" }).format(activeCreator.FOLLOWERS)}
-                                                </Typography>
-                                                <Typography variant="caption" color="text.secondary">FOLLOWERS</Typography>
-                                            </Grid>
-                                            <Grid item>
-                                                <Typography fontWeight="bold" variant="h6">
-                                                    {activeCreator.CATEGORIES[0] || 'N/A'}
-                                                </Typography>
-                                                <Typography variant="caption" color="text.secondary">CATEGORY</Typography>
-                                            </Grid>
+                                    <Typography color="text.secondary" sx={{ mb: 2 }}>
+                                        @{activeCreator.tagName}
+                                    </Typography>
+
+                                    <Grid container spacing={2} sx={{ mb: 2 }}>
+                                        <Grid item>
+                                            <Typography fontWeight="bold" variant="h6">
+                                                {new Intl.NumberFormat('en-US', { notation: "compact", compactDisplay: "short" }).format(activeCreator.followers || 0)}
+                                            </Typography>
+                                            <Typography variant="caption" color="text.secondary">FOLLOWERS</Typography>
                                         </Grid>
+                                        <Grid item>
+                                            <Typography fontWeight="bold" variant="h6">
+                                                {/* Kiểm tra mảng categories có tồn tại và có phần tử không */}
+                                                {activeCreator.categories?.[0]?.name || 'N/A'}
+                                            </Typography>
+                                            <Typography variant="caption" color="text.secondary">CATEGORY</Typography>
+                                        </Grid>
+                                    </Grid>
 
-                                        <Typography sx={{ lineHeight: 1.8, color: '#555' }}>
-                                            {activeCreator.description}
-                                        </Typography>
+                                    <Typography sx={{ lineHeight: 1.8, color: '#555' }}>
+                                        {activeCreator.description}
+                                    </Typography>
 
-                                        <Box sx={{ mt: 2, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                                            {activeCreator.CATEGORIES.map((cat, idx) => (
-                                                <Box key={idx} sx={{
-                                                    bgcolor: '#f0f0f0', px: 1, py: 0.5, borderRadius: 1,
-                                                    fontSize: '0.75rem', color: '#666'
-                                                }}>
-                                                    {cat}
-                                                </Box>
-                                            ))}
-                                        </Box>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </Box>
+                                    <Box sx={{ mt: 2, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                                        {activeCreator.categories?.map((cat, idx) => (
+                                            <Box key={cat.id || idx} sx={{ bgcolor: '#f0f0f0', px: 1, py: 0.5, borderRadius: 1, fontSize: '0.75rem', color: '#666' }}>
+                                                {cat.name}
+                                            </Box>
+                                        ))}
+                                    </Box>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </Box>
-                ) : (
-                    // Loading ban đầu (khi chưa có bất kỳ dữ liệu nào)
-                    <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
-                        {isFetching ? <CircularProgress /> : <Typography>Không tìm thấy dữ liệu.</Typography>}
-                    </Box>
-                )}
+                </Box>
             </Box>
 
-            {/* SERVICE SECTION */}
-            <Box sx={{
-                py: "2.4rem",
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: '100%',
-                backgroundColor: '#f9f9f9'
-            }}>
+            <Box sx={{ py: "2.4rem", display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', backgroundColor: '#f9f9f9' }}>
                 <ServiceSection />
             </Box>
 
-            {/* ECOSYSTEM SECTION */}
             <Box sx={{ width: '100%' }}>
                 <EcosystemSection />
             </Box>

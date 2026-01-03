@@ -64,53 +64,48 @@ const ServiceSection = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             variants={staggerContainer}
+            sx={{ width: '100%', py: 8 }} // Padding chuẩn
         >
-            <Box sx={{ mb: 6, textAlign: 'center' }}>
-                <Typography
-                    component={motion.div} variants={fadeInUp} // Animation
-                    align="center" gutterBottom
-                    sx={{
-                        fontWeight: 600,
-                        fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
-                    }}>
-                    Dịch vụ của chúng tôi
-                </Typography>
+            {/* Dùng Container để căn lề giống Footer */}
+            <Container maxWidth="lg">
+                <Box sx={{ mb: 6, textAlign: 'center' }}>
+                    <Typography
+                        component={motion.div} variants={fadeInUp}
+                        align="center" gutterBottom
+                        sx={{
+                            fontWeight: 600,
+                            fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+                        }}>
+                        Dịch vụ của chúng tôi
+                    </Typography>
 
-                <Typography
-                    component={motion.div} variants={fadeInUp} // Animation
-                    align="center"
-                    sx={{
-                        fontSize: { xs: '1rem', md: '1.4rem' },
-                        color: 'text.secondary',
-                        maxWidth: '800px',
-                        margin: '0 auto'
-                    }}>
-                    Giải pháp toàn diện cho chiến lược marketing của bạn
-                </Typography>
-            </Box>
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                    <Typography
+                        component={motion.div} variants={fadeInUp}
+                        align="center"
+                        sx={{
+                            fontSize: { xs: '1rem', md: '1.4rem' },
+                            color: 'text.secondary',
+                            maxWidth: '800px',
+                            mx: 'auto' // margin x auto
+                        }}>
+                        Giải pháp toàn diện cho chiến lược marketing của bạn
+                    </Typography>
+                </Box>
+
                 <Box sx={{
-                    width: '80%',
                     display: 'grid',
                     gridTemplateColumns: 'repeat(2, 1fr)',
-                    gap: '1.6rem',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    "@media (max-width: 1080px)": {
+                    gap: 4, // Khoảng cách chuẩn (32px)
+                    "@media (max-width: 900px)": { // Breakpoint md của MUI
                         gridTemplateColumns: '1fr',
-                        gap: '1.6rem',
+                        gap: 3,
                     },
                 }}>
                     {servicesData.map((item, index) => (
                         <Box
-                            component={motion.div} variants={fadeInUp} // Animation từng thẻ
-                            sx={{
-                                width: '100%',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}
+                            component={motion.div} variants={fadeInUp}
                             key={index}
+                            sx={{ display: 'flex', justifyContent: 'center' }}
                         >
                             <CardInfo
                                 title={item.title}
@@ -120,8 +115,8 @@ const ServiceSection = () => {
                         </Box>
                     ))}
                 </Box>
-            </Box>
-        </Box >
+            </Container>
+        </Box>
     );
 };
 
@@ -217,13 +212,7 @@ const BrandPage = () => {
                     </Box>
                 </Box>
             </Box>
-            <Box sx={{
-                py: "2.4rem",
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: '100%',
-            }}>
+            <Box sx={{ bgcolor: '#fff' }}> {/* Nền trắng tách biệt */}
                 <ServiceSection />
             </Box>
             <Box sx={{

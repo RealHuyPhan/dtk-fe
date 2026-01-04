@@ -217,8 +217,8 @@ const Home = () => {
 
             <Box sx={{ py: "8rem", display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', width: '100%' }}>
                 <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-                    <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 4, textAlign: 'center' }}>OUR CREATORS</Typography>
-                    <Typography variant="h4" sx={{ fontWeight: 'bold', textAlign: 'center', maxWidth: '1000px', textTransform: 'uppercase' }}>Meet our “livestream by passion” creator partners</Typography>
+                    <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 4, textAlign: 'center' }}>DTK MEDIA - OUR CREATORS</Typography>
+                    <Typography variant="h4" sx={{ fontWeight: 'bold', textAlign: 'center', maxWidth: '1000px', textTransform: 'uppercase' }}>Meet our “<span style={{ color: '#A92C3D' }}>livestream by passion</span>” creator partners</Typography>
                 </motion.div>
 
                 <Box sx={{ width: '80%', display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '8rem', alignItems: 'start', mt: 6, mx: 'auto', "@media (max-width: 1080px)": { gridTemplateColumns: '1fr', gap: '1rem' } }}>

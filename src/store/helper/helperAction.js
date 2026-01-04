@@ -39,11 +39,21 @@ export const helperApi = createApi({
             }
         }),
 
+        // POST
+        addContact: builder.mutation({
+            query: (payload) => ({
+                url: API_URL.CONTACT,
+                method: 'POST',
+                data: { data: payload },
+            }),
+        }),
+
     }),
 
 });
 
 export const {
     useGetCategoryQuery,
-    useGetCreatorQuery
+    useGetCreatorQuery,
+    useAddContactMutation
 } = helperApi;

@@ -40,8 +40,8 @@ export default function CardInfoRectangle({
                         width: 'fit-content',
                         padding: '0.8rem',
                         borderRadius: 2,
-                        color: '#9333ea',
-                        background: 'linear-gradient(to right, #f3e8ff, #fce7f3)',
+                        color: '#A92C3D',
+                        backgroundColor: 'rgba(169, 44, 61, 0.12)',
                     }}
                 >
                     {icon}

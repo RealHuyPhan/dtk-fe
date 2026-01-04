@@ -1,274 +1,460 @@
-import CardInfo from '@/component/CardInfoRectangle';
-import { Box, Typography, Container, Grid, Button } from '@mui/material';
-import { motion } from 'framer-motion'; // Import animation library
-import bgBrand from '../assets/globalBG.png'
-import React from 'react';
-import {
-    UsersRound, TrendingUp, CircleStar,
-} from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Box, Container, Typography, Button, Stack, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { motion } from 'framer-motion';
+import { TrendingUp, Target, BarChart3, Sparkles, Zap, Rocket } from 'lucide-react';
 
-const servicesData = [
-    {
-        title: "Targeting chính xác",
-        description: "Tiếp cận đúng đối tượng khách hàng mục tiêu thông qua creator phù hợp.",
-        icon: <UsersRound size={28} />
-    },
-    {
-        title: "Tăng trưởng bền vững",
-        description: "Xây dựng chiến lược dài hạn với hiệu quả đo lường được.",
-        icon: <TrendingUp size={28} />
-    },
-    {
-        title: "Phân tích chi tiết",
-        description: "Báo cáo và insights về hiệu quả chiến dịch.",
-        icon: <CircleStar size={28} />
-    },
-    {
-        title: "Bảo mật thông tin",
-        description: "Cam kết bảo vệ thông tin và quyền lợi của thương hiệu.",
-        icon: <CircleStar size={28} />
-    },
-    {
-        title: "Đội ngũ chuyên nghiệp",
-        description: "Được hỗ trợ bởi team có kinh nghiệm trong ngành.",
-        icon: <CircleStar size={28} />
-    },
-    {
-        title: "Triển khai nhanh chóng",
-        description: "Khởi động chiến dịch trong thời gian ngắn.",
-        icon: <CircleStar size={28} />
-    }
+// Định nghĩa màu sắc theo yêu cầu trước đó
+const COLORS = {
+  primary: '#C7364A',
+  secondary: '#A92C3D',
+  dark: '#16223A',
+  white: '#ffffff',
+  gray: '#f5f5f5',
+  textGray: '#666666'
+};
+
+const loopingTexts = [
+  'Tăng nhận diện thương hiệu',
+  'Tiếp cận khách hàng mới',
+  'Xây dựng lòng tin',
+  'Tạo nội dung viral',
 ];
 
-const fadeInUp = {
-    hidden: { opacity: 0, y: 60 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } }
-};
+// Component Motion Wrapper để dùng animation với MUI Component
+const MotionBox = motion(Box);
+const MotionTypography = motion(Typography);
+const MotionButton = motion(Button);
 
-const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.2
-        }
-    }
-};
+export default function BrandPage() {
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const theme = useTheme();
+  // Check responsive để chỉnh layout Flexbox
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTextIndex((prev) => (prev + 1) % loopingTexts.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
 
-const ServiceSection = () => {
-    return (
-        <Box
-            component={motion.div}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={staggerContainer}
-            sx={{ width: '100%', py: 8 }} // Padding chuẩn
-        >
-            {/* Dùng Container để căn lề giống Footer */}
-            <Container maxWidth="lg">
-                <Box sx={{ mb: 6, textAlign: 'center' }}>
-                    <Typography
-                        component={motion.div} variants={fadeInUp}
-                        align="center" gutterBottom
-                        sx={{
-                            fontWeight: 600,
-                            fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
-                        }}>
-                        Dịch vụ của chúng tôi
-                    </Typography>
-
-                    <Typography
-                        component={motion.div} variants={fadeInUp}
-                        align="center"
-                        sx={{
-                            fontSize: { xs: '1rem', md: '1.4rem' },
-                            color: 'text.secondary',
-                            maxWidth: '800px',
-                            mx: 'auto' // margin x auto
-                        }}>
-                        Giải pháp toàn diện cho chiến lược marketing của bạn
-                    </Typography>
-                </Box>
-
-                <Box sx={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(2, 1fr)',
-                    gap: 4, // Khoảng cách chuẩn (32px)
-                    "@media (max-width: 900px)": { // Breakpoint md của MUI
-                        gridTemplateColumns: '1fr',
-                        gap: 3,
-                    },
-                }}>
-                    {servicesData.map((item, index) => (
-                        <Box
-                            component={motion.div} variants={fadeInUp}
-                            key={index}
-                            sx={{ display: 'flex', justifyContent: 'center' }}
-                        >
-                            <CardInfo
-                                title={item.title}
-                                description={item.description}
-                                icon={item.icon}
-                            />
-                        </Box>
-                    ))}
-                </Box>
-            </Container>
+  return (
+    <Box sx={{ minHeight: '100vh', bgcolor: COLORS.white }}>
+      
+      {/* --- HERO SECTION --- */}
+      <Box sx={{ position: 'relative', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+        {/* Background Image & Overlay */}
+        <Box sx={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+          <Box
+            component="img"
+            src="https://images.unsplash.com/photo-1764123108291-0f48d2c7e563?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxicmFuZCUyMGNvbGxhYm9yYXRpb24lMjB3b3Jrc3BhY2V8ZW58MXx8fHwxNzY3NTE1NTYzfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+            sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+          <Box
+            sx={{
+              position: 'absolute', inset: 0,
+              background: `linear-gradient(135deg, ${COLORS.dark}E6 0%, ${COLORS.secondary}CC 50%, ${COLORS.primary}E6 100%)` // E6, CC là opacity hex
+            }}
+          />
         </Box>
-    );
-};
 
-const BrandPage = () => {
-    return (
-        <Box>
-            <Box sx={{
-                background: 'linear-gradient(135deg, #eff6ff 0%, #faf5ff 50%, #fdf2f8 100%)',
-                py: "3rem",
-                "@media (max-width: 1080px)": {
-                    py: '4rem'
-                },
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                flexDirection: 'column',
-                width: '100%',
-            }}>
-                <Box sx={{
-                    width: '80%',
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
-                    gap: '8rem',
-                    alignItems: 'start',
-                    mt: 6,
-                    "@media (max-width: 1080px)": {
-                        gridTemplateColumns: '1fr',
-                        gap: '1rem',
-                    },
-                }}>
-                    <Box component={motion.div}
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6 }}
-                        sx={{ position: 'relative' }}
-                    >
-                        <Box
-                            component="img"
-                            src={bgBrand}
-                            alt="Brand Partnership"
-                            sx={{
-                                width: '100%',
-                                height: 'auto',
-                                borderRadius: '16px',
-                                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', // shadow-2xl
-                                display: 'block'
-                            }}
-                        />
-                    </Box>
-                    <Box component={motion.div}
-                        initial={{ opacity: 0, x: -50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <Typography variant="h2" component="h1" sx={{ fontWeight: 'bold', mb: 3, fontSize: { xs: '2.5rem', md: '3.75rem' }, lineHeight: 1.2 }}>
-                            Nâng tầm
-                            <Box component="span" sx={{
-                                display: 'block',
-                                background: 'linear-gradient(to right, #2563eb, #9333ea)', // blue-600 to purple-600
-                                WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent',
-                            }}>
-                                Thương hiệu của bạn
-                            </Box>
-                        </Typography>
+        {/* Hero Content */}
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 10, textAlign: 'center' }}>
+          <MotionTypography
+            variant="h2"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            sx={{
+              color: COLORS.white,
+              fontWeight: 700,
+              mb: 4,
+              fontSize: { xs: '2.5rem', md: '4.5rem' }
+            }}
+          >
+            Giải Pháp Cho Thương Hiệu
+          </MotionTypography>
 
-                        <Typography variant="h6" sx={{ color: 'text.secondary', mb: 4, fontWeight: 400 }}>
-                            Kết nối với hàng nghìn creator chất lượng cao để tạo nên những
-                            chiến dịch marketing đột phá và tăng trưởng doanh số vượt trội
-                        </Typography>
-                        <Button
-                            component={motion.button}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            variant="contained"
-                            size="large"
-                            sx={{
-                                background: 'linear-gradient(to right, #2563eb, #9333ea)',
-                                color: 'white',
-                                borderRadius: '12px',
-                                px: 4,
-                                py: 1.5,
-                                fontSize: '1.1rem',
-                                textTransform: 'none',
-                                boxShadow: '0 4px 14px 0 rgba(37, 99, 235, 0.39)',
-                                '&:hover': {
-                                    background: 'linear-gradient(to right, #1d4ed8, #7e22ce)',
-                                }
-                            }}
-                        >
-                            Bắt đầu ngay
-                        </Button>
-                    </Box>
-                </Box>
-            </Box>
-            <Box sx={{ bgcolor: '#fff' }}> {/* Nền trắng tách biệt */}
-                <ServiceSection />
-            </Box>
-            <Box sx={{
-                py: { xs: 8, md: 12 },
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: '100%'
-            }}>
+          {/* Text Loop */}
+          <Box sx={{ height: 80, display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 4 }}>
+            <MotionTypography
+              key={currentTextIndex}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              sx={{ color: COLORS.white, fontSize: { xs: '1.5rem', md: '2.5rem' } }}
+            >
+              {loopingTexts[currentTextIndex]}
+            </MotionTypography>
+          </Box>
+
+          <MotionTypography
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            sx={{ color: 'rgba(255,255,255,0.9)', fontSize: '1.25rem', mb: 6 }}
+          >
+            Kết nối với hàng nghìn creators để mang thương hiệu của bạn đến gần hơn với khách hàng
+          </MotionTypography>
+
+          <MotionButton
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            sx={{
+              bgcolor: COLORS.white,
+              color: COLORS.primary,
+              px: 5, py: 2,
+              borderRadius: 50,
+              fontSize: '1.1rem',
+              textTransform: 'none',
+              fontWeight: 600,
+              '&:hover': { bgcolor: '#f0f0f0' }
+            }}
+          >
+            Bắt đầu hợp tác
+          </MotionButton>
+        </Container>
+
+        {/* Floating Elements (Background Blobs) */}
+        <MotionBox
+          animate={{ y: [0, -20, 0] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          sx={{
+            position: 'absolute', top: 80, left: 40, width: 80, height: 80,
+            bgcolor: 'rgba(255,255,255,0.1)', borderRadius: '50%', filter: 'blur(20px)'
+          }}
+        />
+        <MotionBox
+          animate={{ y: [0, 20, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          sx={{
+            position: 'absolute', bottom: 80, right: 40, width: 128, height: 128,
+            bgcolor: 'rgba(255,255,255,0.1)', borderRadius: '50%', filter: 'blur(20px)'
+          }}
+        />
+      </Box>
+
+      {/* --- BENTO SECTION (NO GRID - USING FLEX STACK) --- */}
+      <Box sx={{ py: 10, bgcolor: COLORS.white, overflow: 'hidden' }}>
+        <Container maxWidth="lg">
+          <MotionBox
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            sx={{ textAlign: 'center', mb: 8 }}
+          >
+            <Typography variant="h3" sx={{ color: COLORS.dark, fontWeight: 700, mb: 2 }}>
+              Nâng Tầm Thương Hiệu Của Bạn
+            </Typography>
+            <Typography variant="h6" sx={{ color: COLORS.textGray }}>
+              Chúng tôi mang đến giải pháp toàn diện
+            </Typography>
+          </MotionBox>
+
+          {/* Bento Layout Simulation using Flexbox */}
+          <Stack spacing={3}>
+            {/* Hàng 1: Big Card (Trái) + Cột 2 thẻ nhỏ (Phải) */}
+            <Stack direction={isMobile ? 'column' : 'row'} spacing={3} sx={{ minHeight: { md: 500 } }}>
+              
+              {/* Feature Card 1 (Big) - Chiếm 2/3 */}
+              <MotionBox
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -10 }}
+                sx={{
+                  flex: { md: 2 },
+                  position: 'relative',
+                  borderRadius: 6,
+                  overflow: 'hidden',
+                  cursor: 'pointer',
+                  minHeight: 300,
+                  '&:hover .bg-image': { transform: 'scale(1.1)' }
+                }}
+              >
                 <Box
-                    component={motion.div}
-                    initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
-                    sx={{
-                        "@media (max-width: 1080px)": {
-                            width: '90%',
-                        },
-                        width: '60%',
-                        background: 'linear-gradient(to right, #2563eb, #9333ea)', // blue-600 to purple-600
-                        borderRadius: '16px',
-                        p: { xs: 4, md: 6 },
-                        textAlign: 'center',
-                        color: 'white'
-                    }}
-                >
-                    <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 3, fontSize: { xs: '1.875rem', md: '2.25rem' } }}>
-                        Sẵn sàng bắt đầu?
-                    </Typography>
-                    <Typography variant="h6" sx={{ mb: 5, fontWeight: 400, opacity: 0.9 }}>
-                        Liên hệ với chúng tôi ngay hôm nay để được tư vấn miễn phí
-                    </Typography>
+                  className="bg-image"
+                  sx={{
+                    position: 'absolute', inset: 0,
+                    backgroundImage: 'url(https://images.unsplash.com/photo-1609835794682-ed9fc1a51010?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjcmVhdGl2ZSUyMHN0dWRpbyUyMHBob3RvZ3JhcGh5fGVufDF8fHx8MTc2NzUxNTU2M3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral)',
+                    backgroundSize: 'cover', backgroundPosition: 'center',
+                    transition: 'transform 0.5s'
+                  }}
+                />
+                <Box sx={{ position: 'absolute', inset: 0, background: `linear-gradient(135deg, ${COLORS.primary}CC, ${COLORS.dark}CC)` }} />
+                <Box sx={{ position: 'relative', p: 5, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+                  <MotionBox
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true }}
+                    sx={{ width: 64, height: 64, bgcolor: 'rgba(255,255,255,0.2)', borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 3 }}
+                  >
+                    <Sparkles color="white" size={32} />
+                  </MotionBox>
+                  <Typography variant="h4" sx={{ color: 'white', mb: 2, fontWeight: 600 }}>Content Strategy</Typography>
+                  <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)' }}>
+                    Chiến lược nội dung độc đáo, phù hợp với DNA thương hiệu và mục tiêu kinh doanh
+                  </Typography>
+                </Box>
+              </MotionBox>
 
-                    <Button
-                        component={motion.button}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        variant="contained"
-                        size="large"
+              {/* Cột bên phải: 2 thẻ nhỏ - Chiếm 1/3 */}
+              <Stack direction="column" spacing={3} sx={{ flex: { md: 1 } }}>
+                {/* Small Card 1 */}
+                <MotionBox
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  whileHover={{ y: -10 }}
+                  sx={{
+                    flex: 1,
+                    borderRadius: 6,
+                    overflow: 'hidden',
+                    background: `linear-gradient(135deg, ${COLORS.secondary}, ${COLORS.primary})`,
+                    p: 4, cursor: 'pointer',
+                    minHeight: 200
+                  }}
+                >
+                  <MotionBox whileHover={{ rotate: 360 }} transition={{ duration: 0.5 }} sx={{ width: 56, height: 56, bgcolor: 'rgba(255,255,255,0.2)', borderRadius: 3, display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
+                    <Target color="white" size={28} />
+                  </MotionBox>
+                  <Typography variant="h5" sx={{ color: 'white', mb: 1, fontWeight: 600 }}>Targeting</Typography>
+                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>Tiếp cận đúng đối tượng khách hàng</Typography>
+                </MotionBox>
+
+                {/* Small Card 2 */}
+                <MotionBox
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  whileHover={{ y: -10 }}
+                  sx={{
+                    flex: 1,
+                    borderRadius: 6,
+                    overflow: 'hidden',
+                    background: `linear-gradient(135deg, ${COLORS.dark}, ${COLORS.secondary})`,
+                    p: 4, cursor: 'pointer',
+                    minHeight: 200
+                  }}
+                >
+                  <MotionBox whileHover={{ rotate: 360 }} transition={{ duration: 0.5 }} sx={{ width: 56, height: 56, bgcolor: 'rgba(255,255,255,0.2)', borderRadius: 3, display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
+                    <BarChart3 color="white" size={28} />
+                  </MotionBox>
+                  <Typography variant="h5" sx={{ color: 'white', mb: 1, fontWeight: 600 }}>Analytics</Typography>
+                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>Đo lường hiệu quả chiến dịch</Typography>
+                </MotionBox>
+              </Stack>
+            </Stack>
+
+            {/* Hàng 2: Medium Card (Chiếm 2/3 không gian nếu muốn giống grid cũ, hoặc full width) */}
+            <Box sx={{ display: 'flex' }}>
+                 <MotionBox
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                  whileHover={{ y: -10 }}
+                  sx={{
+                    width: { xs: '100%', md: '66%' }, // Bằng chiều rộng của cột bên trái ở trên (2/3)
+                    position: 'relative',
+                    borderRadius: 6,
+                    overflow: 'hidden',
+                    cursor: 'pointer',
+                    height: 300,
+                    '&:hover .bg-image-2': { transform: 'scale(1.1)' }
+                  }}
+                >
+                  <Box
+                    className="bg-image-2"
+                    sx={{
+                      position: 'absolute', inset: 0,
+                      backgroundImage: 'url(https://images.unsplash.com/photo-1645848810565-ff3c1de0da09?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpYSUyMGNyZWF0b3IlMjBpbmZsdWVuY2VyfGVufDF8fHx8MTc2NzUxNTU2MXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral)',
+                      backgroundSize: 'cover', backgroundPosition: 'center',
+                      transition: 'transform 0.5s'
+                    }}
+                  />
+                  <Box sx={{ position: 'absolute', inset: 0, background: `linear-gradient(to right, ${COLORS.dark}E6, transparent)` }} />
+                  <Box sx={{ position: 'relative', p: 4, height: '100%', display: 'flex', alignItems: 'center' }}>
+                    <Box>
+                        <MotionBox
+                            initial={{ scale: 0 }}
+                            whileInView={{ scale: 1 }}
+                            viewport={{ once: true }}
+                            sx={{ width: 56, height: 56, bgcolor: 'rgba(255,255,255,0.2)', borderRadius: 3, display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}
+                        >
+                            <TrendingUp color="white" size={28} />
+                        </MotionBox>
+                        <Typography variant="h4" sx={{ color: 'white', mb: 2, fontWeight: 600 }}>Growth Marketing</Typography>
+                        <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)' }}>
+                            Tăng trưởng bền vững cùng chiến lược marketing hiệu quả
+                        </Typography>
+                    </Box>
+                  </Box>
+                </MotionBox>
+            </Box>
+          </Stack>
+        </Container>
+      </Box>
+
+      {/* --- WHY CHOOSE US (FLEXBOX) --- */}
+      <Box sx={{ py: 10, bgcolor: COLORS.gray }}>
+        <Container maxWidth="lg">
+          <MotionBox
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            sx={{ textAlign: 'center', mb: 8 }}
+          >
+            <Typography variant="h3" sx={{ color: COLORS.dark, fontWeight: 700, mb: 2 }}>
+              Tại Sao Chọn Chúng Tôi?
+            </Typography>
+          </MotionBox>
+
+          <Stack direction={isMobile ? 'column' : 'row'} spacing={4} justifyContent="center">
+            {[
+              { icon: Zap, title: 'Nhanh Chóng', desc: 'Triển khai chiến dịch trong 48 giờ', img: 'https://images.unsplash.com/photo-1574576839798-00b48241d0b6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg' },
+              { icon: Target, title: 'Chính Xác', desc: 'Targeting đúng đối tượng mục tiêu', img: 'https://images.unsplash.com/photo-1748346918817-0b1b6b2f9bab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg' },
+              { icon: Rocket, title: 'Hiệu Quả', desc: 'ROI cao, chi phí tối ưu', img: 'https://images.unsplash.com/photo-1764123108291-0f48d2c7e563?crop=entropy&cs=tinysrgb&fit=max&fm=jpg' },
+            ].map((item, index) => (
+              <MotionBox
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2 }}
+                whileHover={{ y: -10 }}
+                sx={{ flex: 1, minWidth: 0 }} // minWidth 0 helps flex items shrink properly
+              >
+                <Box sx={{ position: 'relative', height: 256, borderRadius: 4, overflow: 'hidden', mb: 3 }}>
+                    <Box 
+                        component="img" 
+                        src={item.img} 
+                        sx={{ 
+                            width: '100%', height: '100%', objectFit: 'cover', 
+                            transition: 'transform 0.5s', 
+                            '&:hover': { transform: 'scale(1.1)' } 
+                        }} 
+                    />
+                    <Box sx={{ position: 'absolute', inset: 0, background: `linear-gradient(to top, ${COLORS.dark}CC, transparent)` }} />
+                    <MotionBox
+                        whileHover={{ scale: 1.1 }}
                         sx={{
-                            bgcolor: 'white',
-                            color: '#9333ea',
-                            px: 4,
-                            py: 1.5,
-                            borderRadius: '12px',
-                            fontWeight: 600,
-                            textTransform: 'none',
-                            fontSize: '1.1rem',
-                            '&:hover': {
-                                bgcolor: '#f3f4f6', // gray-100
-                            }
+                            position: 'absolute', bottom: 16, left: 16,
+                            width: 56, height: 56, bgcolor: COLORS.primary,
+                            borderRadius: 3, display: 'flex', alignItems: 'center', justifyContent: 'center'
                         }}
                     >
-                        Liên hệ ngay
-                    </Button>
+                        <item.icon color="white" size={28} />
+                    </MotionBox>
                 </Box>
-            </Box>
-        </Box>
-    );
+                <Typography variant="h5" sx={{ color: COLORS.dark, fontWeight: 600, mb: 1 }}>{item.title}</Typography>
+                <Typography variant="body1" sx={{ color: COLORS.textGray }}>{item.desc}</Typography>
+              </MotionBox>
+            ))}
+          </Stack>
+        </Container>
+      </Box>
+
+      {/* --- SUCCESS STORIES (FLEXBOX WRAP) --- */}
+      <Box sx={{ py: 10, bgcolor: COLORS.white }}>
+        <Container maxWidth="lg">
+          <MotionBox
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            sx={{ textAlign: 'center', mb: 8 }}
+          >
+             <Typography variant="h3" sx={{ color: COLORS.dark, fontWeight: 700, mb: 2 }}>
+              Câu Chuyện Thành Công
+            </Typography>
+            <Typography variant="h6" sx={{ color: COLORS.textGray }}>
+              Những chiến dịch ấn tượng mà chúng tôi đã thực hiện
+            </Typography>
+          </MotionBox>
+
+          <Stack direction="row" flexWrap="wrap" gap={3} justifyContent="center">
+            {[
+              'https://images.unsplash.com/photo-1681483570508-e88d43762d7e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg',
+              'https://images.unsplash.com/photo-1698181842119-a5283dea1440?crop=entropy&cs=tinysrgb&fit=max&fm=jpg',
+              'https://images.unsplash.com/photo-1669743281584-b9125947f9ec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg',
+              'https://images.unsplash.com/photo-1609835794682-ed9fc1a51010?crop=entropy&cs=tinysrgb&fit=max&fm=jpg',
+            ].map((img, index) => (
+              <MotionBox
+                key={index}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ scale: 1.05, rotate: 2 }}
+                sx={{
+                  position: 'relative',
+                  height: 384,
+                  width: { xs: '100%', sm: 'calc(50% - 24px)', md: 'calc(25% - 24px)' }, // Tính toán width thủ công thay vì grid
+                  borderRadius: 4,
+                  overflow: 'hidden',
+                  cursor: 'pointer',
+                  boxShadow: 3
+                }}
+              >
+                <Box component="img" src={img} sx={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <MotionBox
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                    sx={{
+                        position: 'absolute', inset: 0,
+                        background: `linear-gradient(to top, ${COLORS.primary}, transparent)`,
+                        display: 'flex', alignItems: 'flex-end', p: 3
+                    }}
+                >
+                    <Box sx={{ color: 'white' }}>
+                        <Typography variant="body2" sx={{ mb: 0.5 }}>Campaign #{index + 1}</Typography>
+                        <Typography variant="h6" fontWeight={700}>+{(index + 1) * 150}% Engagement</Typography>
+                    </Box>
+                </MotionBox>
+              </MotionBox>
+            ))}
+          </Stack>
+        </Container>
+      </Box>
+
+      {/* --- CTA SECTION --- */}
+      <Box sx={{ py: 10, background: `linear-gradient(135deg, ${COLORS.dark}, ${COLORS.secondary}, ${COLORS.primary})` }}>
+        <Container maxWidth="md" sx={{ textAlign: 'center' }}>
+          <MotionBox
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+          >
+            <Typography variant="h3" sx={{ color: COLORS.white, fontWeight: 700, mb: 3 }}>
+              Sẵn Sàng Nâng Tầm Thương Hiệu?
+            </Typography>
+            <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.9)', mb: 6 }}>
+              Hãy để chúng tôi đồng hành cùng bạn
+            </Typography>
+            <MotionButton
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              sx={{
+                bgcolor: COLORS.white,
+                color: COLORS.primary,
+                px: 6, py: 2,
+                borderRadius: 50,
+                fontSize: '1.1rem',
+                fontWeight: 600,
+                textTransform: 'none',
+                '&:hover': { bgcolor: '#f0f0f0' }
+              }}
+            >
+              Liên hệ ngay
+            </MotionButton>
+          </MotionBox>
+        </Container>
+      </Box>
+    </Box>
+  );
 }
-export default BrandPage;

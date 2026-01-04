@@ -41,7 +41,7 @@ const Footer = () => {
                                 fontWeight: 900,
                                 letterSpacing: '-0.5px',
                                 mb: 3,
-                                color: 'black',
+                                color: '#C7364A',
                                 display: 'inline-block',
                                 position: 'relative',
                             }}
@@ -86,7 +86,7 @@ const Footer = () => {
 
                     {/* CỘT 2: VĂN PHÒNG (Chiếm 3/12) */}
                     <Grid item xs={12} sm={6} lg={3}>
-                        <Typography variant="subtitle2" sx={{ fontWeight: 800, textTransform: 'uppercase', mb: 3, letterSpacing: '1px' }}>
+                        <Typography variant="subtitle2" sx={{ fontWeight: 800, textTransform: 'uppercase', mb: 3, letterSpacing: '1px', }}>
                             Văn phòng
                         </Typography>
 
@@ -107,7 +107,7 @@ const Footer = () => {
 
                     {/* CỘT 3: KẾT NỐI (Chiếm 3/12) */}
                     <Grid item xs={12} sm={6} lg={3}>
-                        <Typography variant="subtitle2" sx={{ fontWeight: 800, textTransform: 'uppercase', mb: 3, letterSpacing: '1px' }}>
+                        <Typography variant="subtitle2" sx={{ fontWeight: 800, textTransform: 'uppercase', mb: 3, letterSpacing: '1px', }}>
                             Thông tin
                         </Typography>
 
@@ -163,7 +163,7 @@ const Footer = () => {
                                 whiteSpace: 'nowrap',
                                 transition: '0.3s',
                                 '&:hover': {
-                                    bgcolor: '#333',
+                                    bgcolor: '#C7364A',
                                     transform: 'translateX(5px)', // Hiệu ứng đẩy sang phải khi hover
                                     boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
                                 }

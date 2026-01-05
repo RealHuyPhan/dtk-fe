@@ -228,7 +228,7 @@ const Home = () => {
                         <Poster3DSwiper
                             autoPlayDelay={5000}
                             height={500}
-                            images={listCreator.map(c => c?.image)}
+                            images={listCreator?.map(c => c?.image)}
                             onActiveChange={handleActiveChange}
                         />
                     </Box>

@@ -97,9 +97,7 @@ const Footer = () => {
                                     TRỤ SỞ CHÍNH
                                 </Typography>
                                 <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.6 }}>
-                                    Số 123, Đường ABC,<br />
-                                    Quận XYZ, TP. Hồ Chí Minh<br />
-                                    Việt Nam
+                                    Số 38-40 Galaxy 6,<br /> số 69 Tố Hữu, Hà Đông, Hà Nội,<br /> Hanoi, Vietnam
                                 </Typography>
                             </Box>
                         </Box>
@@ -119,7 +117,7 @@ const Footer = () => {
                                         HOTLINE
                                     </Typography>
                                     <Typography variant="body1" sx={{ fontWeight: 500, color: '#333' }}>
-                                        0912 345 678
+                                        033 595 9615
                                     </Typography>
                                     <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                                         Mon - Fri, 8am - 6pm
@@ -134,7 +132,7 @@ const Footer = () => {
                                         EMAIL
                                     </Typography>
                                     <Typography variant="body1" sx={{ fontWeight: 500, color: '#333' }}>
-                                        contact@dtkmedia.com
+                                        dtkmedia.hr@gmail.com
                                     </Typography>
                                 </Box>
                             </Box>

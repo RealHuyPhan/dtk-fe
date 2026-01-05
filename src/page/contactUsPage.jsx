@@ -100,10 +100,10 @@ export default function ContactUsPage() {
 
 
     const contactInfo = [
-        { icon: <MailIcon />, content: 'contact@mediahub.vn' },
-        { icon: <PhoneIcon />, content: '(+84) 123 456 789' },
-        { icon: <MapPinIcon />, content: '123 Đường ABC, Quận 1, TP. HCM' },
-        { icon: <MessageCircleIcon />, content: '@mediahub_vn' },
+        { icon: <MailIcon />, content: 'dtkmedia.hr@gmail.com' },
+        { icon: <PhoneIcon />, content: '033 595 9615' },
+        { icon: <MapPinIcon />, content: 'Số 38-40 Galaxy 6, số 69 Tố Hữu, Hà Đông, Hà Nội, Hanoi, Vietnam' },
+        // { icon: <MessageCircleIcon />, content: '@mediahub_vn' },
     ];
 
     return (

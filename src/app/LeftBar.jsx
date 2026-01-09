@@ -24,7 +24,7 @@ export default function LeftBar({ open, onClose, drawerWidth }) {
         { label: "Home", path: ROUTES.HOME },
         { label: "Brand", path: ROUTES.BRAND },
         { label: "Creator", path: ROUTES.CREATOR },
-        { label: "Library", path: ROUTES.LIBRARY },
+        // { label: "Library", path: ROUTES.LIBRARY },
         { label: "About", path: ROUTES.ABOUT },
         { label: "Contact Us", path: ROUTES.CONTACT },
     ];

@@ -26,10 +26,10 @@ export const RouterConfig = () => {
                     path={ROUTES.CREATOR}
                     element={<CreatorPage />}
                 />
-                <Route
+                {/* <Route
                     path={ROUTES.LIBRARY}
                     element={<LibraryPage />}
-                />
+                /> */}
                 <Route
                     path={ROUTES.CONTACT}
                     element={<ContactUsPage />}

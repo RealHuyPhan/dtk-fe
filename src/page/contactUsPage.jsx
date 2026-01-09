@@ -318,17 +318,30 @@ export default function ContactUsPage() {
                                     borderRadius: '32px',
                                     bgcolor: '#f1f5f9',
                                     display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
+                                    overflow: 'hidden', // QUAN TRỌNG để iframe không tràn bo góc
                                     border: '1px dashed #cbd5e1',
                                 }}
                             >
-                                <Stack alignItems="center" spacing={1} sx={{ opacity: 0.6 }}>
-                                    <MapPinIcon sx={{ fontSize: 40 }} />
-                                    <Typography fontWeight={600}>Google Maps</Typography>
-                                </Stack>
+                                <Box
+                                    sx={{
+                                        width: '100%',
+                                        height: '100%',
+                                        minHeight: 300, // tuỳ chỉnh chiều cao
+                                    }}
+                                >
+                                    <iframe
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.221223634219!2d105.7768967!3d20.983767500000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31345333dac9da5f%3A0x26b7bc2ebb05bcb9!2zNDAgR2FsYXh5IDYsIFbhuqFuIFBow7pjLCBIw6AgxJDDtG5nLCBIw6AgTuG7mWk!5e0!3m2!1svi!2s!4v1767942524013!5m2!1svi!2s"
+                                        width="100%"
+                                        height="100%"
+                                        style={{ border: 0 }}
+                                        allowFullScreen
+                                        loading="lazy"
+                                        referrerPolicy="no-referrer-when-downgrade"
+                                    />
+                                </Box>
                             </Paper>
                         </Grow>
+
                     </Stack>
                 </Box>
             </Box>

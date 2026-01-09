@@ -14,7 +14,7 @@ export default function TopBar({ onMenuClick, isMobile }) {
         { label: "Home", path: ROUTES.HOME },
         { label: "For Brand", path: ROUTES.BRAND },
         { label: "For Creator", path: ROUTES.CREATOR },
-        { label: "Library", path: ROUTES.LIBRARY },
+        // { label: "Library", path: ROUTES.LIBRARY },
         { label: "About", path: ROUTES.ABOUT },
         { label: "Contact Us", path: ROUTES.CONTACT },
     ];
@@ -41,7 +41,7 @@ export default function TopBar({ onMenuClick, isMobile }) {
                 }}>
 
                     <Box sx={{ cursor: 'pointer', marginLeft: '1rem' }} onClick={() => navigate(ROUTES.HOME)}>
-                        <img src={logo} alt="Logo" style={{ height: '3rem', width: '5rem' }} />
+                        <img src={logo} alt="Logo" style={{ height: '3rem', width: '4.5rem' }} />
                     </Box>
 
                     <Box sx={{ display: 'flex', gap: 2 }}>
@@ -81,7 +81,7 @@ export default function TopBar({ onMenuClick, isMobile }) {
                         alignItems: 'center'
                     }}>
                     <Box sx={{ cursor: 'pointer', }} onClick={() => navigate(ROUTES.HOME)}>
-                        <img src={logoNoText} alt="Logo" style={{ height: '3rem', width: '4.4rem' }} />
+                        <img src={logoNoText} alt="Logo" style={{ height: '2.5rem', width: '3.8rem' }} />
                     </Box>
                     <MenuOutlinedIcon />
                 </Box>}

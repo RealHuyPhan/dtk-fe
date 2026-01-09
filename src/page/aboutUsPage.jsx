@@ -8,7 +8,11 @@ import dtkbrand from '../assets/dtkbrand.jpg';
 import cele1 from '../assets/cele1.jpeg';
 import group2 from '../assets/group2.jpeg';
 import content from '../assets/content.jpeg';
-import tiktok from '../assets/tiktok.jpeg';
+
+import huetu from '../assets/huetu.png'
+import hanh from '../assets/hanh.png'
+import ha from '../assets/ha.png'
+import huong from '../assets/huong.png'
 
 // --- CẤU HÌNH MÀU SẮC ---
 const COLORS = {
@@ -350,10 +354,10 @@ export default function AboutUsPage() {
                         sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center' }}
                     >
                         {[
-                            { name: 'Nguyễn Văn A', role: 'CEO & Founder', img: 'https://images.unsplash.com/photo-1645848810565-ff3c1de0da09?crop=entropy&cs=tinysrgb&fit=max&fm=jpg' },
-                            { name: 'Trần Thị B', role: 'Head of Creators', img: 'https://images.unsplash.com/photo-1698181842119-a5283dea1440?crop=entropy&cs=tinysrgb&fit=max&fm=jpg' },
-                            { name: 'Lê Văn C', role: 'Head of Brands', img: 'https://images.unsplash.com/photo-1669743281584-b9125947f9ec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg' },
-                            { name: 'Phạm Thị D', role: 'Creative Director', img: 'https://images.unsplash.com/photo-1681483570508-e88d43762d7e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg' },
+                            { name: 'Phi Thị Hương', role: 'Trưởng nhóm tuyển dụng', img: huong },
+                            { name: 'Huệ Từ', role: 'Giám đốc', img: huetu },
+                            { name: 'Hà Nguyễn', role: 'Trưởng phòng nhân sự', img: ha },
+                            { name: 'An Hạnh', role: 'Nhân viên tuyển dụng', img: hanh },
                         ].map((member, index) => (
                             <MotionBox
                                 key={index}

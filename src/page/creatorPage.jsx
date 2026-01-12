@@ -6,6 +6,12 @@ import { Users, TrendingUp, DollarSign, Award, Camera, Palette, Heart } from 'lu
 
 import content from '../assets/content.jpeg';
 import cele1 from '../assets/cele1.jpeg';
+import backgroundCreator from '../assets/backgroundCreator.jpg';
+import backgroundCreative from '../assets/backgroundCreative.jpg';
+import backgroundSalary from '../assets/backgroundSalary.jpg';
+import { ROUTES } from '@/router/routerConstants';
+import { useNavigate } from 'react-router-dom';
+
 const COLORS = {
   primary: '#C7364A',
   secondary: '#A92C3D',
@@ -22,25 +28,24 @@ const getOptimizedImage = (url, width = 800) => {
   return url;
 };
 
-// --- ANIMATION VARIANTS TỐI ƯU ---
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.08, // Stagger nhanh hơn để giảm thời gian chờ
+      staggerChildren: 0.08,
       delayChildren: 0.05,
     }
   }
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 }, // Giảm khoảng cách trượt
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
     transition: { type: "spring", stiffness: 120, damping: 20 },
-    willChange: "transform, opacity" // Kích hoạt GPU
+    willChange: "transform, opacity"
   }
 };
 
@@ -61,6 +66,7 @@ const MotionButton = motion(Button);
 export default function CreatorPage() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const navigate = useNavigate();
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: COLORS.white, overflowX: 'hidden' }}>
@@ -72,9 +78,7 @@ export default function CreatorPage() {
         <Box sx={{ position: 'absolute', inset: 0 }}>
           <Stack direction="row" sx={{ height: '100%', width: '100%' }}>
             {[
-              'https://images.unsplash.com/photo-1681483570508-e88d43762d7e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg',
-              'https://images.unsplash.com/photo-1698181842119-a5283dea1440?crop=entropy&cs=tinysrgb&fit=max&fm=jpg',
-              'https://images.unsplash.com/photo-1669743281584-b9125947f9ec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg'
+              backgroundCreator,
             ].map((img, index) => (
               <MotionBox
                 key={index}
@@ -85,17 +89,22 @@ export default function CreatorPage() {
               >
                 <Box
                   component="img"
-                  src={getOptimizedImage(img, 600)} // Load ảnh nhỏ hơn
+                  src={getOptimizedImage(img, 600)}
                   sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               </MotionBox>
             ))}
           </Stack>
-          {/* Gradient tĩnh, không animate để nhẹ máy */}
           <Box
             sx={{
-              position: 'absolute', inset: 0,
-              background: `linear-gradient(135deg, ${COLORS.dark}F2 0%, ${COLORS.secondary}E6 50%, ${COLORS.primary}F2 100%)`
+              position: 'absolute',
+              inset: 0,
+              background: `linear-gradient(
+                        135deg,
+                        ${COLORS.dark}99 0%,
+                        ${COLORS.secondary}80 60%,
+                        ${COLORS.primary}99 100%
+                      )`
             }}
           />
         </Box>
@@ -127,6 +136,7 @@ export default function CreatorPage() {
               </MotionTypography>
 
               <MotionButton
+                onClick={() => navigate(ROUTES.CONTACT)}
                 variants={scaleVariants}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -152,7 +162,6 @@ export default function CreatorPage() {
                   variants={scaleVariants}
                   sx={{
                     position: 'absolute', top: stat.top, bottom: stat.bottom, left: stat.left, right: stat.right,
-                    // Giảm Blur xuống 6px để đỡ lag
                     bgcolor: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(6px)',
                     border: '1px solid rgba(255,255,255,0.2)', borderRadius: 4, p: 3, minWidth: 160,
                     boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
@@ -238,20 +247,33 @@ export default function CreatorPage() {
                 <MotionBox variants={itemVariants} whileHover={{ scale: 1.02 }}
                   sx={{ flex: 1, position: 'relative', borderRadius: 6, overflow: 'hidden', minHeight: 250, p: 4, transform: 'translateZ(0)' }}
                 >
-                  <Box sx={{ position: 'absolute', inset: 0, backgroundImage: `url(${getOptimizedImage('https://images.unsplash.com/photo-1574576839798-00b48241d0b6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg', 400)})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
-                  <Box sx={{ position: 'absolute', inset: 0, bgcolor: `${COLORS.secondary}CC` }} />
+                  <Box sx={{ position: 'absolute', inset: 0, backgroundImage: `url(${getOptimizedImage(backgroundSalary, 400)})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+                  <Box sx={{
+                    position: 'absolute', inset: 0, background: `linear-gradient(
+                    135deg,
+                    ${COLORS.secondary}99 0%,
+                    ${COLORS.primary}66 100%
+                  )` }} />
                   <Box sx={{ position: 'relative' }}>
                     <DollarSign color="white" size={40} style={{ marginBottom: 16 }} />
                     <Typography variant="h5" sx={{ color: 'white', mb: 1, fontWeight: 600 }}>Thu Nhập Ổn Định</Typography>
                   </Box>
                 </MotionBox>
-
                 <MotionBox variants={itemVariants} whileHover={{ scale: 1.02 }}
-                  sx={{ flex: 1, borderRadius: 6, p: 4, minHeight: 250, background: `linear-gradient(135deg, ${COLORS.primary}, ${COLORS.secondary})` }}
+                  sx={{ flex: 1, position: 'relative', borderRadius: 6, overflow: 'hidden', minHeight: 250, p: 4, transform: 'translateZ(0)' }}
                 >
-                  <Palette color="white" size={40} style={{ marginBottom: 16 }} />
-                  <Typography variant="h5" sx={{ color: 'white', mb: 1, fontWeight: 600 }}>Sáng Tạo Tự Do</Typography>
-                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>Thể hiện phong cách riêng</Typography>
+                  <Box sx={{ position: 'absolute', inset: 0, backgroundImage: `url(${getOptimizedImage(backgroundCreative, 400)})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+                  <Box sx={{
+                    position: 'absolute', inset: 0, background: `linear-gradient(
+                    135deg,
+                    ${COLORS.secondary}99 0%,
+                    ${COLORS.primary}66 100%
+                  )` }} />
+                  <Box sx={{ position: 'relative' }}>
+                    <Palette color="white" size={40} style={{ marginBottom: 16 }} />
+                    <Typography variant="h5" sx={{ color: 'white', mb: 1, fontWeight: 600 }}>Sáng Tạo Tự Do</Typography>
+                    <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>Thể hiện phong cách riêng</Typography>
+                  </Box>
                 </MotionBox>
               </Stack>
 
@@ -318,7 +340,6 @@ export default function CreatorPage() {
 
                 <MotionBox
                   whileHover={{ scale: 1.05 }}
-                  // Giảm stiffness để lò xo mềm hơn, ít tốn tính toán
                   transition={{ type: "spring", stiffness: 200, damping: 20 }}
                   sx={{
                     bgcolor: COLORS.white, borderRadius: 4, p: 4, boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
@@ -341,66 +362,6 @@ export default function CreatorPage() {
         </Container>
       </Box>
 
-      {/* ================= SUCCESS STORIES ================= */}
-      {/* <Box sx={{ py: 10, bgcolor: COLORS.white }}>
-        <Container maxWidth="xl">
-          <MotionBox
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            sx={{ textAlign: 'center', mb: 8 }}
-          >
-            <Typography variant="h3" sx={{ color: COLORS.dark, fontWeight: 700, mb: 2 }}>
-              Câu Chuyện Thành Công
-            </Typography>
-          </MotionBox>
-
-          <Stack
-            direction={isMobile ? 'column' : 'row'}
-            spacing={4}
-            component={motion.div}
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-10%" }}
-          >
-            {[
-              { name: 'Minh Anh', role: 'Fashion Blogger', growth: '+300%', img: 'https://images.unsplash.com/photo-1681483570508-e88d43762d7e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg' },
-              { name: 'Thu Hà', role: 'Beauty Creator', growth: '+250%', img: 'https://images.unsplash.com/photo-1698181842119-a5283dea1440?crop=entropy&cs=tinysrgb&fit=max&fm=jpg' },
-              { name: 'Đức Nam', role: 'Food Blogger', growth: '+400%', img: 'https://images.unsplash.com/photo-1669743281584-b9125947f9ec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg' },
-            ].map((creator, index) => (
-              <MotionBox
-                key={index}
-                variants={scaleVariants}
-                whileHover={{ y: -10 }}
-                sx={{ flex: 1, borderRadius: 4, overflow: 'hidden', height: 450, position: 'relative', cursor: 'pointer', transform: 'translateZ(0)' }}
-              >
-                <Box
-                  component="img"
-                  src={getOptimizedImage(creator.img, 600)}
-                  alt={creator.name}
-                  sx={{
-                    width: '100%', height: '100%', objectFit: 'cover',
-                    transition: 'transform 0.4s ease-out',
-                    '&:hover': { transform: 'scale(1.05)' } // Dùng CSS hover cho ảnh
-                  }}
-                />
-                <Box sx={{ position: 'absolute', inset: 0, background: `linear-gradient(to top, ${COLORS.dark}E6, transparent, transparent)` }} />
-
-                <Box sx={{ position: 'absolute', bottom: 24, left: 24, right: 24 }}>
-                  <Typography variant="h5" sx={{ color: COLORS.white, fontWeight: 600, mb: 0.5 }}>{creator.name}</Typography>
-                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)' }}>{creator.role}</Typography>
-                </Box>
-
-                <Box sx={{ position: 'absolute', top: 24, right: 24, bgcolor: COLORS.primary, color: COLORS.white, px: 2, py: 1, borderRadius: 50, fontWeight: 600 }}>
-                  {creator.growth}
-                </Box>
-              </MotionBox>
-            ))}
-          </Stack>
-        </Container>
-      </Box> */}
-
       {/* ================= CTA SECTION ================= */}
       <Box sx={{ py: 15, position: 'relative', overflow: 'hidden' }}>
         <Box sx={{ position: 'absolute', inset: 0, backgroundImage: `url(${getOptimizedImage('https://images.unsplash.com/photo-1748346918817-0b1b6b2f9bab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg', 1200)})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
@@ -421,6 +382,7 @@ export default function CreatorPage() {
             </Typography>
 
             <MotionButton
+              onClick={() => navigate(ROUTES.CONTACT)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               sx={{

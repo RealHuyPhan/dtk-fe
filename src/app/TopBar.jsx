@@ -7,7 +7,7 @@ import logoNoText from "@/assets/logo/dtkLogoNoText.png";
 
 export default function TopBar({ onMenuClick, isMobile }) {
     const navigate = useNavigate();
-    const location = useLocation(); 
+    const location = useLocation();
     const activeColor = "#C7364A";
 
     const menuItems = [
@@ -40,28 +40,28 @@ export default function TopBar({ onMenuClick, isMobile }) {
                     alignItems: 'center'
                 }}>
 
-                    <Box sx={{ cursor: 'pointer', marginLeft: '1rem' }} onClick={() => navigate(ROUTES.HOME)}>
-                        <img src={logo} alt="Logo" style={{ height: '3rem', width: '4.5rem' }} />
+                    <Box sx={{ cursor: 'pointer', marginLeft: '1rem', marginTop: '0.5rem' }} onClick={() => navigate(ROUTES.HOME)}>
+                        <img src={logoNoText} alt="Logo" style={{ height: '3rem', width: '4.5rem' }} />
                     </Box>
 
                     <Box sx={{ display: 'flex', gap: 2 }}>
                         {menuItems.map((item) => {
                             const isActive = location.pathname === item.path;
-                            
+
                             return (
                                 <Button
                                     onClick={() => navigate(item?.path)}
                                     key={item.label}
-                                    disableRipple 
+                                    disableRipple
                                     sx={{
                                         color: isActive ? activeColor : 'black',
                                         textTransform: 'none',
                                         fontSize: '1rem',
-                                        fontWeight: isActive ? 600 : 400, 
-                                        backgroundColor: 'transparent', 
+                                        fontWeight: isActive ? 600 : 400,
+                                        backgroundColor: 'transparent',
                                         '&:hover': {
-                                            color: activeColor, 
-                                            backgroundColor: 'transparent', 
+                                            color: activeColor,
+                                            backgroundColor: 'transparent',
                                         }
                                     }}
                                 >
@@ -80,8 +80,8 @@ export default function TopBar({ onMenuClick, isMobile }) {
                         justifyContent: 'space-between',
                         alignItems: 'center'
                     }}>
-                    <Box sx={{ cursor: 'pointer', }} onClick={() => navigate(ROUTES.HOME)}>
-                        <img src={logoNoText} alt="Logo" style={{ height: '2.5rem', width: '3.8rem' }} />
+                    <Box sx={{ cursor: 'pointer', marginLeft: '0.4rem', marginTop: '0.5rem' }} onClick={() => navigate(ROUTES.HOME)}>
+                        <img src={logoNoText} alt="Logo" style={{ height: '2.8rem', width: '4rem' }} />
                     </Box>
                     <MenuOutlinedIcon />
                 </Box>}

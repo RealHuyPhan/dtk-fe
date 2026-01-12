@@ -6,13 +6,15 @@ import { TrendingUp, Target, BarChart3, Sparkles, Zap, Rocket } from 'lucide-rea
 import dtkbrandbg from '../assets/dtkbrand.jpg';
 import content from '../assets/content.jpeg';
 import group from '../assets/group.jpeg';
-import humanresource from '../assets/humanresource.jpeg';
-import increase from '../assets/increase.jpeg';
-import trust from '../assets/trust.jpeg';
+import humanresource from '../assets/humanresource.jpg';
+import increase from '../assets/increase.jpg';
+import trust from '../assets/trust.jpg';
 import cele1 from '../assets/cele1.jpeg';
 import cele2 from '../assets/cele2.jpeg';
 import cele3 from '../assets/cele3.jpeg';
 import cele4 from '../assets/cele4.jpeg';
+import { ROUTES } from '@/router/routerConstants';
+import { useNavigate } from 'react-router-dom';
 
 const COLORS = {
   primary: '#C7364A',
@@ -30,15 +32,13 @@ const loopingTexts = [
   'Tạo nội dung viral',
 ];
 
-// Cấu hình chuyển động "Snappy" (Nhanh & Dứt khoát)
 const SNAP_TRANSITION = {
   type: "spring",
-  stiffness: 400, // Độ cứng lò xo cao -> phản hồi nhanh
-  damping: 30,    // Độ cản vừa đủ -> không bị rung lắc quá đà
+  stiffness: 400,
+  damping: 30,
   mass: 1
 };
 
-// Animation variants cho xuất hiện dần
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
   visible: {
@@ -47,7 +47,6 @@ const fadeInUp = {
   }
 };
 
-// Wrapper Components
 const MotionBox = motion(Box);
 const MotionTypography = motion(Typography);
 const MotionButton = motion(Button);
@@ -56,6 +55,7 @@ export default function BrandPage() {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -118,6 +118,7 @@ export default function BrandPage() {
           </Box>
 
           <MotionButton
+            onClick={() => navigate(ROUTES.CONTACT)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             transition={SNAP_TRANSITION}
@@ -295,7 +296,7 @@ export default function BrandPage() {
 
       {/* --- SUCCESS STORIES --- */}
       <Box sx={{ py: 12, bgcolor: COLORS.white }}>
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Typography variant="h3" sx={{ textAlign: 'center', color: COLORS.dark, fontWeight: 700, mb: 8 }}>
             Câu Chuyện Thành Công
           </Typography>
@@ -315,16 +316,29 @@ export default function BrandPage() {
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 whileHover={{ y: -8 }}
                 sx={{
-                  position: 'relative', height: 360,
+                  position: 'relative',
+                  aspectRatio: '5/5',
                   width: { xs: '100%', sm: 'calc(50% - 24px)', md: 'calc(25% - 24px)' },
-                  borderRadius: 4, overflow: 'hidden', cursor: 'pointer',
+                  // --------------------------
+
+                  borderRadius: 4,
+                  overflow: 'hidden',
+                  cursor: 'pointer',
                   boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
                   '&:hover .story-overlay': { opacity: 1 }
                 }}
               >
-                <Box component="img" src={item.img} sx={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <Box
+                  component="img"
+                  src={item.img}
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover'
+                  }}
+                />
 
-                {/* Overlay Effect - Dùng CSS transition thay vì motion */}
+                {/* Overlay Effect */}
                 <Box
                   className="story-overlay"
                   sx={{
@@ -335,8 +349,12 @@ export default function BrandPage() {
                   }}
                 >
                   <Box>
-                    <Typography variant="overline" sx={{ color: 'white', opacity: 0.8 }}>Case Study #{index + 1}</Typography>
-                    <Typography variant="h5" sx={{ color: 'white', fontWeight: 700 }}>{item.kpi}</Typography>
+                    <Typography variant="overline" sx={{ color: 'white', opacity: 0.8 }}>
+                      Case Study #{index + 1}
+                    </Typography>
+                    <Typography variant="h5" sx={{ color: 'white', fontWeight: 700 }}>
+                      {item.kpi}
+                    </Typography>
                   </Box>
                 </Box>
               </MotionBox>
@@ -361,6 +379,7 @@ export default function BrandPage() {
               Chúng tôi đã giúp hơn 500+ thương hiệu thành công. Bạn là người tiếp theo.
             </Typography>
             <MotionButton
+              onClick={() => navigate(ROUTES.CONTACT)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               transition={SNAP_TRANSITION}

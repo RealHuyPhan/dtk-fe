@@ -9,6 +9,8 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@/router/routerConstants';
 
 // Custom TikTok Icon
 const TikTokIcon = ({ size = 20 }) => (
@@ -18,6 +20,8 @@ const TikTokIcon = ({ size = 20 }) => (
 );
 
 const Footer = () => {
+    const navigate = useNavigate();
+
     return (
         <Box
             component="footer"
@@ -146,6 +150,7 @@ const Footer = () => {
                         </Typography>
 
                         <Button
+                            onClick={() => navigate(ROUTES.CONTACT)}
                             variant="contained"
                             endIcon={<ArrowForwardIcon />}
                             sx={{

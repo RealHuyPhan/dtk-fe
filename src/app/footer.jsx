@@ -156,7 +156,7 @@ const Footer = () => {
                             sx={{
                                 bgcolor: 'black',
                                 color: 'white',
-                                borderRadius: '0', // Vuông vức sang trọng
+                                borderRadius: '0',
                                 py: 1.5,
                                 px: 4,
                                 textTransform: 'none',
@@ -167,7 +167,7 @@ const Footer = () => {
                                 transition: '0.3s',
                                 '&:hover': {
                                     bgcolor: '#C7364A',
-                                    transform: 'translateX(5px)', // Hiệu ứng đẩy sang phải khi hover
+                                    transform: 'translateX(5px)', 
                                     boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
                                 }
                             }}

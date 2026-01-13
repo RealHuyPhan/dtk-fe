@@ -3,15 +3,13 @@ import { Box, Container, Grid, Typography, Stack, Divider, Button } from '@mui/m
 
 // Import Icons
 import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import YouTubeIcon from '@mui/icons-material/YouTube';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/router/routerConstants';
-import dtkLogo from '@/assets/logo/logoDtk.svg';
+import dtkLogo from '../assets/logo/logoDTK.svg';
 
 // Custom TikTok Icon
 const TikTokIcon = ({ size = 20 }) => (
@@ -35,10 +33,9 @@ const Footer = () => {
                 fontFamily: '"Roboto", sans-serif'
             }}
         >
-            <Container > {/* Đổi sang xl để rộng hơn, thoáng hơn */}
+            <Container > 
                 <Grid container spacing={{ xs: 6, md: 4 }} justifyContent="space-between">
 
-                    {/* CỘT 1: THƯƠNG HIỆU & SOCIAL (Chiếm 4/12) */}
                     <Grid item xs={12} lg={4}>
 
                         <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
@@ -99,7 +96,6 @@ const Footer = () => {
                         </Stack>
                     </Grid>
 
-                    {/* CỘT 2: VĂN PHÒNG (Chiếm 3/12) */}
                     <Grid item xs={12} sm={6} lg={3}>
                         <Typography variant="subtitle2" sx={{ fontWeight: 800, textTransform: 'uppercase', mb: 3, letterSpacing: '1px', }}>
                             Văn phòng
@@ -118,7 +114,6 @@ const Footer = () => {
                         </Box>
                     </Grid>
 
-                    {/* CỘT 3: KẾT NỐI (Chiếm 3/12) */}
                     <Grid item xs={12} sm={6} lg={3}>
                         <Typography variant="subtitle2" sx={{ fontWeight: 800, textTransform: 'uppercase', mb: 3, letterSpacing: '1px', }}>
                             Thông tin
@@ -154,10 +149,9 @@ const Footer = () => {
                         </Stack>
                     </Grid>
 
-                    {/* CỘT 4: NÚT BẤM (Chiếm 2/12) - Căn phải */}
                     <Grid item xs={12} lg={2} sx={{ display: 'flex', flexDirection: 'column', alignItems: { xs: 'flex-start', lg: 'flex-end' } }}>
                         <Typography variant="subtitle2" sx={{ fontWeight: 800, textTransform: 'uppercase', mb: 3, letterSpacing: '1px', display: { xs: 'none', lg: 'block' }, opacity: 0 }}>
-                            Action {/* Giữ chỗ để nút bấm thẳng hàng với tiêu đề các cột khác */}
+                            Action 
                         </Typography>
 
                         <Button

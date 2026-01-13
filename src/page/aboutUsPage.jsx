@@ -8,6 +8,7 @@ import dtkbrand from '../assets/dtkbrand.jpg';
 import cele1 from '../assets/cele1.jpeg';
 import group2 from '../assets/group2.jpeg';
 import content from '../assets/content.jpeg';
+import increase from '../assets/increase.jpg';
 
 import huetu from '../assets/huetu.png'
 import hanh from '../assets/hanh.png'
@@ -136,8 +137,8 @@ export default function AboutUsPage() {
                                 sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}
                             >
                                 {[
-                                    { number: '5000+', label: 'Creators' },
-                                    { number: '500+', label: 'Brands' },
+                                    { number: '100+', label: 'Creators' },
+                                    { number: '100+', label: 'Brands' },
                                     { number: '10K+', label: 'Campaigns' },
                                 ].map((stat, index) => (
                                     <MotionBox
@@ -218,25 +219,9 @@ export default function AboutUsPage() {
                         >
                             <Box
                                 component="img"
-                                src={getOptimizedImage(dtkbrand, 800)}
-                                sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                            />
-                            <Box sx={{ position: 'absolute', inset: 0, background: `linear-gradient(to top, ${COLORS.primary}CC, transparent)` }} />
-
+                                src={getOptimizedImage(increase, 800)}
+                                sx={{ width: '100%', height: '100%', objectFit: 'cover' }}/>
                             <Box sx={{ position: 'absolute', bottom: 32, left: 32, right: 32 }}>
-                                <MotionBox
-                                    variants={popUpVariants}
-                                    sx={{
-                                        // Giảm blur xuống 8px
-                                        bgcolor: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)',
-                                        border: '1px solid rgba(255,255,255,0.3)', borderRadius: 4, p: 4
-                                    }}
-                                >
-                                    <Target color="white" size={40} style={{ marginBottom: 16 }} />
-                                    <Typography variant="h6" sx={{ color: 'white', lineHeight: 1.6 }}>
-                                        Sứ mệnh của chúng tôi là tạo ra cầu nối giữa thương hiệu và creators
-                                    </Typography>
-                                </MotionBox>
                             </Box>
                         </MotionBox>
 

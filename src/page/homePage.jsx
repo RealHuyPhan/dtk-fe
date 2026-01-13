@@ -171,6 +171,20 @@ const Home = () => {
         skip: shouldSkipInitialFetch,
     });
 
+
+    const formatFollowers = (num) => {
+        if (num < 10_000) {
+            // dùng locale vi-VN để có dấu .
+            return new Intl.NumberFormat("vi-VN").format(num);
+        }
+
+        return new Intl.NumberFormat("en-US", {
+            notation: "compact",
+            compactDisplay: "short",
+            maximumFractionDigits: 1,
+        }).format(num);
+    };
+
     useEffect(() => {
         if (dataResponse && !shouldSkipInitialFetch) {
             dispatch(setListCreator(dataResponse));
@@ -256,13 +270,12 @@ const Home = () => {
                                     <Grid container spacing={2} sx={{ mb: 2 }}>
                                         <Grid item>
                                             <Typography fontWeight="bold" variant="h6">
-                                                {new Intl.NumberFormat('en-US', { notation: "compact", compactDisplay: "short" }).format(activeCreator.followers || 0)}
+                                                {formatFollowers(activeCreator.followers || 0)}
                                             </Typography>
                                             <Typography variant="caption" color="text.secondary">FOLLOWERS</Typography>
                                         </Grid>
                                         <Grid item>
                                             <Typography fontWeight="bold" variant="h6">
-                                                {/* Kiểm tra mảng categories có tồn tại và có phần tử không */}
                                                 {activeCreator.categories?.[0]?.name || 'N/A'}
                                             </Typography>
                                             <Typography variant="caption" color="text.secondary">CATEGORY</Typography>

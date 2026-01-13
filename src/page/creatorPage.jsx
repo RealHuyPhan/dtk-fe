@@ -126,13 +126,12 @@ export default function CreatorPage() {
               <MotionTypography variant="h1" variants={itemVariants}
                 sx={{ fontSize: { xs: '3rem', md: '5rem' }, fontWeight: 700, color: COLORS.white, mb: 3, lineHeight: 1.1 }}
               >
-                Tỏa Sáng<br />Cùng Chúng Tôi
+               Đồng Hành<br />Cùng Những Giá Trị Lớn
               </MotionTypography>
 
               <MotionTypography variant="h6" variants={itemVariants}
-                sx={{ color: 'rgba(255,255,255,0.9)', mb: 5, fontSize: '1.25rem', fontWeight: 400 }}
-              >
-                Biến đam mê thành sự nghiệp, kết nối với những thương hiệu hàng đầu
+                sx={{ color: 'rgba(255,255,255,0.9)', mb: 5, fontSize: '1.25rem', fontWeight: 400 }}>
+                Bắt đầu hành trình chuyên nghiệp, phát triển đam mê và chạm tới những cơ hội lớn.
               </MotionTypography>
 
               <MotionButton
@@ -153,7 +152,7 @@ export default function CreatorPage() {
             {/* Right Content - Floating Stats */}
             <Box sx={{ flex: 1, width: '100%', height: { xs: 300, md: 400 }, position: 'relative' }}>
               {[
-                { icon: Users, val: '5000+', label: 'Creators', top: 0, right: { xs: 0, md: 40 } },
+                { icon: Users, val: '100+', label: 'Creators', top: 0, right: { xs: 0, md: 40 } },
                 { icon: DollarSign, val: '$2M+', label: 'Đã chi trả', bottom: { xs: 40, md: 80 }, left: { xs: 0, md: 40 } },
                 { icon: Award, val: '98%', label: 'Hài lòng', bottom: 0, right: { xs: 20, md: 100 } }
               ].map((stat, idx) => (
@@ -271,8 +270,8 @@ export default function CreatorPage() {
                   )` }} />
                   <Box sx={{ position: 'relative' }}>
                     <Palette color="white" size={40} style={{ marginBottom: 16 }} />
-                    <Typography variant="h5" sx={{ color: 'white', mb: 1, fontWeight: 600 }}>Sáng Tạo Tự Do</Typography>
-                    <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>Thể hiện phong cách riêng</Typography>
+                    <Typography variant="h5" sx={{ color: 'white', mb: 1, fontWeight: 600 }}>Tự Do Sáng Tạo</Typography>
+                    <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>Khẳng định dấu ấn cá nhân</Typography>
                   </Box>
                 </MotionBox>
               </Stack>
@@ -284,8 +283,8 @@ export default function CreatorPage() {
                 <Box sx={{ position: 'absolute', inset: 0, background: `linear-gradient(to right, ${COLORS.dark}E6, transparent)` }} />
                 <Box sx={{ position: 'relative' }}>
                   <Heart color="white" size={40} style={{ marginBottom: 16 }} />
-                  <Typography variant="h4" sx={{ color: 'white', mb: 2, fontWeight: 600 }}>Cộng Đồng Hỗ Trợ</Typography>
-                  <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)', fontSize: '1.1rem' }}>Kết nối với các creators cùng chí hướng</Typography>
+                  <Typography variant="h4" sx={{ color: 'white', mb: 2, fontWeight: 600 }}>Mạng Lưới Đồng Hành</Typography>
+                  <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)', fontSize: '1.1rem' }}>Kết nối và phát triển cùng cộng đồng creators chuyên nghiệp.</Typography>
                 </Box>
               </MotionBox>
 
@@ -305,7 +304,7 @@ export default function CreatorPage() {
             sx={{ textAlign: 'center', mb: 8 }}
           >
             <Typography variant="h3" sx={{ color: COLORS.dark, fontWeight: 700, mb: 2 }}>
-              Quy Trình Đơn Giản
+              Quy Trình Kết Nối
             </Typography>
           </MotionBox>
 
@@ -319,10 +318,10 @@ export default function CreatorPage() {
             viewport={{ once: true, margin: "-10%" }}
           >
             {[
-              { step: '01', title: 'Đăng ký', desc: 'Tạo hồ sơ creator' },
-              { step: '02', title: 'Xét duyệt', desc: 'Kiểm tra profile' },
-              { step: '03', title: 'Nhận deal', desc: 'Chọn campaign phù hợp' },
-              { step: '04', title: 'Sáng tạo', desc: 'Tạo nội dung & nhận tiền' },
+              { step: '01', title: 'Đăng ký', desc: 'Khởi tạo hồ sơ creator\nCung cấp thông tin cơ bản để chúng tôi hiểu rõ phong cách và thế mạnh của bạn.' },
+              { step: '02', title: 'Đánh Giá & Kết Nối', desc: 'Đánh giá hồ sơ & tư vấn phù hợp' },
+              { step: '03', title: 'Nhận Dự Án', desc: 'Lựa chọn chiến dịch phù hợp\nTham gia các campaign, dự án phù hợp với hình ảnh và năng lực cá nhân.' },
+              { step: '04', title: 'Sáng Tạo & Phát Triển', desc: 'áng tạo nội dung & gia tăng thu nhập\nTập trung phát triển nội dung, xây dựng thương hiệu cá nhân' },
             ].map((item, index) => (
               <MotionBox
                 key={index}
@@ -378,7 +377,7 @@ export default function CreatorPage() {
               Bắt Đầu Hành Trình Của Bạn
             </Typography>
             <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.9)', mb: 6, fontWeight: 400 }}>
-              Tham gia cùng hàng nghìn creators đã thành công
+              Hãy tham gia cùng chúng tôi
             </Typography>
 
             <MotionButton

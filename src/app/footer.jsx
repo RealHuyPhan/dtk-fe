@@ -11,6 +11,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/router/routerConstants';
+import dtkLogo from '@/assets/logo/logoDtk.svg';
 
 // Custom TikTok Icon
 const TikTokIcon = ({ size = 20 }) => (
@@ -39,19 +40,26 @@ const Footer = () => {
 
                     {/* CỘT 1: THƯƠNG HIỆU & SOCIAL (Chiếm 4/12) */}
                     <Grid item xs={12} lg={4}>
-                        <Typography
-                            variant="h4"
-                            sx={{
-                                fontWeight: 900,
-                                letterSpacing: '-0.5px',
-                                mb: 3,
-                                color: '#C7364A',
-                                display: 'inline-block',
-                                position: 'relative',
-                            }}
-                        >
-                            DTK MEDIA
-                        </Typography>
+
+                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                            <img
+                                src={dtkLogo}
+                                alt="DTK Media Logo"
+                                style={{ height: '40px', marginRight: '2rem' }}
+                            />
+                            <Typography
+                                variant="h4"
+                                sx={{
+                                    fontWeight: 900,
+                                    letterSpacing: '-0.5px',
+                                    color: '#C7364A',
+                                    display: 'inline-block',
+                                    position: 'relative',
+                                }}
+                            >
+                                DTK MEDIA
+                            </Typography>
+                        </Box>
                         <Typography variant="body1" sx={{ color: 'text.secondary', mb: 4, lineHeight: 1.8, maxWidth: '380px', fontSize: '0.95rem' }}>
                             Đối tác chiến lược hàng đầu trong lĩnh vực xây dựng thương hiệu cá nhân và vận hành Livestream thương mại điện tử chuyên nghiệp.
                         </Typography>
@@ -59,13 +67,15 @@ const Footer = () => {
                         {/* Social Icons */}
                         <Stack direction="row" spacing={1.5}>
                             {[
-                                { icon: <FacebookIcon fontSize="small" />, link: '#' },
-                                { icon: <InstagramIcon fontSize="small" />, link: '#' },
-                                { icon: <TikTokIcon size={18} />, link: '#' },
-                                { icon: <YouTubeIcon fontSize="small" />, link: '#' }
+                                { icon: <FacebookIcon fontSize="small" />, link: 'https://www.facebook.com/tankhoamed' },
+                                { icon: <TikTokIcon size={18} />, link: 'https://www.tiktok.com/@dtk.media.offical' },
                             ].map((social, index) => (
                                 <Box
                                     key={index}
+                                    component="a" 
+                                    href={social.link} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
                                     sx={{
                                         width: 40, height: 40,
                                         borderRadius: '50%',
@@ -73,6 +83,7 @@ const Footer = () => {
                                         color: '#333',
                                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                                         cursor: 'pointer',
+                                        textDecoration: 'none',
                                         transition: 'all 0.3s ease',
                                         '&:hover': {
                                             bgcolor: 'black',
@@ -167,7 +178,7 @@ const Footer = () => {
                                 transition: '0.3s',
                                 '&:hover': {
                                     bgcolor: '#C7364A',
-                                    transform: 'translateX(5px)', 
+                                    transform: 'translateX(5px)',
                                     boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
                                 }
                             }}

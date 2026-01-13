@@ -39,9 +39,9 @@ const Poster3DSwiper = ({
         }
     }, [activeIndex, onActiveChange, images.length]);
 
-    const cardWidth = isMobile ? "70vw" : height * 0.65;
-    const cardHeight = isMobile ? "450px" : height * 0.9;
-    const containerHeight = isMobile ? "500px" : height;
+    const cardWidth = isMobile ? "60vw" : height * 0.65;
+    const cardHeight = isMobile ? "350px" : height * 0.9;
+    const containerHeight = isMobile ? "400px" : height;
 
     const variants = useMemo(() => {
         const xOffset = isMobile ? "55%" : "60%";

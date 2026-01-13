@@ -259,9 +259,9 @@ export default function BrandPage() {
 
           <Stack direction={isMobile ? 'column' : 'row'} spacing={4}>
             {[
-              { icon: Zap, title: 'Strong Foundation - Credibility', desc: 'Tiềm lực vững mạnh, uy tín thương hiệu cao.', img: trust },
-              { icon: Target, title: 'Professional Team - Ecosystem', desc: 'Đội ngũ chuyên nghiệp, hệ sinh thái vận hành khép kín.', img: humanresource },
-              { icon: Rocket, title: 'Commercial Power - Added Value', desc: 'Khả năng thương mại hoá hiệu quả, nhiều giá trị gia tăng.', img: increase },
+              { icon: Zap, title: 'Strong Foundation - Credibility', desc: 'Vận hành vững chắc, uy tín được khẳng định.', img: trust },
+              { icon: Target, title: 'Professional Team - Ecosystem', desc: 'Nhân sự tinh gọn, hệ sinh thái đồng bộ.', img: humanresource },
+              { icon: Rocket, title: 'Commercial Power - Added Value', desc: 'Tối ưu thương mại, gia tăng giá trị.', img: increase },
             ].map((item, index) => (
               <MotionBox
                 key={index}
@@ -298,15 +298,15 @@ export default function BrandPage() {
       <Box sx={{ py: 12, bgcolor: COLORS.white }}>
         <Container maxWidth="xl">
           <Typography variant="h3" sx={{ textAlign: 'center', color: COLORS.dark, fontWeight: 700, mb: 8 }}>
-            Câu Chuyện Thành Công
+            Dấu Ấn Tiêu Biểu
           </Typography>
 
           <Stack direction="row" flexWrap="wrap" gap={3} justifyContent="center">
             {[
-              { img: cele1, kpi: '+200% Reach' },
-              { img: cele2, kpi: '+150% Leads' },
-              { img: cele3, kpi: '3M+ Views' },
-              { img: cele4, kpi: 'Top 1 Trending' },
+              { img: cele1, kpi: 'Trending' },
+              { img: cele2, kpi: 'Fest VIETNAM' },
+              { img: cele3, kpi: 'Fest VIETNAM' },
+              { img: cele4, kpi: 'Trending' },
             ].map((item, index) => (
               <MotionBox
                 key={index}
@@ -373,10 +373,10 @@ export default function BrandPage() {
             transition={{ duration: 0.6 }}
           >
             <Typography variant="h3" sx={{ color: COLORS.white, fontWeight: 700, mb: 3 }}>
-              Sẵn Sàng Bứt Phá Doanh Số?
+              Sẵn Sàng Tăng Trưởng Đột Phá?
             </Typography>
             <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.7)', mb: 6, fontWeight: 400 }}>
-              Chúng tôi đã giúp hơn 500+ thương hiệu thành công. Bạn là người tiếp theo.
+              Hơn 10000+ đối tác và khách hàng đồng hành . Cùng tạo nên dấu ấn tiếp theo.
             </Typography>
             <MotionButton
               onClick={() => navigate(ROUTES.CONTACT)}

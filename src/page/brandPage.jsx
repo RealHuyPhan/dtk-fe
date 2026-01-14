@@ -74,7 +74,19 @@ export default function BrandPage() {
           <Box
             component="img"
             src={dtkbrandbg}
-            sx={{ width: '100%', height: '120%', objectFit: '' }}
+            alt="DTK background"
+            sx={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',     // GIỮ TỈ LỆ
+              objectPosition: 'center',
+              transform: {
+                xs: 'scale(1.15)',    // mobile zoom nhẹ
+                md: 'scale(1)'
+              }
+            }}
           />
           <Box sx={{ position: 'absolute', inset: 0, background: `linear-gradient(135deg, ${COLORS.dark}E6 0%, ${COLORS.secondary}CC 50%, ${COLORS.primary}E6 100%)` }} />
         </Box>

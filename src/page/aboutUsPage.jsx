@@ -220,7 +220,7 @@ export default function AboutUsPage() {
                             <Box
                                 component="img"
                                 src={getOptimizedImage(increase, 800)}
-                                sx={{ width: '100%', height: '100%', objectFit: 'cover' }}/>
+                                sx={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                             <Box sx={{ position: 'absolute', bottom: 32, left: 32, right: 32 }}>
                             </Box>
                         </MotionBox>
@@ -392,7 +392,7 @@ export default function AboutUsPage() {
                             Tham gia cùng chúng tôi trong hành trình kết nối và sáng tạo
                         </Typography>
 
-                        <Stack direction="row" spacing={3} justifyContent="center" flexWrap="wrap">
+                        <Stack direction="row" spacing={3} justifyContent="center" flexWrap="wrap" gap={'1.4rem'}>
                             <MotionButton
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
@@ -409,6 +409,9 @@ export default function AboutUsPage() {
                                 whileTap={{ scale: 0.95 }}
                                 variant="outlined"
                                 sx={{
+                                    "@media (max-width: 1080px)": {
+                                         marginLeft: '0 !important'
+                                    },
                                     borderColor: COLORS.white, color: COLORS.white,
                                     px: 5, py: 2, borderRadius: 50, fontSize: '1.1rem', fontWeight: 600, textTransform: 'none',
                                     '&:hover': { borderColor: COLORS.white, bgcolor: 'rgba(255,255,255,0.1)' }

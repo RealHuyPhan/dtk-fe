@@ -318,7 +318,7 @@ export default function ContactUsPage() {
                                     borderRadius: '32px',
                                     bgcolor: '#f1f5f9',
                                     display: 'flex',
-                                    overflow: 'hidden', // QUAN TRỌNG để iframe không tràn bo góc
+                                    overflow: 'hidden',
                                     border: '1px dashed #cbd5e1',
                                 }}
                             >
@@ -326,7 +326,10 @@ export default function ContactUsPage() {
                                     sx={{
                                         width: '100%',
                                         height: '100%',
-                                        minHeight: 300, // tuỳ chỉnh chiều cao
+                                        "@media (max-width: 900px)": {
+                                            height: 'auto'
+                                        },
+                                        minHeight: 300,
                                     }}
                                 >
                                     <iframe

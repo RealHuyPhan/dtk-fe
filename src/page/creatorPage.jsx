@@ -126,7 +126,7 @@ export default function CreatorPage() {
               <MotionTypography variant="h1" variants={itemVariants}
                 sx={{ fontSize: { xs: '3rem', md: '5rem' }, fontWeight: 700, color: COLORS.white, mb: 3, lineHeight: 1.1 }}
               >
-               Đồng Hành<br />Cùng Những Giá Trị Lớn
+                Đồng Hành<br />Cùng Những Giá Trị Lớn
               </MotionTypography>
 
               <MotionTypography variant="h6" variants={itemVariants}
@@ -160,6 +160,13 @@ export default function CreatorPage() {
                   key={idx}
                   variants={scaleVariants}
                   sx={{
+                    "@media (max-width: 920px)": {
+                      position: 'initial',
+                      width: '100%',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      mb: '0.8rem'
+                    },
                     position: 'absolute', top: stat.top, bottom: stat.bottom, left: stat.left, right: stat.right,
                     bgcolor: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(6px)',
                     border: '1px solid rgba(255,255,255,0.2)', borderRadius: 4, p: 3, minWidth: 160,

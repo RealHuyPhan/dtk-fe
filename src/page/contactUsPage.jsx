@@ -23,7 +23,7 @@ import {
     Store as StoreIcon
 } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
-import { useAddContactMutation } from '@/store/helper/helperAction';
+import { useAddContactMutation } from '../store/helper/helperAction';
 
 /* ================= STYLES ================= */
 const GradientText = styled('span')({

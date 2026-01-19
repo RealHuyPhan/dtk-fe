@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, useMemo, useId } from 'react';
-import "@/assets/curvedLoop.css";
+import "../assets/curvedLoop.css";
 
 const CurvedLoop = ({
     marqueeText = '',

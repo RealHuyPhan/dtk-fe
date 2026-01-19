@@ -2,8 +2,7 @@ import { AppBar, Toolbar, Box, Button } from "@mui/material";
 import { ROUTES } from "../router/routerConstants";
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import { useNavigate, useLocation } from "react-router"; // 1. Thêm useLocation
-import logo from "@/assets/logo/dtkLogo.png";
-import logoNoText from "@/assets/logo/dtkLogoNoText.png";
+import logoNoText from "../assets/logo/dtkLogoNoText.png";
 
 export default function TopBar({ onMenuClick, isMobile }) {
     const navigate = useNavigate();

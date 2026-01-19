@@ -6,14 +6,14 @@ import {
     Building2, Clapperboard, MonitorPlay,
     Brush, Scissors, Lightbulb
 } from 'lucide-react';
-import sample from '@/assets/background.mp4';
-import CardInfo from '@/component/CardInfoRectangle';
-import Poster3DSwiper from '@/component/Swpier';
+import sample from '../assets/background.mp4';
+import CardInfo from '../component/CardInfoRectangle';
+import Poster3DSwiper from '../component/Swpier';
 import globalBg from '../assets/globalBG.png';
 
-import { useGetCreatorQuery } from '@/store/helper/helperAction';
+import { useGetCreatorQuery } from '../store/helper/helperAction';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeFilterCreator, resetCreatorList, setListCreator } from '@/store/helper/helperSlice';
+import { changeFilterCreator, resetCreatorList, setListCreator } from '../store/helper/helperSlice';
 
 const servicesData = [
     { title: "ĐÀO TẠO VÀ QUẢN LÝ CREATORS", description: "Tìm kiếm, đào tạo và quản lý các tài năng trẻ thế hệ mới.", icon: <UsersRound size={28} /> },

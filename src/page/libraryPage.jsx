@@ -13,8 +13,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     useGetCategoryQuery,
     useGetCreatorQuery
-} from '@/store/helper/helperAction';
-import { handleUrlImage } from '@/utils/Util';
+} from '../store/helper/helperAction';
+import { handleUrlImage } from '../utils/Util';
 
 /* ------------------ STYLED COMPONENTS ------------------ */
 

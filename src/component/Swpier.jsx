@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
-import { handleUrlImage } from "@/utils/Util";
+import { handleUrlImage } from "../utils/Util";
 
 /* -------------------- Utils -------------------- */
 const useIsMobile = () => {

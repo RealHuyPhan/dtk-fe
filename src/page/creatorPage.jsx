@@ -10,7 +10,7 @@ import backgroundCreator from '../assets/backgroundCreator.jpg';
 import backgroundCreative from '../assets/backgroundCreative.jpg';
 import backgroundSalary from '../assets/backgroundSalary.png';
 import increasesalary from '../assets/increasesalary.png';
-import { ROUTES } from '@/router/routerConstants';
+import { ROUTES } from '../router/routerConstants';
 import { useNavigate } from 'react-router-dom';
 
 const COLORS = {

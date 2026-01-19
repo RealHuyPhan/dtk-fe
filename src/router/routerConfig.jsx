@@ -5,8 +5,8 @@ import BrandPage from "../page/brandPage";
 import CreatorPage from "../page/creatorPage";
 import LibraryPage from "../page/libraryPage";
 import ContactUsPage from "../page/contactUsPage";
-import ScrollToTop from "@/app/ScrollToTop";
-import AboutUsPage from "@/page/aboutUsPage";
+import ScrollToTop from "../app/ScrollToTop";
+import AboutUsPage from "../page/aboutUsPage";
 
 
 export const RouterConfig = () => {

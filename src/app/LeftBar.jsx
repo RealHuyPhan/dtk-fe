@@ -4,7 +4,7 @@ import { useState } from "react";
 import { LOCAL_STORAGE_NAME } from "../utils/constant";
 import i18next from "i18next";
 import { ROUTES } from "../router/routerConstants";
-import logoNoText from "@/assets/logo/dtkLogoNoText.png";
+import logoNoText from "../assets/logo/dtkLogoNoText.png";
 import CloseIcon from '@mui/icons-material/Close';
 
 export default function LeftBar({ open, onClose, drawerWidth }) {

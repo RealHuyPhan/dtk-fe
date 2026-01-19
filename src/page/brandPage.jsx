@@ -14,7 +14,7 @@ import cele1 from '../assets/cele1.jpeg';
 import cele2 from '../assets/cele2.jpeg';
 import cele3 from '../assets/cele3.jpeg';
 import cele4 from '../assets/cele4.jpeg';
-import { ROUTES } from '@/router/routerConstants';
+import { ROUTES } from '../router/routerConstants';
 import { useNavigate } from 'react-router-dom';
 
 const COLORS = {

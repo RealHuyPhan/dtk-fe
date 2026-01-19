@@ -8,7 +8,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '@/router/routerConstants';
+import { ROUTES } from '../router/routerConstants';
 import dtkLogo from '../assets/logo/logoDTK.svg';
 
 // Custom TikTok Icon

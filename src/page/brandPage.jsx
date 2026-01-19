@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Box, Container, Typography, Button, Stack, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { motion, AnimatePresence } from 'framer-motion';
-import { TrendingUp, Target, BarChart3, Sparkles, Zap, Rocket } from 'lucide-react';
+import { TrendingUp, Target, BarChart3, Sparkles, Zap, Rocket, GraduationCap } from 'lucide-react';
 import dtkbrandbg from '../assets/dtkbrand.jpg';
 import content from '../assets/content.jpeg';
 import group from '../assets/group.jpeg';
 import humanresource from '../assets/humanresource.jpg';
 import increase from '../assets/increase.jpg';
+import academyImg from '../assets/academyImg.png';
 import trust from '../assets/trust.jpg';
 import cele1 from '../assets/cele1.jpeg';
 import cele2 from '../assets/cele2.jpeg';
@@ -193,14 +194,14 @@ export default function BrandPage() {
                     <Sparkles color="white" size={30} />
                   </Box>
                   <Typography variant="h4" sx={{ color: 'white', mb: 1, fontWeight: 700 }}>Livestream Arena</Typography>
-                  <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.8)' }}>Sàn livestream rộng 1000m² và hệ thống livestream studio chuyên nghiệp</Typography>
+                  <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.8)' }}>Sở hữu 1000m² sàn diễn với bối cảnh đa dạng, sẵn sàng cho mọi concept livestream</Typography>
                 </Box>
               </MotionBox>
 
               <Stack direction="column" spacing={3} sx={{ flex: { md: 1 } }}>
                 {[
-                  { title: 'Professional Studio System', icon: Target, desc: 'Hệ thống livestream studio chuyên nghiệp', grad: `linear-gradient(135deg, ${COLORS.secondary}, ${COLORS.primary})` },
-                  { title: 'Creative - Performance Team', icon: BarChart3, desc: 'Đội ngũ sáng tạo nội dung, biên đạo, dàn dựng, biểu diễn, makeup & tạo hình', grad: `linear-gradient(135deg, ${COLORS.dark}, #2A3B55)` }
+                  { title: 'High-Tech Gear', icon: Target, desc: 'Hệ thống Camera 4K, ánh sáng điện ảnh và đường truyền băng thông rộng đảm bảo chất lượng sắc nét', grad: `linear-gradient(135deg, ${COLORS.secondary}, ${COLORS.primary})` },
+                  { title: 'Creative - Performance Team', icon: BarChart3, desc: "Đội ngũ biên kịch, đạo diễn và quản lý hình ảnh giàu kinh nghiệm, 'thổi hồn' cho từng phiên Live", grad: `linear-gradient(135deg, ${COLORS.dark}, #2A3B55)` }
                 ].map((item, idx) => (
                   <MotionBox
                     key={idx}
@@ -226,38 +227,98 @@ export default function BrandPage() {
             </Stack>
 
             {/* ROW 2 - Medium Card */}
-            <MotionBox
-              whileHover={{ y: -5 }}
-              transition={SNAP_TRANSITION}
-              sx={{
-                width: isMobile ? '100%' : '66%', height: 300,
-                position: 'relative', borderRadius: 6, overflow: 'hidden', cursor: 'pointer',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-                '&:hover .bg-image-2': { transform: 'scale(1.05)' }
-              }}
-            >
-              <Box
-                className="bg-image-2"
+            {/* ROW 2 */}
+            <Stack direction={isMobile ? 'column' : 'row'} spacing={3} sx={{ height: { md: 320 } }}> {/* Chiều cao cố định cho row 2 để 2 thẻ bằng nhau */}
+
+              {/* 1. Production Crew - Chiếm 2 phần (flex: 2) */}
+              <MotionBox
+                whileHover={{ y: -5 }}
+                transition={SNAP_TRANSITION}
                 sx={{
-                  position: 'absolute', inset: 0,
-                  backgroundImage: `url(${group})`,
-                  backgroundSize: 'cover', backgroundPosition: 'center',
-                  transition: 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                  flex: { md: 2 },
+                  height: '100%', // Full height theo stack cha
+                  position: 'relative', borderRadius: 6, overflow: 'hidden', cursor: 'pointer',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+                  '&:hover .bg-image-crew': { transform: 'scale(1.05)' } // Hover effect class riêng
                 }}
-              />
-              <Box sx={{ position: 'absolute', inset: 0, background: `linear-gradient(90deg, ${COLORS.dark}E6 0%, transparent 100%)` }} />
-              <Box sx={{ position: 'relative', p: 5, height: '100%', display: 'flex', alignItems: 'center' }}>
-                <Box>
-                  <Box sx={{ display: 'inline-flex', p: 1.5, bgcolor: COLORS.primary, borderRadius: 3, mb: 2 }}>
-                    <TrendingUp color="white" size={24} />
+              >
+                <Box
+                  className="bg-image-crew"
+                  sx={{
+                    position: 'absolute', inset: 0,
+                    backgroundImage: `url(${group})`, // Ảnh Production
+                    backgroundSize: 'cover', backgroundPosition: 'center',
+                    transition: 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                  }}
+                />
+                {/* Gradient overlay: Đen trái -> Trong suốt phải */}
+                <Box sx={{ position: 'absolute', inset: 0, background: `linear-gradient(90deg, ${COLORS.dark}E6 0%, transparent 100%)` }} />
+
+                <Box sx={{ position: 'relative', p: 5, height: '100%', display: 'flex', alignItems: 'center' }}>
+                  <Box>
+                    <Box sx={{ display: 'inline-flex', p: 1.5, bgcolor: COLORS.primary, borderRadius: 3, mb: 2 }}>
+                      <TrendingUp color="white" size={24} />
+                    </Box>
+                    <Typography variant="h4" sx={{ color: 'white', mb: 1, fontWeight: 700 }}>Production Crew</Typography>
+                    <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)', maxWidth: 450 }}>
+                      Ekip hậu kỳ và vận hành chuyên nghiệp, tối ưu hoá quy trình từ kịch bản đến phát sóng
+                    </Typography>
                   </Box>
-                  <Typography variant="h4" sx={{ color: 'white', mb: 1, fontWeight: 700 }}>Production Crew</Typography>
-                  <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)', maxWidth: 400 }}>
-                    Chiến lược tăng trưởng đột phá, Ekip quay dựng và hậu kỳ
+                </Box>
+              </MotionBox>
+
+              <MotionBox
+                whileHover={{ y: -5 }}
+                transition={SNAP_TRANSITION}
+                sx={{
+                  flex: { md: 1 },
+                  height: '100%',
+                  position: 'relative', borderRadius: 6, overflow: 'hidden', cursor: 'pointer',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+                  '&:hover .bg-image-academy': { transform: 'scale(1.05)' }
+                }}
+              >
+                <Box
+                  className="bg-image-academy"
+                  sx={{
+                    position: 'absolute', inset: 0,
+                    backgroundImage: `url(${academyImg})`,
+                    backgroundSize: 'cover', backgroundPosition: 'center',
+                    transition: 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                  }}
+                />
+                <Box sx={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, transparent 0%, ${COLORS.dark}F2 100%)` }} />
+
+                <Box sx={{ position: 'relative', p: 4, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+
+                    {/* Box chứa Icon */}
+                    <Box sx={{
+                      p: 2,
+                      bgcolor: 'rgba(255,255,255,0.2)',
+                      backdropFilter: 'blur(5px)',
+                      borderRadius: 2,
+                      display: 'flex',          // Thêm flex để căn giữa icon hoàn hảo
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
+                      <GraduationCap color="white" size={24} />
+                    </Box>
+
+                    <Box>
+                      <Typography variant="h5" sx={{ color: 'white', fontWeight: 700, lineHeight: 1.2 }}>
+                        Idol Training Academy
+                      </Typography>
+                    </Box>
+                  </Box>
+
+                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.85)', lineHeight: 1.6 }}>
+                    "Lò luyện" tài năng với giáo trình livestream, diễn xuất, vũ đạo và xử lý tình huống thực tế.
                   </Typography>
                 </Box>
-              </Box>
-            </MotionBox>
+              </MotionBox>
+
+            </Stack>
           </Stack>
         </Container>
       </Box>

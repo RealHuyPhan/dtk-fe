@@ -8,7 +8,8 @@ import content from '../assets/content.jpeg';
 import cele1 from '../assets/cele1.jpeg';
 import backgroundCreator from '../assets/backgroundCreator.jpg';
 import backgroundCreative from '../assets/backgroundCreative.jpg';
-import backgroundSalary from '../assets/backgroundSalary.jpg';
+import backgroundSalary from '../assets/backgroundSalary.png';
+import increasesalary from '../assets/increasesalary.png';
 import { ROUTES } from '@/router/routerConstants';
 import { useNavigate } from 'react-router-dom';
 
@@ -242,8 +243,8 @@ export default function CreatorPage() {
             {/* Cột Phải */}
             <Stack spacing={3} sx={{ flex: { xs: 'auto', md: 2 } }}>
               <MotionBox variants={itemVariants} whileHover={{ y: -5 }}
-                sx={{ p: 4, borderRadius: 6, background: `linear-gradient(to right, ${COLORS.dark}, ${COLORS.secondary})`, boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}
-              >
+                sx={{ p: 4, borderRadius: 6, boxShadow: '0 4px 20px rgba(0,0,0,0.05)' ,backgroundImage: `url(${getOptimizedImage(increasesalary, 400)})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+                
                 <TrendingUp color="white" size={40} style={{ marginBottom: 16 }} />
                 <Typography variant="h4" sx={{ color: 'white', mb: 2, fontWeight: 600 }}>Tăng Trưởng Nhanh Chóng</Typography>
                 <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)', fontSize: '1.1rem' }}>Chiến lược phát triển kênh, tăng followers</Typography>
@@ -263,6 +264,7 @@ export default function CreatorPage() {
                   <Box sx={{ position: 'relative' }}>
                     <DollarSign color="white" size={40} style={{ marginBottom: 16 }} />
                     <Typography variant="h5" sx={{ color: 'white', mb: 1, fontWeight: 600 }}>Thu Nhập Ổn Định</Typography>
+                    <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)' }}>Ổn định thu nhập với mức lương cứng từ 15-30 triệu, thu nhập hoa hồng có thể lên 20-40 triệu</Typography>
                   </Box>
                 </MotionBox>
                 <MotionBox variants={itemVariants} whileHover={{ scale: 1.02 }}
@@ -278,7 +280,7 @@ export default function CreatorPage() {
                   <Box sx={{ position: 'relative' }}>
                     <Palette color="white" size={40} style={{ marginBottom: 16 }} />
                     <Typography variant="h5" sx={{ color: 'white', mb: 1, fontWeight: 600 }}>Tự Do Sáng Tạo</Typography>
-                    <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>Khẳng định dấu ấn cá nhân</Typography>
+                    <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)' }}>Khẳng định dấu ấn cá nhân</Typography>
                   </Box>
                 </MotionBox>
               </Stack>

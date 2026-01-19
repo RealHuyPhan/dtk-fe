@@ -8,7 +8,7 @@ import dtkbrand from '../assets/dtkbrand.jpg';
 import cele1 from '../assets/cele1.jpeg';
 import group2 from '../assets/group2.jpeg';
 import content from '../assets/content.jpeg';
-import increase from '../assets/increase.jpg';
+import dtkbg from '../assets/dtkbg.png';
 
 import huetu from '../assets/huetu.png'
 import hanh from '../assets/hanh.png'
@@ -219,7 +219,7 @@ export default function AboutUsPage() {
                         >
                             <Box
                                 component="img"
-                                src={getOptimizedImage(increase, 800)}
+                                src={getOptimizedImage(dtkbg, 800)}
                                 sx={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                             <Box sx={{ position: 'absolute', bottom: 32, left: 32, right: 32 }}>
                             </Box>
@@ -280,12 +280,12 @@ export default function AboutUsPage() {
                         sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center' }}
                     >
                         {[
-                            { icon: Heart, title: 'Đam Mê', desc: 'Chúng tôi yêu những gì chúng tôi làm', color: COLORS.primary },
-                            { icon: Users, title: 'Cộng Đồng', desc: 'Xây dựng cộng đồng mạnh mẽ', color: COLORS.secondary },
-                            { icon: Zap, title: 'Đổi Mới', desc: 'Không ngừng sáng tạo và cải tiến', color: COLORS.dark },
-                            { icon: Award, title: 'Chất Lượng', desc: 'Cam kết chất lượng trong từng chiến dịch', color: COLORS.primary },
-                            { icon: TrendingUp, title: 'Tăng Trưởng', desc: 'Đồng hành cùng đối tác phát triển', color: COLORS.secondary },
-                            { icon: Target, title: 'Hiệu Quả', desc: 'Tối ưu hóa mọi nguồn lực', color: COLORS.dark },
+                            { icon: Heart, title: 'Đam Mê', desc: 'Tận tâm với nghề. Chúng tôi biến niềm yêu thích livestream thành một sự nghiệp nghiêm túc, nơi nhiệt huyết được chuyên nghiệp hóa trong từng hành động.', color: COLORS.primary },
+                            { icon: Users, title: 'Cộng Đồng', desc: 'Hệ sinh thái gắn kết. Xây dựng mạng lưới Idol vững mạnh và tệp khán giả trung thành, tạo nên sức mạnh cộng hưởng to lớn.', color: COLORS.secondary },
+                            { icon: Zap, title: 'Đổi Mới', desc: 'Sáng tạo không giới hạn. Tư duy đột phá trong cách làm nội dung là chìa khóa để chúng tôi giữ vững vị thế trong dòng chảy TikTok luôn biến động.', color: COLORS.dark },
+                            { icon: Award, title: 'Chất Lượng', desc: 'Cam kết sự hoàn hảo. Chất lượng không chỉ nằm ở hình ảnh đẹp, mà là giá trị nội dung sâu sắc mang lại trong từng chiến dịch truyền thông.', color: COLORS.primary },
+                            { icon: TrendingUp, title: 'Tăng Trưởng', desc: 'Hợp tác cùng phát triển. Chúng tôi coi thành công của Idol và Đối tác là thành công của chính mình. Cùng nhau đi xa, cùng nhau lớn mạnh.', color: COLORS.secondary },
+                            { icon: Target, title: 'Hiệu Quả', desc: 'Tối ưu hóa hiệu suất. Sử dụng dữ liệu và chiến lược thông minh để đảm bảo mọi nỗ lực đều mang lại kết quả vượt trội (ROI) cho các bên.', color: COLORS.dark },
                         ].map((value, index) => (
                             <MotionBox
                                 key={index}

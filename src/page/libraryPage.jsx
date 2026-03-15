@@ -7,7 +7,6 @@ import {
 import { styled, alpha } from '@mui/material/styles';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import VerifiedIcon from '@mui/icons-material/Verified';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import {
@@ -16,7 +15,6 @@ import {
 } from '../store/helper/helperAction';
 import { handleUrlImage } from '../utils/Util';
 
-/* ------------------ STYLED COMPONENTS ------------------ */
 
 const PRIMARY_GRADIENT = 'linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%)';
 
@@ -71,7 +69,7 @@ const StyledTab = styled(Tab)(({ theme }) => ({
     padding: '10px 24px',
     minHeight: 44,
     transition: 'all 0.3s ease',
-    
+
     // MÀU MẶC ĐỊNH (Theo yêu cầu: #16223A)
     backgroundColor: '#16223A',
     color: 'rgba(255, 255, 255, 0.7)', // Chữ trắng mờ cho dễ đọc trên nền tối
@@ -80,7 +78,7 @@ const StyledTab = styled(Tab)(({ theme }) => ({
     // TRẠNG THÁI ACTIVE (Theo yêu cầu: #C7364A)
     '&.Mui-selected': {
         color: '#fff',
-        backgroundColor: '#C7364A', 
+        backgroundColor: '#C7364A',
         boxShadow: '0 4px 15px rgba(199, 54, 74, 0.4)', // Shadow màu đỏ tương ứng
         borderColor: '#C7364A'
     },
@@ -106,7 +104,7 @@ const itemVariants = {
 
 /* ------------------ HELPERS ------------------ */
 const getCategoryIcon = (name) => ({
-    Fashion: '👗', Beauty: '💄', Food: '🍜', Dance: '💃', 
+    Fashion: '👗', Beauty: '💄', Food: '🍜', Dance: '💃',
     Travel: '✈️', Tech: '💻', Art: '🎨', Music: '🎵'
 }[name] || '✨');
 
@@ -157,9 +155,9 @@ export default function LibraryPage() {
                 background: 'radial-gradient(circle, rgba(236,72,153,0.1) 0%, rgba(255,255,255,0) 70%)',
                 zIndex: 0, pointerEvents: 'none'
             }} />
-            
+
             <Container maxWidth="xl" sx={{ py: 8, position: 'relative', zIndex: 1 }}>
-                
+
                 {/* HEADER */}
                 <Box textAlign="center" mb={8} component={motion.div} initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
                     <Chip label="Community" size="small" sx={{ mb: 2, bgcolor: alpha('#9333ea', 0.1), color: '#9333ea', fontWeight: 700 }} />
@@ -201,7 +199,7 @@ export default function LibraryPage() {
 
                 {/* CONTENT AREA */}
                 {isInitialLoading ? (
-                     <Grid container spacing={3}>
+                    <Grid container spacing={3}>
                         {[...Array(8)].map((_, index) => (
                             <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
                                 <Card sx={{ borderRadius: 6, boxShadow: 'none', border: '1px solid #eee' }}>
@@ -228,7 +226,7 @@ export default function LibraryPage() {
                                                     alt={c.fullName}
                                                 />
                                                 <Box sx={{ position: 'absolute', top: 12, right: 12 }}>
-                                                    <Box sx={{ 
+                                                    <Box sx={{
                                                         bgcolor: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(4px)',
                                                         borderRadius: '20px', px: 1.5, py: 0.5,
                                                         fontSize: '0.75rem', fontWeight: 'bold',

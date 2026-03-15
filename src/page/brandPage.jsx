@@ -1,471 +1,517 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Container, Typography, Button, Stack, useMediaQuery } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import { motion, AnimatePresence } from 'framer-motion';
-import { TrendingUp, Target, BarChart3, Sparkles, Zap, Rocket, GraduationCap } from 'lucide-react';
-import dtkbrandbg from '../assets/dtkbrand.jpg';
-import content from '../assets/content.jpeg';
-import group from '../assets/group.jpeg';
-import humanresource from '../assets/humanresource.jpg';
-import increase from '../assets/increase.jpg';
-import academyImg from '../assets/academyImg.png';
-import trust from '../assets/trust.jpg';
-import cele1 from '../assets/cele1.jpeg';
-import cele2 from '../assets/cele2.jpeg';
-import cele3 from '../assets/cele3.jpeg';
-import cele4 from '../assets/cele4.jpeg';
-import { ROUTES } from '../router/routerConstants';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { Target, Heart, Crown, TrendingUp, Users, Lightbulb, CheckCircle, X, Sparkles, Zap, Award, Building2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { Box, Typography, Container } from "@mui/material";
+import { ImageWithFallback } from "../component/ImageWithFallback";
+import TrungTamSangTao from '../assets/TrungTamSangTao.png';
+import VanHanh from '../assets/VanHanh.png';
+import DaoTaoBoiDuong from '../assets/DaoTaoBoiDuong.png';
+import DTKBrand from '../assets/DTKBrand.png';
 
-const COLORS = {
-  primary: '#C7364A',
-  secondary: '#A92C3D',
-  dark: '#16223A',
-  white: '#ffffff',
-  gray: '#f5f5f5',
-  textGray: '#666666'
-};
-
-const loopingTexts = [
-  'Tăng nhận diện thương hiệu',
-  'Tiếp cận khách hàng mới',
-  'Xây dựng lòng tin',
-  'Tạo nội dung viral',
-];
-
-const SNAP_TRANSITION = {
-  type: "spring",
-  stiffness: 400,
-  damping: 30,
-  mass: 1
-};
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1, y: 0,
-    transition: { duration: 0.6, ease: "easeOut" }
-  }
-};
-
+// Khởi tạo các component kết hợp giữa MUI và Framer Motion
 const MotionBox = motion(Box);
 const MotionTypography = motion(Typography);
-const MotionButton = motion(Button);
 
-export default function BrandPage() {
-  const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const navigate = useNavigate();
+export default function ForBrand() {
+  const missions = [
+    "Để tài năng được khai thác, để phát triển có lộ trình.",
+    "Cung cấp đào tạo hệ thống và cơ hội sân khấu chuyên nghiệp cho những bạn trẻ tiềm năng.",
+    "Xây dựng hệ thống hỗ trợ phát triển dài hạn, ổn định và bền vững cho streamer.",
+    "Mang đến cho người dùng trải nghiệm livestream có chất lượng và giá trị nội dung cao hơn.",
+    "Chúng tôi không chỉ xây dựng sân khấu, mà còn đồng hành trong hành trình trưởng thành."
+  ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTextIndex((prev) => (prev + 1) % loopingTexts.length);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, []);
+  const goals = [
+    "Define · The · Kingdom",
+    "Quy tụ lực lượng boygroup có hình ảnh và thực lực hàng đầu tại Việt Nam.",
+    "Với hệ thống ươm tạo tiêu chuẩn cao, xây dựng đội hình sân khấu chất lượng thực sự.",
+    "Trên hành trình theo đuổi sự xuất sắc, luôn giữ sự đoàn kết và thúc đẩy đội nhóm."
+  ];
+
+  const coreValues = [
+    {
+      title: "Dream (Giấc mơ)",
+      description: "Tôn trọng mọi lựa chọn theo đuổi ước mơ một cách nghiêm túc.Sân khấu dành cho những người kiên trì.",
+      icon: Heart,
+    },
+    {
+      title: "Talent (Tài năng)",
+      description: "Sàng lọc tiêu chuẩn cao, đào tạo hệ thống hóa.Biến thực lực thành năng lực cạnh tranh thực sự.",
+      icon: Sparkles,
+    },
+    {
+      title: "Kingdom (Vương quốc)",
+      description: "Một tập đoàn lớn không nằm ở quy mô, mà ở tiêu chuẩn và sự cộng sinh.Streamer, đội ngũ và người dùng cùng nhau đạt thành tựu, đồng hành dài lâu.",
+      icon: Crown,
+    },
+  ];
+
+  const traditionalModel = [
+    "Ưu tiên kiểm soát chi phí, đầu tư trang phục và sân khấu hạn chế",
+    "Lấy mục tiêu hoàn vốn nhanh, chu kỳ ngắn",
+    "Bố trí đa quốc gia phân tán, nguồn lực phân bổ rải rác",
+    "Cơ cấu phân chia lợi nhuận nghiêng về nền tảng và công ty",
+    "Mô hình vận hành theo dự án, tính ổn định phụ thuộc biến động thị trường"
+  ];
+
+  const dtkModel = [
+    "Liên tục đầu tư mạnh vào trang phục, tạo hình, sân khấu và nội dung",
+    "Lấy giá trị thương hiệu và nghệ sĩ dài hạn làm trung tâm",
+    "Cơ chế chia sẻ lợi nhuận cạnh tranh hơn, để nỗ lực được ghi nhận xứng đáng",
+    "Hơn 10 năm tập trung tại thị trường Việt Nam, xây dựng nền tảng niềm tin bản địa",
+    "Công ty duy trì lợi nhuận ổn định, bảo đảm phát triển lâu dài cho streamer",
+    "Tập trung một thị trường, dồn nguồn lực xây dựng tiêu chuẩn ngành"
+  ];
+
+  const partners = [
+    {
+      name: "TikTok",
+      description: "Đối tác chính thức trong phát triển và quảng bá mô hình livestream nhóm",
+    },
+    {
+      name: "DTK Group",
+      description: "Tập đoàn mẹ với 15 năm kinh nghiệm kinh doanh đa ngành tại Việt Nam",
+    },
+  ];
+
+  const companyImages = [
+    {
+      url: TrungTamSangTao,
+      title: " Trung tâm điều hành DTK",
+      description: "Trung tâm lõi vận hành hệ sinh thái livestream, đầu mối quản lý thống nhất và hoạch định chiến lược."
+    },
+    {
+      url: VanHanh,
+      title: "Đội ngũ vận hành chuyên nghiệp",
+      description: "Hơn 50 nhân sự đào tạo và vận hành giàu kinh nghiệm, bao phủ hoạch định nội dung, tăng trưởng lưu lượng và thương mại hóa"
+    },
+    {
+      url: DTKBrand,
+      title: "Không gian sáng tạo",
+      description: "Xây dựng môi trường sáng tạo và ươm tạo nội dung, hỗ trợ streamer phát triển bền vững."
+    },
+    {
+      url: DaoTaoBoiDuong,
+      title: "Đào tạo và bồi dưỡng",
+      description: "Hệ thống đào tạo streamer tiêu chuẩn hóa, xây dựng lộ trình phát triển nghề nghiệp dài hạn."
+    }
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 },
+    },
+  };
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: COLORS.white, overflowX: 'hidden' }}>
-
-      {/* --- HERO SECTION --- */}
-      <Box sx={{ position: 'relative', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-        {/* Background */}
-        <Box sx={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-          <Box
-            component="img"
-            src={dtkbrandbg}
-            alt="DTK background"
+    <Box sx={{ bgcolor: "#FAFAFA", minHeight: "100vh" }}>
+      {/* --- Hero Section --- */}
+      <Box component="section" sx={{ position: "relative", minHeight: "70vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", bgcolor: "white" }}>
+        <Container maxWidth="lg" sx={{ textAlign: "center", py: 10 }}>
+          <MotionBox
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
             sx={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',     // GIỮ TỈ LỆ
-              objectPosition: 'center',
-              transform: {
-                xs: 'scale(1.15)',    // mobile zoom nhẹ
-                md: 'scale(1)'
-              }
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 1,
+              px: 2,
+              py: 1,
+              bgcolor: "grey.50",
+              borderRadius: 50,
+              border: "1px solid",
+              borderColor: "grey.200",
+              mb: 4,
             }}
-          />
-          <Box sx={{ position: 'absolute', inset: 0, background: `linear-gradient(135deg, ${COLORS.dark}E6 0%, ${COLORS.secondary}CC 50%, ${COLORS.primary}E6 100%)` }} />
-        </Box>
-
-        <MotionBox
-          animate={{ y: [0, -30, 0], opacity: [0.5, 0.8, 0.5] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          sx={{
-            position: 'absolute', top: '10%', left: '5%', width: 100, height: 100,
-            bgcolor: 'rgba(255,255,255,0.1)', borderRadius: '50%', filter: 'blur(40px)',
-            willChange: 'transform'
-          }}
-        />
-
-        {/* Hero Content */}
-        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 10, textAlign: 'center' }}>
-          <MotionTypography variant="h1"
-            sx={{ fontSize: { xs: '3rem', md: '5rem' }, fontWeight: 700, color: COLORS.white, mb: 3, lineHeight: 1.1 }}
           >
-            Giải pháp<br />Cho Thương Hiệu
+            <Building2 size={16} color="#C7364A" />
+            <Typography variant="body2" sx={{ color: "#2A2A2A", fontWeight: 500 }}>
+              Về DTK Media
+            </Typography>
+          </MotionBox>
+          <MotionTypography
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2 }}
+            sx={{
+              fontSize: { xs: "2.25rem", sm: "3rem", md: "3.75rem" },
+              fontWeight: 700,
+              mb: 3,
+              color: "#2A2A2A",
+              lineHeight: 1.2,
+            }}
+          >
+            Công ty quản lý livestream<br />
+            <Box component="span" sx={{ color: "#C7364A" }}>hệ sinh thái toàn diện</Box>
           </MotionTypography>
-
-          {/* Text Loop -*/}
-          <Box sx={{ height: 60, position: 'relative', mb: 6, overflow: 'hidden' }}>
-            <AnimatePresence mode="wait">
-              <MotionTypography
-                key={currentTextIndex}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-                sx={{
-                  color: 'rgba(255,255,255,0.9)',
-                  fontSize: { xs: '1.25rem', md: '2rem' },
-                  position: 'absolute', width: '100%', left: 0, textAlign: 'center'
-                }}
-              >
-                {loopingTexts[currentTextIndex]}
-              </MotionTypography>
-            </AnimatePresence>
-          </Box>
-
-          <MotionButton
-            onClick={() => navigate(ROUTES.CONTACT)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={SNAP_TRANSITION}
-            sx={{
-              bgcolor: COLORS.white, color: COLORS.primary,
-              px: 6, py: 2, borderRadius: 50,
-              fontSize: '1.1rem', fontWeight: 700, textTransform: 'none',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
-              '&:hover': { bgcolor: '#f8f8f8' }
-            }}
+          <MotionTypography
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            sx={{ fontSize: "1.25rem", color: "grey.600", maxWidth: 768, mx: "auto", mb: 6 }}
           >
-            Bắt đầu chiến dịch
-          </MotionButton>
+            Tiên phong phát triển mô hình livestream nhóm chuyên nghiệp tại Việt Nam
+          </MotionTypography>
         </Container>
       </Box>
 
-      {/* --- BENTO GRID SECTION --- */}
-      <Box sx={{ py: 12, bgcolor: COLORS.white }}>
+      {/* --- Company Images Gallery --- */}
+      <Box component="section" sx={{ py: 10, bgcolor: "grey.50" }}>
         <Container maxWidth="lg">
           <MotionBox
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-            sx={{ textAlign: 'center', mb: 8 }}
-          >
-            <Typography variant="h3" sx={{ color: COLORS.dark, fontWeight: 700, mb: 2 }}>
-              Hệ Sinh Thái Toàn Diện
-            </Typography>
-            <Typography variant="h6" sx={{ color: COLORS.textGray, fontWeight: 400 }}>
-              Mọi công cụ bạn cần để tăng trưởng bứt phá
-            </Typography>
-          </MotionBox>
-
-          <Stack spacing={3}>
-            {/* ROW 1 */}
-            <Stack direction={isMobile ? 'column' : 'row'} spacing={3} sx={{ minHeight: { md: 420 } }}>
-              {/* Card Lớn */}
-              <MotionBox
-                whileHover={{ y: -5 }}
-                transition={SNAP_TRANSITION}
-                sx={{
-                  flex: { md: 2 }, position: 'relative', borderRadius: 6, overflow: 'hidden', cursor: 'pointer',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-                  '&:hover .bg-image': { transform: 'scale(1.05)' }
-                }}
-              >
-                <Box
-                  className="bg-image"
-                  sx={{
-                    position: 'absolute', inset: 0,
-                    backgroundImage: `url(${content})`,
-                    backgroundSize: 'cover', backgroundPosition: 'center',
-                    transition: 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-                  }}
-                />
-                <Box sx={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, transparent 0%, ${COLORS.dark}E6 100%)` }} />
-                <Box sx={{ position: 'relative', p: 5, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-                  <Box sx={{ width: 60, height: 60, bgcolor: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)', borderRadius: 3, display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 3 }}>
-                    <Sparkles color="white" size={30} />
-                  </Box>
-                  <Typography variant="h4" sx={{ color: 'white', mb: 1, fontWeight: 700 }}>Livestream Arena</Typography>
-                  <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.8)' }}>Sở hữu 1000m² sàn diễn với bối cảnh đa dạng, sẵn sàng cho mọi concept livestream</Typography>
-                </Box>
-              </MotionBox>
-
-              <Stack direction="column" spacing={3} sx={{ flex: { md: 1 } }}>
-                {[
-                  { title: 'High-Tech Gear', icon: Target, desc: 'Hệ thống Camera 4K, ánh sáng điện ảnh và đường truyền băng thông rộng đảm bảo chất lượng sắc nét', grad: `linear-gradient(135deg, ${COLORS.secondary}, ${COLORS.primary})` },
-                  { title: 'Creative - Performance Team', icon: BarChart3, desc: "Đội ngũ biên kịch, đạo diễn và quản lý hình ảnh giàu kinh nghiệm, 'thổi hồn' cho từng phiên Live", grad: `linear-gradient(135deg, ${COLORS.dark}, #2A3B55)` }
-                ].map((item, idx) => (
-                  <MotionBox
-                    key={idx}
-                    whileHover={{ y: -5 }}
-                    transition={SNAP_TRANSITION}
-                    sx={{
-                      flex: 1, borderRadius: 6, p: 4, cursor: 'pointer',
-                      background: item.grad, position: 'relative', overflow: 'hidden',
-                      boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-                      display: 'flex', flexDirection: 'column', justifyContent: 'center'
-                    }}
-                  >
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                      <Box sx={{ p: 1.5, bgcolor: 'rgba(255,255,255,0.2)', borderRadius: 2, mr: 2 }}>
-                        <item.icon color="white" size={24} />
-                      </Box>
-                      <Typography variant="h5" sx={{ color: 'white', fontWeight: 600 }}>{item.title}</Typography>
-                    </Box>
-                    <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)' }}>{item.desc}</Typography>
-                  </MotionBox>
-                ))}
-              </Stack>
-            </Stack>
-
-            {/* ROW 2 - Medium Card */}
-            {/* ROW 2 */}
-            <Stack direction={isMobile ? 'column' : 'row'} spacing={3} sx={{ height: { md: 320 } }}> {/* Chiều cao cố định cho row 2 để 2 thẻ bằng nhau */}
-
-              {/* 1. Production Crew - Chiếm 2 phần (flex: 2) */}
-              <MotionBox
-                whileHover={{ y: -5 }}
-                transition={SNAP_TRANSITION}
-                sx={{
-                  flex: { md: 2 },
-                  height: '100%', // Full height theo stack cha
-                  position: 'relative', borderRadius: 6, overflow: 'hidden', cursor: 'pointer',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-                  '&:hover .bg-image-crew': { transform: 'scale(1.05)' } // Hover effect class riêng
-                }}
-              >
-                <Box
-                  className="bg-image-crew"
-                  sx={{
-                    position: 'absolute', inset: 0,
-                    backgroundImage: `url(${group})`, // Ảnh Production
-                    backgroundSize: 'cover', backgroundPosition: 'center',
-                    transition: 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-                  }}
-                />
-                {/* Gradient overlay: Đen trái -> Trong suốt phải */}
-                <Box sx={{ position: 'absolute', inset: 0, background: `linear-gradient(90deg, ${COLORS.dark}E6 0%, transparent 100%)` }} />
-
-                <Box sx={{ position: 'relative', p: 5, height: '100%', display: 'flex', alignItems: 'center' }}>
-                  <Box>
-                    <Box sx={{ display: 'inline-flex', p: 1.5, bgcolor: COLORS.primary, borderRadius: 3, mb: 2 }}>
-                      <TrendingUp color="white" size={24} />
-                    </Box>
-                    <Typography variant="h4" sx={{ color: 'white', mb: 1, fontWeight: 700 }}>Production Crew</Typography>
-                    <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)', maxWidth: 450 }}>
-                      Ekip hậu kỳ và vận hành chuyên nghiệp, tối ưu hoá quy trình từ kịch bản đến phát sóng
-                    </Typography>
-                  </Box>
-                </Box>
-              </MotionBox>
-
-              <MotionBox
-                whileHover={{ y: -5 }}
-                transition={SNAP_TRANSITION}
-                sx={{
-                  flex: { md: 1 },
-                  height: '100%',
-                  position: 'relative', borderRadius: 6, overflow: 'hidden', cursor: 'pointer',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-                  '&:hover .bg-image-academy': { transform: 'scale(1.05)' }
-                }}
-              >
-                <Box
-                  className="bg-image-academy"
-                  sx={{
-                    position: 'absolute', inset: 0,
-                    backgroundImage: `url(${academyImg})`,
-                    backgroundSize: 'cover', backgroundPosition: 'center',
-                    transition: 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-                  }}
-                />
-                <Box sx={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, transparent 0%, ${COLORS.dark}F2 100%)` }} />
-
-                <Box sx={{ position: 'relative', p: 4, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-
-                    {/* Box chứa Icon */}
-                    <Box sx={{
-                      p: 2,
-                      bgcolor: 'rgba(255,255,255,0.2)',
-                      backdropFilter: 'blur(5px)',
-                      borderRadius: 2,
-                      display: 'flex',          // Thêm flex để căn giữa icon hoàn hảo
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}>
-                      <GraduationCap color="white" size={24} />
-                    </Box>
-
-                    <Box>
-                      <Typography variant="h5" sx={{ color: 'white', fontWeight: 700, lineHeight: 1.2 }}>
-                        Idol Training Academy
-                      </Typography>
-                    </Box>
-                  </Box>
-
-                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.85)', lineHeight: 1.6 }}>
-                    "Lò luyện" tài năng với giáo trình livestream, diễn xuất, vũ đạo và xử lý tình huống thực tế.
-                  </Typography>
-                </Box>
-              </MotionBox>
-
-            </Stack>
-          </Stack>
-        </Container>
-      </Box>
-
-      {/* --- WHY CHOOSE US --- */}
-      <Box sx={{ py: 12, bgcolor: COLORS.gray }}>
-        <Container maxWidth="lg">
-          <MotionBox initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} sx={{ textAlign: 'center', mb: 8 }}>
-            <Typography variant="h3" sx={{ color: COLORS.dark, fontWeight: 700 }}>Tại Sao Chọn Chúng Tôi?</Typography>
-          </MotionBox>
-
-          <Stack direction={isMobile ? 'column' : 'row'} spacing={4}>
-            {[
-              { icon: Zap, title: 'Strong Foundation - Credibility', desc: 'Vận hành vững chắc, uy tín được khẳng định.', img: trust },
-              { icon: Target, title: 'Professional Team - Ecosystem', desc: 'Nhân sự tinh gọn, hệ sinh thái đồng bộ.', img: humanresource },
-              { icon: Rocket, title: 'Commercial Power - Added Value', desc: 'Tối ưu thương mại, gia tăng giá trị.', img: increase },
-            ].map((item, index) => (
-              <MotionBox
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                whileHover={{ y: -10 }}
-                sx={{ flex: 1, cursor: 'default' }}
-              >
-                <Box sx={{
-                  position: 'relative', height: 240, borderRadius: 4, overflow: 'hidden', mb: 3,
-                  boxShadow: '0 8px 20px rgba(0,0,0,0.08)',
-                  '&:hover .card-img': { transform: 'scale(1.1)' }
-                }}>
-                  <Box
-                    className="card-img"
-                    component="img" src={item.img}
-                    sx={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.6s ease' }}
-                  />
-                  <Box sx={{ position: 'absolute', bottom: 16, left: 16, width: 50, height: 50, bgcolor: COLORS.white, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: 2 }}>
-                    <item.icon color={COLORS.primary} size={24} />
-                  </Box>
-                </Box>
-                <Typography variant="h5" sx={{ fontWeight: 700, color: COLORS.dark, mb: 1 }}>{item.title}</Typography>
-                <Typography variant="body1" sx={{ color: COLORS.textGray }}>{item.desc}</Typography>
-              </MotionBox>
-            ))}
-          </Stack>
-        </Container>
-      </Box>
-
-      {/* --- SUCCESS STORIES --- */}
-      <Box sx={{ py: 12, bgcolor: COLORS.white }}>
-        <Container maxWidth="xl">
-          <Typography variant="h3" sx={{ textAlign: 'center', color: COLORS.dark, fontWeight: 700, mb: 8 }}>
-            Dấu Ấn Tiêu Biểu
-          </Typography>
-
-          <Stack direction="row" flexWrap="wrap" gap={3} justifyContent="center">
-            {[
-              { img: cele1, kpi: 'Trending' },
-              { img: cele2, kpi: 'Fest VIETNAM' },
-              { img: cele3, kpi: 'Fest VIETNAM' },
-              { img: cele4, kpi: 'Trending' },
-            ].map((item, index) => (
-              <MotionBox
-                key={index}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                whileHover={{ y: -8 }}
-                sx={{
-                  position: 'relative',
-                  aspectRatio: '5/5',
-                  width: { xs: '100%', sm: 'calc(50% - 24px)', md: 'calc(25% - 24px)' },
-                  // --------------------------
-
-                  borderRadius: 4,
-                  overflow: 'hidden',
-                  cursor: 'pointer',
-                  boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
-                  '&:hover .story-overlay': { opacity: 1 }
-                }}
-              >
-                <Box
-                  component="img"
-                  src={item.img}
-                  sx={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover'
-                  }}
-                />
-
-                {/* Overlay Effect */}
-                <Box
-                  className="story-overlay"
-                  sx={{
-                    position: 'absolute', inset: 0,
-                    background: `linear-gradient(to top, ${COLORS.primary}E6, ${COLORS.primary}40)`,
-                    opacity: 0, transition: 'opacity 0.3s ease',
-                    display: 'flex', alignItems: 'flex-end', p: 3
-                  }}
-                >
-                  <Box>
-                    <Typography variant="overline" sx={{ color: 'white', opacity: 0.8 }}>
-                      Case Study #{index + 1}
-                    </Typography>
-                    <Typography variant="h5" sx={{ color: 'white', fontWeight: 700 }}>
-                      {item.kpi}
-                    </Typography>
-                  </Box>
-                </Box>
-              </MotionBox>
-            ))}
-          </Stack>
-        </Container>
-      </Box>
-
-      {/* --- CTA SECTION --- */}
-      <Box sx={{ py: 12, background: `linear-gradient(135deg, ${COLORS.dark}, #253350)` }}>
-        <Container maxWidth="md" sx={{ textAlign: 'center' }}>
-          <MotionBox
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            sx={{ textAlign: "center", mb: 6 }}
           >
-            <Typography variant="h3" sx={{ color: COLORS.white, fontWeight: 700, mb: 3 }}>
-              Sẵn Sàng Tăng Trưởng Đột Phá?
+            <Typography variant="h3" sx={{ fontWeight: 700, mb: 2, color: "#2A2A2A", fontSize: { xs: "1.875rem", sm: "2.25rem" } }}>
+              Cơ sở & Đội ngũ
             </Typography>
-            <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.7)', mb: 6, fontWeight: 400 }}>
-              Hơn 10000+ đối tác và khách hàng đồng hành . Cùng tạo nên dấu ấn tiếp theo.
+            <Typography sx={{ fontSize: "1.25rem", color: "grey.600" }}>
+              Quản lý hệ thống hóa · Vận hành chuyên nghiệp hóa · Đào tạo tiêu chuẩn hóa
             </Typography>
-            <MotionButton
-              onClick={() => navigate(ROUTES.CONTACT)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={SNAP_TRANSITION}
-              sx={{
-                bgcolor: COLORS.primary, color: COLORS.white,
-                px: 8, py: 2.5, borderRadius: 50,
-                fontSize: '1.2rem', fontWeight: 700, textTransform: 'none',
-                boxShadow: '0 10px 30px rgba(199, 54, 74, 0.4)',
-                '&:hover': { bgcolor: COLORS.secondary }
-              }}
+          </MotionBox>
+
+          <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)" }, gap: 4 }}>
+            {companyImages.map((image, index) => (
+              <MotionBox
+                key={index}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                whileHover="hover"
+                sx={{ position: "relative", overflow: "hidden", borderRadius: 4, boxShadow: 3, transition: "box-shadow 0.3s", "&:hover": { boxShadow: 6 } }}
+              >
+                <MotionBox sx={{ position: "relative", height: 320, overflow: "hidden" }}>
+                  <MotionBox variants={{ hover: { scale: 1.1 } }} transition={{ duration: 0.7 }} sx={{ width: "100%", height: "100%" }}>
+                    <ImageWithFallback src={image.url} alt={image.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  </MotionBox>
+                  <Box sx={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.4), transparent)" }} />
+                  <Box sx={{ position: "absolute", bottom: 0, left: 0, right: 0, p: 3 }}>
+                    <Typography variant="h5" sx={{ fontWeight: 700, color: "white", mb: 1 }}>{image.title}</Typography>
+                    <Typography sx={{ color: "grey.200" }}>{image.description}</Typography>
+                  </Box>
+
+                  {/* Accent Badge */}
+                  <Box sx={{ position: "absolute", top: 16, right: 16 }}>
+                    <Box sx={{ width: 48, height: 48, bgcolor: "#C7364A", borderRadius: 3, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: 3 }}>
+                      <Building2 size={24} color="white" />
+                    </Box>
+                  </Box>
+                </MotionBox>
+              </MotionBox>
+            ))}
+          </Box>
+        </Container>
+      </Box>
+
+      {/* --- Mission & Vision --- */}
+      <Box component="section" sx={{ py: 10, bgcolor: "white" }}>
+        <Container maxWidth="lg">
+          <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", lg: "repeat(2, 1fr)" }, gap: 6 }}>
+            {/* Mission */}
+            <MotionBox
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              sx={{ bgcolor: "grey.50", borderRadius: 4, p: 4, border: "2px solid", borderColor: "grey.200" }}
             >
-              Đặt lịch tư vấn miễn phí
-            </MotionButton>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
+                <Box sx={{ width: 48, height: 48, bgcolor: "#C7364A", borderRadius: 3, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: 3 }}>
+                  <Target size={28} color="white" />
+                </Box>
+                <Typography variant="h5" sx={{ fontWeight: 700, color: "#2A2A2A" }}>Sứ mệnh thương hiệu (Mission)</Typography>
+              </Box>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                {missions.map((mission, index) => (
+                  <MotionBox
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    sx={{ display: "flex", alignItems: "flex-start", gap: 1.5 }}
+                  >
+                    <CheckCircle size={24} color="#C7364A" style={{ flexShrink: 0, marginTop: 2 }} />
+                    <Typography sx={{ color: "grey.700" }}>{mission}</Typography>
+                  </MotionBox>
+                ))}
+              </Box>
+            </MotionBox>
+
+            {/* Vision */}
+            <MotionBox
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              sx={{ bgcolor: "grey.50", borderRadius: 4, p: 4, border: "2px solid", borderColor: "grey.200" }}
+            >
+              <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
+                <Box sx={{ width: 48, height: 48, bgcolor: "#C7364A", borderRadius: 3, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: 3 }}>
+                  <Lightbulb size={28} color="white" />
+                </Box>
+                <Typography variant="h5" sx={{ fontWeight: 700, color: "#2A2A2A" }}>Tầm nhìn thương hiệu (Vision)</Typography>
+              </Box>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                {goals.map((goal, index) => (
+                  <MotionBox
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    sx={{ display: "flex", alignItems: "flex-start", gap: 1.5 }}
+                  >
+                    <Zap size={24} color="#C7364A" style={{ flexShrink: 0, marginTop: 2 }} />
+                    <Typography sx={{ color: "grey.700" }}>{goal}</Typography>
+                  </MotionBox>
+                ))}
+              </Box>
+            </MotionBox>
+          </Box>
+        </Container>
+      </Box>
+
+      {/* --- Core Values --- */}
+      <Box component="section" sx={{ py: 10, bgcolor: "grey.50" }}>
+        <Container maxWidth="lg">
+          <MotionBox
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            sx={{ textAlign: "center", mb: 8 }}
+          >
+            <Typography variant="h3" sx={{ fontWeight: 700, mb: 2, color: "#2A2A2A", fontSize: { xs: "1.875rem", sm: "2.25rem" } }}>
+              Giá trị cốt lõi
+            </Typography>
+            <Typography sx={{ fontSize: "1.25rem", color: "grey.600" }}>
+              DTK - Dream · Talent · Kingdom
+            </Typography>
+          </MotionBox>
+
+          <MotionBox
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" }, gap: 4 }}
+          >
+            {coreValues.map((value, index) => (
+              <MotionBox
+                key={index}
+                variants={itemVariants}
+                whileHover={{ y: -10, scale: 1.02 }}
+                sx={{
+                  p: 4,
+                  bgcolor: "white",
+                  borderRadius: 4,
+                  border: "2px solid",
+                  borderColor: "grey.200",
+                  textAlign: "center",
+                  transition: "all 0.3s",
+                  "&:hover": { borderColor: "#C7364A", boxShadow: 4 },
+                }}
+              >
+                <MotionBox
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                  sx={{ width: 64, height: 64, bgcolor: "#C7364A", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center", mx: "auto", mb: 3, boxShadow: 3 }}
+                >
+                  <value.icon size={32} color="white" />
+                </MotionBox>
+                <Typography variant="h5" sx={{ fontWeight: 700, mb: 1.5, color: "#2A2A2A" }}>
+                  {value.title}
+                </Typography>
+                <Typography sx={{ color: "grey.600" }}>{value.description}</Typography>
+              </MotionBox>
+            ))}
+          </MotionBox>
+        </Container>
+      </Box>
+
+      {/* --- Model Comparison --- */}
+      <Box component="section" sx={{ py: 10, bgcolor: "white" }}>
+        <Container maxWidth="lg">
+          <MotionBox
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            sx={{ textAlign: "center", mb: 8 }}
+          >
+            <Typography variant="h3" sx={{ fontWeight: 700, mb: 2, color: "#2A2A2A", fontSize: { xs: "1.875rem", sm: "2.25rem" } }}>
+              Vì sao DTK khác biệt so với các công ty livestream nhóm thông thường?
+            </Typography>
+            <Typography sx={{ fontSize: "1.25rem", color: "grey.600" }}>
+              Chúng tôi không chỉ làm livestream nhóm, mà đang xây dựng một nền tảng sự nghiệp dài hạn
+            </Typography>
+          </MotionBox>
+
+          <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", lg: "repeat(2, 1fr)" }, gap: 4 }}>
+            {/* Traditional Model */}
+            <MotionBox
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              sx={{ bgcolor: "grey.50", borderRadius: 4, p: 4, border: "2px solid", borderColor: "grey.300" }}
+            >
+              <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
+                <Box sx={{ width: 48, height: 48, bgcolor: "grey.400", borderRadius: 3, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <X size={28} color="white" />
+                </Box>
+                <Typography variant="h5" sx={{ fontWeight: 700, color: "grey.700" }}>Công ty livestream nhóm thông thường</Typography>
+              </Box>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
+                {traditionalModel.map((item, index) => (
+                  <MotionBox
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    sx={{ display: "flex", alignItems: "center", gap: 1.5, p: 1.5, bgcolor: "rgba(255, 255, 255, 0.5)", borderRadius: 2 }}
+                  >
+                    <X size={20} color="#9CA3AF" style={{ flexShrink: 0 }} />
+                    <Typography sx={{ color: "grey.600" }}>{item}</Typography>
+                  </MotionBox>
+                ))}
+              </Box>
+            </MotionBox>
+
+            {/* DTK Model */}
+            <MotionBox
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              sx={{ bgcolor: "white", borderRadius: 4, p: 4, border: "2px solid", borderColor: "#C7364A", boxShadow: 4, position: "relative", overflow: "hidden" }}
+            >
+              <Box sx={{ position: "absolute", top: 16, right: 16 }}>
+                <Box sx={{ bgcolor: "#FEF08A", color: "#A16207", px: 1.5, py: 0.5, borderRadius: 50, fontSize: "0.875rem", fontWeight: 600 }}>
+                  Được khuyến nghị
+                </Box>
+              </Box>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
+                <Box sx={{ width: 48, height: 48, bgcolor: "#C7364A", borderRadius: 3, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: 3 }}>
+                  <CheckCircle size={28} color="white" />
+                </Box>
+                <Typography variant="h5" sx={{ fontWeight: 700, color: "#2A2A2A" }}>Mô hình DTK</Typography>
+              </Box>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
+                {dtkModel.map((item, index) => (
+                  <MotionBox
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    sx={{ display: "flex", alignItems: "center", gap: 1.5, p: 1.5, bgcolor: "grey.50", borderRadius: 2 }}
+                  >
+                    <CheckCircle size={20} color="#C7364A" style={{ flexShrink: 0 }} />
+                    <Typography sx={{ color: "grey.700", fontWeight: 500 }}>{item}</Typography>
+                  </MotionBox>
+                ))}
+              </Box>
+            </MotionBox>
+          </Box>
+          <Box>
+            <Typography  variant="caption" sx={{ fontSize: "1.25rem", display: "block", textAlign: "center", mt: 2, color: "grey.500" }}>
+              DTK không theo đuổi tối đa hóa lợi nhuận ngắn hạn, mà cam kết xây dựng hệ thống phát triển Idol ổn định, dài hạn và bền vững.
+            </Typography>
+          </Box>
+        </Container>
+      </Box>
+
+      {/* --- Partners --- */}
+      <Box component="section" sx={{ py: 10, bgcolor: "grey.50" }}>
+        <Container maxWidth="lg">
+          <MotionBox
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            sx={{ textAlign: "center", mb: 8 }}
+          >
+            <Typography variant="h3" sx={{ fontWeight: 700, mb: 2, color: "#2A2A2A", fontSize: { xs: "1.875rem", sm: "2.25rem" } }}>
+              Đối tác chiến lược
+            </Typography>
+            <Typography sx={{ fontSize: "1.25rem", color: "grey.600" }}>
+              Được hỗ trợ bởi các đối tác hàng đầu
+            </Typography>
+          </MotionBox>
+
+          <MotionBox
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)" }, gap: 4, maxWidth: 1024, mx: "auto" }}
+          >
+            {partners.map((partner, index) => (
+              <MotionBox
+                key={index}
+                variants={itemVariants}
+                whileHover={{ y: -5 }}
+                sx={{ p: 4, bgcolor: "white", borderRadius: 4, border: "2px solid", borderColor: "grey.200", transition: "all 0.3s", "&:hover": { borderColor: "#C7364A" }, boxShadow: 3 }}
+              >
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
+                  <Award size={32} color="#C7364A" />
+                  <Typography variant="h5" sx={{ fontWeight: 700, color: "#2A2A2A" }}>{partner.name}</Typography>
+                </Box>
+                <Typography sx={{ color: "grey.600" }}>{partner.description}</Typography>
+              </MotionBox>
+            ))}
+          </MotionBox>
+        </Container>
+      </Box>
+
+      {/* --- Stats Section --- */}
+      <Box component="section" sx={{ py: 10, bgcolor: "white" }}>
+        <Container maxWidth="lg">
+          <MotionBox
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            sx={{ textAlign: "center", mb: 8 }}
+          >
+            <Typography variant="h3" sx={{ fontWeight: 700, mb: 2, color: "#2A2A2A", fontSize: { xs: "1.875rem", sm: "2.25rem" } }}>
+              DTK Media trong số liệu
+            </Typography>
+          </MotionBox>
+
+          <MotionBox
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            sx={{ display: "grid", gridTemplateColumns: { xs: "repeat(2, 1fr)", md: "repeat(4, 1fr)" }, gap: 3 }}
+          >
+            {[
+              { number: "50+", label: "Nhân sự chuyên nghiệp", icon: Users },
+              { number: "15", label: "Năm kinh nghiệm DTK Group", icon: Award },
+              { number: "1200+", label: "Người xem cùng lúc", icon: TrendingUp },
+              { number: "#1", label: "Livestream nhóm VN", icon: Crown },
+            ].map((stat, index) => (
+              <MotionBox
+                key={index}
+                variants={itemVariants}
+                whileHover={{ scale: 1.05 }}
+                sx={{ textAlign: "center", p: 3, bgcolor: "grey.50", borderRadius: 4, border: "2px solid", borderColor: "grey.200", transition: "all 0.3s", "&:hover": { borderColor: "#C7364A" } }}
+              >
+                <stat.icon size={48} color="#C7364A" style={{ margin: "0 auto 16px" }} />
+                <Typography sx={{ fontSize: "2.25rem", fontWeight: 700, color: "#2A2A2A", mb: 1 }}>{stat.number}</Typography>
+                <Typography sx={{ color: "grey.600", fontSize: "0.875rem" }}>{stat.label}</Typography>
+              </MotionBox>
+            ))}
           </MotionBox>
         </Container>
       </Box>

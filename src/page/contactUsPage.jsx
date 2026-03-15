@@ -146,7 +146,7 @@ export default function ContactUsPage() {
                                 border: '1px solid rgba(0,0,0,0.05)',
                             }}
                         >
-                            <Typography variant="h4" fontWeight={800} mb={1}>
+                            <Typography sx={{ fontSize: '24px', fontWeight: 700 }}>
                                 Gửi tin nhắn
                             </Typography>
                             <Typography variant="body2" color="text.secondary" mb={4}>

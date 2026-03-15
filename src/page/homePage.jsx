@@ -46,11 +46,77 @@ export default function Home() {
   ];
 
   const processSteps = [
-    { step: 1, title: "Xây dựng chuyên nghiệp — Từ người mới đến tân binh sân khấu", description: "Kỹ năng biểu diễn, dance, makeup và xây dựng hình ảnh", icon: Star },
-    { step: 2, title: "Livestream nhóm — Bước lên sân khấu thực thụ", description: "Studio chuyên nghiệp, nhóm 4-7 thành viên + MC", icon: Users },
-    { step: 3, title: "Hỗ trợ lưu lượng — Tăng trưởng fan nhanh chóng", description: "Đối tác chính thức, quảng bá và tăng tương tác", icon: Rocket },
-    { step: 4, title: "Nội dung tạo doanh thu — Bắt đầu kiếm tiền ổn định", description: "Tối ưu doanh thu, hợp tác thương hiệu", icon: TrendingUp },
-    { step: 5, title: "Phát triển dài hạn — Xây dựng thương hiệu cá nhân", description: "Thu nhập ổn định, lộ trình thăng tiến rõ ràng", icon: Trophy },
+    {
+      step: 1,
+      title: "Xây dựng chuyên nghiệp — Từ người mới đến tân binh sân khấu",
+      description: {
+        intro: "Chúng tôi cung cấp đào tạo hệ thống cho từng idol:",
+        items: [
+          "Huấn luyện biểu diễn và khả năng thể hiện trước ống kính",
+          "Đào tạo vũ đạo và tạo hình thể",
+          "Thiết kế hình ảnh và hướng dẫn trang điểm",
+          "Xây dựng phong cách cá nhân và định vị"
+        ],
+        result: "Kết quả: Có khả năng biểu diễn chuyên nghiệp trên sân khấu, tự tin đối diện với ống kính và khán giả"
+      },
+      icon: Star
+    },
+    {
+      step: 2,
+      title: "Livestream nhóm — Bước lên sân khấu thực thụ",
+      description: {
+        intro: "Tham gia mô hình Group Livestream chuyên nghiệp của DTK:",
+        items: [
+          "Phòng livestream và thiết bị chuyên nghiệp",
+          "Đội nhóm 4–7 người + MC điều phối",
+          "Nội dung chương trình được lên kế hoạch kỹ lưỡng"
+        ],
+        result: "Kết quả: Nhanh chóng xây dựng độ nổi tiếng, tăng tương tác và độ nhận diện"
+      },
+      icon: Users
+    },
+    {
+      step: 3,
+      title: "Hỗ trợ lưu lượng — Tăng trưởng fan nhanh chóng",
+      description: {
+        intro: "Nhận hỗ trợ từ phía chính thức và nền tảng:",
+        items: [
+          "Đẩy lưu lượng TikTok",
+          "Tăng lượt hiển thị và quảng bá nội dung",
+          "Chiến lược thu hút fan chính xác"
+        ],
+        result: "Kết quả: Số lượng fan tăng liên tục, số người xem livestream tăng ổn định"
+      },
+      icon: Rocket
+    },
+    {
+      step: 4,
+      title: "Nội dung tạo doanh thu — Bắt đầu kiếm tiền ổn định",
+      description: {
+        intro: "Tạo nguồn thu thông qua nhiều mô hình kinh doanh:",
+        items: [
+          "Chia sẻ doanh thu từ quà tặng livestream",
+          "Hợp tác thương hiệu & quảng bá thương mại",
+          "Ươm tạo / phát triển IP nội dung"
+        ],
+        result: "Kết quả: Đạt tăng trưởng thu nhập bền vững, từng bước phát triển theo hướng chuyên nghiệp"
+      },
+      icon: TrendingUp
+    },
+    {
+      step: 5,
+      title: "Phát triển dài hạn — Xây dựng thương hiệu cá nhân",
+      description: {
+        intro: "Không chỉ là idol, mà là thương hiệu cá nhân:",
+        items: [
+          "Lộ trình thăng tiến rõ ràng",
+          "Cơ chế chia sẻ thu nhập minh bạch",
+          "Hợp tác và kế hoạch phát triển dài hạn"
+        ],
+        result: "Kết quả: Trở thành idol livestream chuyên nghiệp, sở hữu sự nghiệp ổn định lâu dài"
+      },
+      icon: Trophy
+    },
   ];
 
   const containerVariants = {
@@ -177,7 +243,7 @@ export default function Home() {
           >
             <Button
               component={Link}
-               to="/contact"
+              to="/contact"
               sx={{
                 px: 4,
                 py: 2,
@@ -534,13 +600,29 @@ export default function Home() {
                               {step.step}
                             </MotionBox>
                           </Box>
+
+                          {/* Nội dung chi tiết (Đã sửa) */}
                           <Box sx={{ bgcolor: "white", p: 3, borderRadius: 3, boxShadow: 3, border: "2px solid", borderColor: "grey.200", transition: "all 0.3s", "&:hover": { borderColor: "#C7364A" }, textAlign: "left" }}>
-                            <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1.5 }}>
-                              <step.icon size={24} color="#C7364A" />
-                              <Typography variant="h6" sx={{ fontWeight: 700, color: "#2A2A2A" }}>{step.title}</Typography>
+                            <Box sx={{ display: "flex", alignItems: "flex-start", gap: 1.5, mb: 2 }}>
+                              <step.icon size={24} color="#C7364A" style={{ flexShrink: 0, marginTop: 4 }} />
+                              <Typography variant="h6" sx={{ fontWeight: 700, color: "#2A2A2A", lineHeight: 1.3 }}>{step.title}</Typography>
                             </Box>
-                            <Typography sx={{ color: "grey.600" }}>{step.description}</Typography>
+
+                            <Box sx={{ color: "grey.700" }}>
+                              <Typography sx={{ fontWeight: 500, mb: 1 }}>{step.description.intro}</Typography>
+                              <Box component="ul" sx={{ m: 0, pl: 3, mb: 2, display: "flex", flexDirection: "column", gap: 0.5 }}>
+                                {step.description.items.map((item, idx) => (
+                                  <Typography component="li" key={idx} sx={{ fontSize: "0.95rem" }}>
+                                    {item}
+                                  </Typography>
+                                ))}
+                              </Box>
+                              <Typography sx={{ fontWeight: 600, color: "#C7364A", bgcolor: "#FEF2F2", p: 1.5, borderRadius: 2 }}>
+                                {step.description.result}
+                              </Typography>
+                            </Box>
                           </Box>
+
                         </MotionBox>
                       </Box>
 
@@ -578,17 +660,33 @@ export default function Home() {
                         >
                           {step.step}
                         </MotionBox>
-                        {index < processSteps.length - 1 && <Box sx={{ width: 4, height: 64, bgcolor: "grey.300", mt: 2 }} />}
+                        {index < processSteps.length - 1 && <Box sx={{ width: 4, height: "100%", minHeight: 64, bgcolor: "grey.300", mt: 2, flexGrow: 1 }} />}
                       </Box>
+
+                      {/* Nội dung chi tiết Mobile (Đã sửa) */}
                       <Box sx={{ flex: 1, pt: 1, pb: index < processSteps.length - 1 ? 0 : 2 }}>
                         <Box sx={{ bgcolor: "white", p: 3, borderRadius: 3, boxShadow: 3, border: "2px solid", borderColor: "grey.200" }}>
-                          <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1.5 }}>
-                            <step.icon size={24} color="#C7364A" />
-                            <Typography variant="subtitle1" sx={{ fontWeight: 700, color: "#2A2A2A" }}>{step.title}</Typography>
+                          <Box sx={{ display: "flex", alignItems: "flex-start", gap: 1.5, mb: 2 }}>
+                            <step.icon size={24} color="#C7364A" style={{ flexShrink: 0, marginTop: 2 }} />
+                            <Typography variant="subtitle1" sx={{ fontWeight: 700, color: "#2A2A2A", lineHeight: 1.3 }}>{step.title}</Typography>
                           </Box>
-                          <Typography sx={{ color: "grey.600", fontSize: "0.875rem" }}>{step.description}</Typography>
+
+                          <Box sx={{ color: "grey.700", fontSize: "0.875rem" }}>
+                            <Typography sx={{ fontWeight: 500, mb: 1, fontSize: "0.875rem" }}>{step.description.intro}</Typography>
+                            <Box component="ul" sx={{ m: 0, pl: 3, mb: 2, display: "flex", flexDirection: "column", gap: 0.5 }}>
+                              {step.description.items.map((item, idx) => (
+                                <Typography component="li" key={idx} sx={{ fontSize: "0.875rem" }}>
+                                  {item}
+                                </Typography>
+                              ))}
+                            </Box>
+                            <Typography sx={{ fontWeight: 600, color: "#C7364A", bgcolor: "#FEF2F2", p: 1.5, borderRadius: 2, fontSize: "0.875rem" }}>
+                              {step.description.result}
+                            </Typography>
+                          </Box>
                         </Box>
                       </Box>
+
                     </MotionBox>
                   </MotionBox>
                 );

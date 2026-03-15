@@ -177,7 +177,7 @@ export default function Home() {
           >
             <Button
               component={Link}
-              to="/for-creator"
+               to="/contact"
               sx={{
                 px: 4,
                 py: 2,
@@ -197,7 +197,7 @@ export default function Home() {
             </Button>
             <Button
               component={Link}
-              to="/for-brand"
+              to="/about"
               variant="outlined"
               sx={{
                 px: 4,

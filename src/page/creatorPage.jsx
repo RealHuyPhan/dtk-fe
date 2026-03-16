@@ -1,22 +1,35 @@
 import React from "react";
-import { Star, ArrowRight, TrendingUp, Camera, Users, Lightbulb, Monitor, Video, BarChart, Sparkles, Award } from "lucide-react";
+import {
+  Star,
+  ArrowRight,
+  TrendingUp,
+  Camera,
+  Users,
+  Lightbulb,
+  Monitor,
+  Video,
+  BarChart,
+  Sparkles,
+  Award,
+} from "lucide-react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import { Box, Typography, Container, Button } from "@mui/material";
 import { ImageWithFallback } from "../component/ImageWithFallback";
-import Leon from '../assets/Leon.png';
-import NenTang from '../assets/NenTang.png';
-import ChuLuc from '../assets/ChuLuc.png';
-import TiemNang from '../assets/TiemNang.png';
-import AnhSang from '../assets/AnhSang.png';
-import Studio from '../assets/Studio.png';
-import HeThongLive from '../assets/HeThongLive.png';
-import HoTroNoiDung from '../assets/HoTroNoiDung.png';
-import XayDungHinhAnh from '../assets/XayDungHinhAnh.png';
-import DanceMakeUp from '../assets/DanceMakeUp.png';
-import Group47 from '../assets/Group47.png';
-import Traffic from '../assets/Traffic.png';
-import Analyze from '../assets/Analyze.png';
+import Leon from "../assets/Leon.png";
+import NenTang from "../assets/NenTang.png";
+import ChuLuc from "../assets/ChuLuc.png";
+import TiemNang from "../assets/TiemNang.png";
+import AnhSang from "../assets/AnhSang.png";
+import Studio from "../assets/Studio.png";
+import HeThongLive from "../assets/HeThongLive.png";
+import HoTroNoiDung from "../assets/HoTroNoiDung.png";
+import XayDungHinhAnh from "../assets/XayDungHinhAnh.png";
+import DanceMakeUp from "../assets/DanceMakeUp.png";
+import Group47 from "../assets/Group47.png";
+import Traffic from "../assets/Traffic.png";
+import Analyze from "../assets/Analyze.png";
+import CreatorPic from "../assets/Creator.jpg";
 
 // Khởi tạo các component kết hợp giữa MUI và Framer Motion
 const MotionBox = motion(Box);
@@ -53,12 +66,12 @@ export default function ForCreator() {
       features: [
         "Đào tạo kỹ năng cơ bản",
         "Phát triển camera sense",
-        "Học nhóm và giao tiếp"
+        "Học nhóm và giao tiếp",
       ],
       highlights: [
         { label: "Thời gian", value: "3 tháng" },
         { label: "Tập trung", value: "Kỹ năng nền tảng" },
-      ]
+      ],
     },
     {
       level: "Giai đoạn 2",
@@ -70,12 +83,12 @@ export default function ForCreator() {
       features: [
         "Livestream chính thức",
         "Xây dựng fanbase",
-        "Thu nhập ổn định"
+        "Thu nhập ổn định",
       ],
       highlights: [
         { label: "Thời gian", value: "9 tháng" },
         { label: "Tập trung", value: "Xây dựng fanbase" },
-      ]
+      ],
     },
     {
       level: "Giai đoạn 3",
@@ -87,12 +100,12 @@ export default function ForCreator() {
       features: [
         "Hợp tác thương hiệu",
         "Phát triển cá nhân",
-        "Mở rộng sự nghiệp"
+        "Mở rộng sự nghiệp",
       ],
       highlights: [
         { label: "Thời gian", value: "Dài hạn" },
         { label: "Tập trung", value: "Thương hiệu cá nhân" },
-      ]
+      ],
     },
   ];
 
@@ -167,8 +180,44 @@ export default function ForCreator() {
   return (
     <Box sx={{ bgcolor: "#FAFAFA", overflowX: "hidden", minHeight: "100vh" }}>
       {/* --- Hero Section --- */}
-      <Box component="section" sx={{ position: "relative", minHeight: "70vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", bgcolor: "white" }}>
-        <Container maxWidth="lg" sx={{ textAlign: "center", py: 10 }}>
+      <Box
+        component="section"
+        sx={{
+          position: "relative",
+          minHeight: "90vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          overflow: "hidden",
+          // bgcolor: "white", // Bạn có thể bỏ dòng này vì ảnh nền đã phủ lên trên
+          backgroundImage: `url(${CreatorPic})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        {/* Lớp phủ (Overlay) làm tối ảnh nền */}
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0, 0, 0, 0.5)", // Chỉnh từ 0.1 đến 0.9 tùy độ tối bạn muốn
+            zIndex: 1,
+          }}
+        />
+
+        <Container
+          maxWidth="lg"
+          sx={{
+            textAlign: "center",
+            py: 10,
+            position: "relative",
+            zIndex: 2, // Đẩy nội dung lên trên lớp overlay
+          }}
+        >
           <MotionBox
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -186,10 +235,14 @@ export default function ForCreator() {
             }}
           >
             <Star size={16} color="#C7364A" />
-            <Typography variant="body2" sx={{ color: "#2A2A2A", fontWeight: 500 }}>
+            <Typography
+              variant="body2"
+              sx={{ color: "#2A2A2A", fontWeight: 500 }} // Giữ nguyên vì nền nhãn là trắng
+            >
               Cơ hội nghề nghiệp
             </Typography>
           </MotionBox>
+
           <MotionTypography
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -198,19 +251,27 @@ export default function ForCreator() {
               fontSize: { xs: "2.25rem", sm: "3rem", md: "3.75rem" },
               fontWeight: 700,
               mb: 3,
-              color: "#2A2A2A",
+              color: "white", // Đổi thành màu trắng
               lineHeight: 1.2,
             }}
           >
             Ai phù hợp gia nhập DTK?
           </MotionTypography>
+
           <MotionTypography
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            sx={{ fontSize: "1.25rem", color: "grey.600", maxWidth: 768, mx: "auto", mb: 6 }}
+            sx={{
+              fontSize: "1.25rem",
+              color: "grey.200", // Đổi sang xám sáng để dễ đọc
+              maxWidth: 768,
+              mx: "auto",
+              mb: 6,
+            }}
           >
-            Nơi tài năng được tỏa sáng và ước mơ trở thành idol được hiện thực hóa
+            Nơi tài năng được tỏa sáng và ước mơ trở thành idol được hiện thực
+            hóa
           </MotionTypography>
         </Container>
       </Box>
@@ -222,7 +283,13 @@ export default function ForCreator() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            sx={{ fontSize: { xs: "1.875rem", sm: "2.25rem" }, fontWeight: 700, textAlign: "center", mb: 8, color: "#2A2A2A" }}
+            sx={{
+              fontSize: { xs: "1.875rem", sm: "2.25rem" },
+              fontWeight: 700,
+              textAlign: "center",
+              mb: 8,
+              color: "#2A2A2A",
+            }}
           >
             Bạn có phù hợp?
           </MotionTypography>
@@ -232,7 +299,15 @@ export default function ForCreator() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" }, gap: 3 }}
+            sx={{
+              display: "grid",
+              gridTemplateColumns: {
+                xs: "1fr",
+                md: "repeat(2, 1fr)",
+                lg: "repeat(4, 1fr)",
+              },
+              gap: 3,
+            }}
           >
             {requirements.map((req, index) => (
               <MotionBox
@@ -253,15 +328,27 @@ export default function ForCreator() {
                 <MotionBox
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.6 }}
-                  sx={{ width: 56, height: 56, bgcolor: "#C7364A", borderRadius: 3, display: "flex", alignItems: "center", justifyContent: "center", mx: "auto", mb: 2, boxShadow: 3 }}
+                  sx={{
+                    width: 56,
+                    height: 56,
+                    bgcolor: "#C7364A",
+                    borderRadius: 3,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    mx: "auto",
+                    mb: 2,
+                    boxShadow: 3,
+                  }}
                 >
                   <req.icon size={28} color="white" />
                 </MotionBox>
-                <Typography sx={{ fontWeight: 600, color: "grey.800" }}>{req.text}</Typography>
+                <Typography sx={{ fontWeight: 600, color: "grey.800" }}>
+                  {req.text}
+                </Typography>
               </MotionBox>
             ))}
           </MotionBox>
-
 
           {/* Leon */}
           {/* --- Case Study: Leon --- */}
@@ -303,10 +390,26 @@ export default function ForCreator() {
                     transition={{ duration: 0.5 }}
                     sx={{ width: "100%", height: "100%" }}
                   >
-                    <ImageWithFallback src={Leon} alt="Leon" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <ImageWithFallback
+                      src={Leon}
+                      alt="Leon"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
                   </MotionBox>
                   {/* Lớp gradient mờ nhẹ dưới chân ảnh */}
-                  <Box sx={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.4), transparent 50%)", pointerEvents: "none" }} />
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      inset: 0,
+                      background:
+                        "linear-gradient(to top, rgba(0,0,0,0.4), transparent 50%)",
+                      pointerEvents: "none",
+                    }}
+                  />
                 </MotionBox>
               </MotionBox>
 
@@ -332,7 +435,13 @@ export default function ForCreator() {
                   }}
                 >
                   <Award size={18} color="#CA8A04" />
-                  <Typography sx={{ color: "#A16207", fontWeight: 600, fontSize: "0.875rem" }}>
+                  <Typography
+                    sx={{
+                      color: "#A16207",
+                      fontWeight: 600,
+                      fontSize: "0.875rem",
+                    }}
+                  >
                     Câu chuyện thành công
                   </Typography>
                 </Box>
@@ -358,9 +467,29 @@ export default function ForCreator() {
                     mb: 3,
                   }}
                 >
-                  <Box component="span" sx={{ fontWeight: 700, color: "#2A2A2A" }}>Leon</Box> – từ một nhân viên phục vụ, đã chuyển mình thành
-                  <Box component="span" sx={{ fontWeight: 700, color: "#C7364A" }}> Idol chuyên nghiệp</Box> sau khi hợp tác và được đào tạo bài bản tại
-                  <Box component="span" sx={{ fontWeight: 700, color: "#2A2A2A" }}> DTK Media</Box>.
+                  <Box
+                    component="span"
+                    sx={{ fontWeight: 700, color: "#2A2A2A" }}
+                  >
+                    Leon
+                  </Box>{" "}
+                  – từ một nhân viên phục vụ, đã chuyển mình thành
+                  <Box
+                    component="span"
+                    sx={{ fontWeight: 700, color: "#C7364A" }}
+                  >
+                    {" "}
+                    Idol chuyên nghiệp
+                  </Box>{" "}
+                  sau khi hợp tác và được đào tạo bài bản tại
+                  <Box
+                    component="span"
+                    sx={{ fontWeight: 700, color: "#2A2A2A" }}
+                  >
+                    {" "}
+                    DTK Media
+                  </Box>
+                  .
                 </Typography>
 
                 <Typography
@@ -371,12 +500,31 @@ export default function ForCreator() {
                     mb: 3,
                   }}
                 >
-                  Khởi đầu từ con số <Box component="span" sx={{ fontWeight: 700 }}>0</Box>, Leon từng bước xây dựng thương hiệu cá
-                  nhân, bứt phá lượng người theo dõi trong giai đoạn
-                  <Box component="span" sx={{ fontWeight: 700 }}> 2024–2025</Box> và đạt mức thu nhập{" "}
-                  <Box component="span" sx={{ fontWeight: 700, color: "#C7364A", bgcolor: "red.50", px: 1, py: 0.5, borderRadius: 1 }}>
+                  Khởi đầu từ con số{" "}
+                  <Box component="span" sx={{ fontWeight: 700 }}>
+                    0
+                  </Box>
+                  , Leon từng bước xây dựng thương hiệu cá nhân, bứt phá lượng
+                  người theo dõi trong giai đoạn
+                  <Box component="span" sx={{ fontWeight: 700 }}>
+                    {" "}
+                    2024–2025
+                  </Box>{" "}
+                  và đạt mức thu nhập{" "}
+                  <Box
+                    component="span"
+                    sx={{
+                      fontWeight: 700,
+                      color: "#C7364A",
+                      bgcolor: "red.50",
+                      px: 1,
+                      py: 0.5,
+                      borderRadius: 1,
+                    }}
+                  >
                     50 triệu/tháng
-                  </Box>.
+                  </Box>
+                  .
                 </Typography>
 
                 <Box
@@ -395,7 +543,9 @@ export default function ForCreator() {
                       lineHeight: 1.6,
                     }}
                   >
-                    "Câu chuyện của Leon là minh chứng rõ ràng rằng với định hướng đúng và sự rèn luyện nghiêm túc, bất kỳ ai cũng có thể tỏa sáng."
+                    "Câu chuyện của Leon là minh chứng rõ ràng rằng với định
+                    hướng đúng và sự rèn luyện nghiêm túc, bất kỳ ai cũng có thể
+                    tỏa sáng."
                   </Typography>
                 </Box>
               </MotionBox>
@@ -413,7 +563,15 @@ export default function ForCreator() {
             viewport={{ once: true }}
             sx={{ textAlign: "center", mb: 8 }}
           >
-            <Typography variant="h4" sx={{ fontWeight: 700, color: "#2A2A2A", mb: 2, fontSize: { xs: "1.875rem", sm: "2.25rem" } }}>
+            <Typography
+              variant="h4"
+              sx={{
+                fontWeight: 700,
+                color: "#2A2A2A",
+                mb: 2,
+                fontSize: { xs: "1.875rem", sm: "2.25rem" },
+              }}
+            >
               Lộ trình phát triển
             </Typography>
             <Typography sx={{ fontSize: "1.125rem", color: "grey.600" }}>
@@ -434,7 +592,10 @@ export default function ForCreator() {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   sx={{
                     display: "flex",
-                    flexDirection: { xs: "column", lg: isEven ? "row" : "row-reverse" },
+                    flexDirection: {
+                      xs: "column",
+                      lg: isEven ? "row" : "row-reverse",
+                    },
                     alignItems: "center",
                     gap: 4,
                   }}
@@ -442,31 +603,100 @@ export default function ForCreator() {
                   {/* Image Side */}
                   <MotionBox
                     whileHover="hover"
-                    sx={{ width: { xs: "100%", lg: "50%" }, position: "relative" }}
+                    sx={{
+                      width: { xs: "100%", lg: "50%" },
+                      position: "relative",
+                    }}
                   >
                     <MotionBox
                       variants={{ hover: { scale: 1.02 } }}
                       transition={{ duration: 0.3 }}
-                      sx={{ position: "relative", height: 400, borderRadius: 6, overflow: "hidden", boxShadow: 6 }}
+                      sx={{
+                        position: "relative",
+                        height: 400,
+                        borderRadius: 6,
+                        overflow: "hidden",
+                        boxShadow: 6,
+                      }}
                     >
-                      <MotionBox variants={{ hover: { scale: 1.1 } }} transition={{ duration: 0.7 }} sx={{ width: "100%", height: "100%" }}>
-                        <ImageWithFallback src={stage.image} alt={stage.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      <MotionBox
+                        variants={{ hover: { scale: 1.1 } }}
+                        transition={{ duration: 0.7 }}
+                        sx={{ width: "100%", height: "100%" }}
+                      >
+                        <ImageWithFallback
+                          src={stage.image}
+                          alt={stage.title}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
                       </MotionBox>
-                      <Box sx={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.5), transparent)" }} />
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          inset: 0,
+                          background:
+                            "linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.5), transparent)",
+                        }}
+                      />
 
                       {/* Floating Badge */}
                       <Box sx={{ position: "absolute", top: 24, left: 24 }}>
                         <MotionBox
                           animate={{ y: [0, -5, 0] }}
-                          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                          sx={{ display: "inline-flex", alignItems: "center", gap: 1.5, px: 3, py: 1.5, bgcolor: "rgba(255, 255, 255, 0.95)", backdropFilter: "blur(4px)", borderRadius: 50, boxShadow: 4 }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }}
+                          sx={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: 1.5,
+                            px: 3,
+                            py: 1.5,
+                            bgcolor: "rgba(255, 255, 255, 0.95)",
+                            backdropFilter: "blur(4px)",
+                            borderRadius: 50,
+                            boxShadow: 4,
+                          }}
                         >
-                          <Box sx={{ width: 40, height: 40, borderRadius: "50%", bgcolor: "#C7364A", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: 3 }}>
+                          <Box
+                            sx={{
+                              width: 40,
+                              height: 40,
+                              borderRadius: "50%",
+                              bgcolor: "#C7364A",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              boxShadow: 3,
+                            }}
+                          >
                             <stage.icon size={20} color="white" />
                           </Box>
                           <Box>
-                            <Typography sx={{ fontSize: "0.75rem", fontWeight: 600, color: "grey.500" }}>{stage.level}</Typography>
-                            <Typography sx={{ fontSize: "0.875rem", fontWeight: 700, color: "#2A2A2A" }}>{stage.duration}</Typography>
+                            <Typography
+                              sx={{
+                                fontSize: "0.75rem",
+                                fontWeight: 600,
+                                color: "grey.500",
+                              }}
+                            >
+                              {stage.level}
+                            </Typography>
+                            <Typography
+                              sx={{
+                                fontSize: "0.875rem",
+                                fontWeight: 700,
+                                color: "#2A2A2A",
+                              }}
+                            >
+                              {stage.duration}
+                            </Typography>
                           </Box>
                         </MotionBox>
                       </Box>
@@ -476,7 +706,20 @@ export default function ForCreator() {
                         <MotionBox
                           whileHover={{ rotate: 360 }}
                           transition={{ duration: 0.6 }}
-                          sx={{ width: 80, height: 80, borderRadius: "50%", bgcolor: "#2A2A2A", display: "flex", alignItems: "center", justifyContent: "center", color: "white", fontWeight: 700, fontSize: "1.875rem", boxShadow: 6, border: "4px solid white" }}
+                          sx={{
+                            width: 80,
+                            height: 80,
+                            borderRadius: "50%",
+                            bgcolor: "#2A2A2A",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            color: "white",
+                            fontWeight: 700,
+                            fontSize: "1.875rem",
+                            boxShadow: 6,
+                            border: "4px solid white",
+                          }}
                         >
                           {index + 1}
                         </MotionBox>
@@ -492,29 +735,71 @@ export default function ForCreator() {
                       viewport={{ once: true }}
                       transition={{ delay: index * 0.1 + 0.3 }}
                     >
-                      <Typography variant="h3" sx={{ fontWeight: 700, mb: 2, color: "#2A2A2A", fontSize: { xs: "1.875rem", sm: "2.25rem" } }}>
+                      <Typography
+                        variant="h3"
+                        sx={{
+                          fontWeight: 700,
+                          mb: 2,
+                          color: "#2A2A2A",
+                          fontSize: { xs: "1.875rem", sm: "2.25rem" },
+                        }}
+                      >
                         {stage.title}
                       </Typography>
-                      <Typography sx={{ fontSize: "1.25rem", color: "grey.600", mb: 3 }}>
+                      <Typography
+                        sx={{ fontSize: "1.25rem", color: "grey.600", mb: 3 }}
+                      >
                         {stage.description}
                       </Typography>
 
                       {/* Highlights */}
-                      <Box sx={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 2, mb: 3 }}>
+                      <Box
+                        sx={{
+                          display: "grid",
+                          gridTemplateColumns: "repeat(2, 1fr)",
+                          gap: 2,
+                          mb: 3,
+                        }}
+                      >
                         {stage.highlights.map((highlight, idx) => (
                           <MotionBox
                             key={idx}
-                            whileHover={{ scale: 1.05, borderColor: '#C7364A' }}
-                            sx={{ p: 2, bgcolor: "grey.50", borderRadius: 3, border: "2px solid", borderColor: "grey.200", boxShadow: 1 }}
+                            whileHover={{ scale: 1.05, borderColor: "#C7364A" }}
+                            sx={{
+                              p: 2,
+                              bgcolor: "grey.50",
+                              borderRadius: 3,
+                              border: "2px solid",
+                              borderColor: "grey.200",
+                              boxShadow: 1,
+                            }}
                           >
-                            <Typography sx={{ fontSize: "0.875rem", color: "grey.500", mb: 0.5 }}>{highlight.label}</Typography>
-                            <Typography sx={{ fontWeight: 700, color: "#2A2A2A" }}>{highlight.value}</Typography>
+                            <Typography
+                              sx={{
+                                fontSize: "0.875rem",
+                                color: "grey.500",
+                                mb: 0.5,
+                              }}
+                            >
+                              {highlight.label}
+                            </Typography>
+                            <Typography
+                              sx={{ fontWeight: 700, color: "#2A2A2A" }}
+                            >
+                              {highlight.value}
+                            </Typography>
                           </MotionBox>
                         ))}
                       </Box>
 
                       {/* Features List */}
-                      <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 1.5,
+                        }}
+                      >
                         {stage.features.map((feature, idx) => (
                           <MotionBox
                             key={idx}
@@ -523,12 +808,41 @@ export default function ForCreator() {
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 + idx * 0.1 }}
                             whileHover={{ x: 5 }}
-                            sx={{ display: "flex", alignItems: "center", gap: 1.5, p: 1.5, bgcolor: "grey.50", borderRadius: 3 }}
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 1.5,
+                              p: 1.5,
+                              bgcolor: "grey.50",
+                              borderRadius: 3,
+                            }}
                           >
-                            <Box sx={{ width: 24, height: 24, borderRadius: "50%", bgcolor: "#C7364A", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                              <Box sx={{ width: 8, height: 8, bgcolor: "white", borderRadius: "50%" }} />
+                            <Box
+                              sx={{
+                                width: 24,
+                                height: 24,
+                                borderRadius: "50%",
+                                bgcolor: "#C7364A",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                flexShrink: 0,
+                              }}
+                            >
+                              <Box
+                                sx={{
+                                  width: 8,
+                                  height: 8,
+                                  bgcolor: "white",
+                                  borderRadius: "50%",
+                                }}
+                              />
                             </Box>
-                            <Typography sx={{ fontWeight: 500, color: "grey.800" }}>{feature}</Typography>
+                            <Typography
+                              sx={{ fontWeight: 500, color: "grey.800" }}
+                            >
+                              {feature}
+                            </Typography>
                           </MotionBox>
                         ))}
                       </Box>
@@ -548,7 +862,13 @@ export default function ForCreator() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            sx={{ fontSize: { xs: "1.875rem", sm: "2.25rem" }, fontWeight: 700, textAlign: "center", mb: 8, color: "#2A2A2A" }}
+            sx={{
+              fontSize: { xs: "1.875rem", sm: "2.25rem" },
+              fontWeight: 700,
+              textAlign: "center",
+              mb: 8,
+              color: "#2A2A2A",
+            }}
           >
             DTK cung cấp gì?
           </MotionTypography>
@@ -556,27 +876,119 @@ export default function ForCreator() {
           <Box sx={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {/* Facilities */}
             <Box>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 4 }}>
-                <Box sx={{ width: 48, height: 48, bgcolor: "#C7364A", borderRadius: 3, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: 3 }}>
+              <Box
+                sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 4 }}
+              >
+                <Box
+                  sx={{
+                    width: 48,
+                    height: 48,
+                    bgcolor: "#C7364A",
+                    borderRadius: 3,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    boxShadow: 3,
+                  }}
+                >
                   <Monitor size={28} color="white" />
                 </Box>
-                <Typography variant="h5" sx={{ fontWeight: 700, color: "#2A2A2A" }}>Cơ sở vật chất</Typography>
+                <Typography
+                  variant="h5"
+                  sx={{ fontWeight: 700, color: "#2A2A2A" }}
+                >
+                  Cơ sở vật chất
+                </Typography>
               </Box>
-              <MotionBox variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" }, gap: 3 }}>
+              <MotionBox
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
+                  gap: 3,
+                }}
+              >
                 {facilities.map((facility, index) => (
-                  <MotionBox key={index} variants={itemVariants} whileHover="hover" sx={{ position: "relative", overflow: "hidden", borderRadius: 4, boxShadow: 3, transition: "box-shadow 0.3s", "&:hover": { boxShadow: 6, transform: "translateY(-5px)" } }}>
-                    <Box sx={{ relative: true, height: 256, overflow: "hidden" }}>
-                      <MotionBox variants={{ hover: { scale: 1.1 } }} transition={{ duration: 0.5 }} sx={{ width: "100%", height: "100%" }}>
-                        <ImageWithFallback src={facility.image} alt={facility.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  <MotionBox
+                    key={index}
+                    variants={itemVariants}
+                    whileHover="hover"
+                    sx={{
+                      position: "relative",
+                      overflow: "hidden",
+                      borderRadius: 4,
+                      boxShadow: 3,
+                      transition: "box-shadow 0.3s",
+                      "&:hover": {
+                        boxShadow: 6,
+                        transform: "translateY(-5px)",
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{ relative: true, height: 256, overflow: "hidden" }}
+                    >
+                      <MotionBox
+                        variants={{ hover: { scale: 1.1 } }}
+                        transition={{ duration: 0.5 }}
+                        sx={{ width: "100%", height: "100%" }}
+                      >
+                        <ImageWithFallback
+                          src={facility.image}
+                          alt={facility.title}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
                       </MotionBox>
-                      <Box sx={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.4), transparent)" }} />
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          inset: 0,
+                          background:
+                            "linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.4), transparent)",
+                        }}
+                      />
                       <Box sx={{ position: "absolute", top: 16, right: 16 }}>
-                        <Box sx={{ width: 48, height: 48, bgcolor: "rgba(255, 255, 255, 0.2)", backdropFilter: "blur(4px)", borderRadius: 3, display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(255, 255, 255, 0.3)" }}>
+                        <Box
+                          sx={{
+                            width: 48,
+                            height: 48,
+                            bgcolor: "rgba(255, 255, 255, 0.2)",
+                            backdropFilter: "blur(4px)",
+                            borderRadius: 3,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            border: "1px solid rgba(255, 255, 255, 0.3)",
+                          }}
+                        >
                           <facility.icon size={24} color="white" />
                         </Box>
                       </Box>
-                      <Box sx={{ position: "absolute", bottom: 0, left: 0, right: 0, p: 3 }}>
-                        <Typography sx={{ fontWeight: 700, color: "white", fontSize: "1.125rem" }}>{facility.title}</Typography>
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          p: 3,
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: 700,
+                            color: "white",
+                            fontSize: "1.125rem",
+                          }}
+                        >
+                          {facility.title}
+                        </Typography>
                       </Box>
                     </Box>
                   </MotionBox>
@@ -586,25 +998,105 @@ export default function ForCreator() {
 
             {/* Training */}
             <Box>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 4 }}>
-                <Box sx={{ width: 48, height: 48, bgcolor: "#C7364A", borderRadius: 3, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: 3 }}>
+              <Box
+                sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 4 }}
+              >
+                <Box
+                  sx={{
+                    width: 48,
+                    height: 48,
+                    bgcolor: "#C7364A",
+                    borderRadius: 3,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    boxShadow: 3,
+                  }}
+                >
                   <Lightbulb size={28} color="white" />
                 </Box>
-                <Typography variant="h5" sx={{ fontWeight: 700, color: "#2A2A2A" }}>Đào tạo</Typography>
+                <Typography
+                  variant="h5"
+                  sx={{ fontWeight: 700, color: "#2A2A2A" }}
+                >
+                  Đào tạo
+                </Typography>
               </Box>
-              <MotionBox variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" }, gap: 3 }}>
+              <MotionBox
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
+                  gap: 3,
+                }}
+              >
                 {training.map((item, index) => (
-                  <MotionBox key={index} variants={itemVariants} whileHover="hover" sx={{ position: "relative", overflow: "hidden", borderRadius: 4, boxShadow: 3, transition: "box-shadow 0.3s", "&:hover": { boxShadow: 6, transform: "translateY(-5px)" } }}>
-                    <Box sx={{ relative: true, height: 256, overflow: "hidden" }}>
-                      <MotionBox variants={{ hover: { scale: 1.1 } }} transition={{ duration: 0.5 }} sx={{ width: "100%", height: "100%" }}>
-                        <ImageWithFallback src={item.image} alt={item.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  <MotionBox
+                    key={index}
+                    variants={itemVariants}
+                    whileHover="hover"
+                    sx={{
+                      position: "relative",
+                      overflow: "hidden",
+                      borderRadius: 4,
+                      boxShadow: 3,
+                      transition: "box-shadow 0.3s",
+                      "&:hover": {
+                        boxShadow: 6,
+                        transform: "translateY(-5px)",
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{ relative: true, height: 256, overflow: "hidden" }}
+                    >
+                      <MotionBox
+                        variants={{ hover: { scale: 1.1 } }}
+                        transition={{ duration: 0.5 }}
+                        sx={{ width: "100%", height: "100%" }}
+                      >
+                        <ImageWithFallback
+                          src={item.image}
+                          alt={item.title}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
                       </MotionBox>
-                      <Box sx={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4), transparent)" }} />
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          inset: 0,
+                          background:
+                            "linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4), transparent)",
+                        }}
+                      />
                       <Box sx={{ position: "absolute", top: 16, right: 16 }}>
                         <Sparkles size={32} color="#FDE047" />
                       </Box>
-                      <Box sx={{ position: "absolute", bottom: 0, left: 0, right: 0, p: 3 }}>
-                        <Typography sx={{ fontWeight: 700, color: "white", fontSize: "1.125rem" }}>{item.title}</Typography>
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          p: 3,
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: 700,
+                            color: "white",
+                            fontSize: "1.125rem",
+                          }}
+                        >
+                          {item.title}
+                        </Typography>
                       </Box>
                     </Box>
                   </MotionBox>
@@ -614,27 +1106,119 @@ export default function ForCreator() {
 
             {/* Operations */}
             <Box>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 4 }}>
-                <Box sx={{ width: 48, height: 48, bgcolor: "#C7364A", borderRadius: 3, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: 3 }}>
+              <Box
+                sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 4 }}
+              >
+                <Box
+                  sx={{
+                    width: 48,
+                    height: 48,
+                    bgcolor: "#C7364A",
+                    borderRadius: 3,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    boxShadow: 3,
+                  }}
+                >
                   <Users size={28} color="white" />
                 </Box>
-                <Typography variant="h5" sx={{ fontWeight: 700, color: "#2A2A2A" }}>Vận hành nhóm</Typography>
+                <Typography
+                  variant="h5"
+                  sx={{ fontWeight: 700, color: "#2A2A2A" }}
+                >
+                  Vận hành nhóm
+                </Typography>
               </Box>
-              <MotionBox variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" }, gap: 3 }}>
+              <MotionBox
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
+                  gap: 3,
+                }}
+              >
                 {operations.map((operation, index) => (
-                  <MotionBox key={index} variants={itemVariants} whileHover="hover" sx={{ position: "relative", overflow: "hidden", borderRadius: 4, boxShadow: 3, transition: "box-shadow 0.3s", "&:hover": { boxShadow: 6, transform: "translateY(-5px)" } }}>
-                    <Box sx={{ relative: true, height: 256, overflow: "hidden" }}>
-                      <MotionBox variants={{ hover: { scale: 1.1 } }} transition={{ duration: 0.5 }} sx={{ width: "100%", height: "100%" }}>
-                        <ImageWithFallback src={operation.image} alt={operation.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  <MotionBox
+                    key={index}
+                    variants={itemVariants}
+                    whileHover="hover"
+                    sx={{
+                      position: "relative",
+                      overflow: "hidden",
+                      borderRadius: 4,
+                      boxShadow: 3,
+                      transition: "box-shadow 0.3s",
+                      "&:hover": {
+                        boxShadow: 6,
+                        transform: "translateY(-5px)",
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{ relative: true, height: 256, overflow: "hidden" }}
+                    >
+                      <MotionBox
+                        variants={{ hover: { scale: 1.1 } }}
+                        transition={{ duration: 0.5 }}
+                        sx={{ width: "100%", height: "100%" }}
+                      >
+                        <ImageWithFallback
+                          src={operation.image}
+                          alt={operation.title}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
                       </MotionBox>
-                      <Box sx={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4), transparent)" }} />
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          inset: 0,
+                          background:
+                            "linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4), transparent)",
+                        }}
+                      />
                       <Box sx={{ position: "absolute", top: 16, right: 16 }}>
-                        <Box sx={{ width: 48, height: 48, bgcolor: "rgba(255, 255, 255, 0.2)", backdropFilter: "blur(4px)", borderRadius: 3, display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(255, 255, 255, 0.3)" }}>
+                        <Box
+                          sx={{
+                            width: 48,
+                            height: 48,
+                            bgcolor: "rgba(255, 255, 255, 0.2)",
+                            backdropFilter: "blur(4px)",
+                            borderRadius: 3,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            border: "1px solid rgba(255, 255, 255, 0.3)",
+                          }}
+                        >
                           <operation.icon size={24} color="white" />
                         </Box>
                       </Box>
-                      <Box sx={{ position: "absolute", bottom: 0, left: 0, right: 0, p: 3 }}>
-                        <Typography sx={{ fontWeight: 700, color: "white", fontSize: "1.125rem" }}>{operation.title}</Typography>
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          p: 3,
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: 700,
+                            color: "white",
+                            fontSize: "1.125rem",
+                          }}
+                        >
+                          {operation.title}
+                        </Typography>
                       </Box>
                     </Box>
                   </MotionBox>
@@ -652,7 +1236,15 @@ export default function ForCreator() {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            sx={{ bgcolor: "grey.50", borderRadius: 4, p: { xs: 4, sm: 6 }, border: "2px solid", borderColor: "grey.200", boxShadow: 4, textAlign: "center" }}
+            sx={{
+              bgcolor: "grey.50",
+              borderRadius: 4,
+              p: { xs: 4, sm: 6 },
+              border: "2px solid",
+              borderColor: "grey.200",
+              boxShadow: 4,
+              textAlign: "center",
+            }}
           >
             <MotionBox
               animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] }}
@@ -661,7 +1253,15 @@ export default function ForCreator() {
             >
               <Star size={64} color="#EAB308" fill="#EAB308" />
             </MotionBox>
-            <Typography variant="h4" sx={{ fontWeight: 700, mb: 2, color: "#2A2A2A", fontSize: { xs: "1.875rem", sm: "2.25rem" } }}>
+            <Typography
+              variant="h4"
+              sx={{
+                fontWeight: 700,
+                mb: 2,
+                color: "#2A2A2A",
+                fontSize: { xs: "1.875rem", sm: "2.25rem" },
+              }}
+            >
               Sẵn sàng trở thành idol?
             </Typography>
             <Typography sx={{ fontSize: "1.25rem", color: "grey.600", mb: 4 }}>
@@ -681,11 +1281,19 @@ export default function ForCreator() {
                 fontSize: "1rem",
                 display: "inline-flex",
                 gap: 1,
-                "&:hover": { bgcolor: "#1A1A1A", boxShadow: 4, "& .arrow-icon": { transform: "translateX(4px)" } },
+                "&:hover": {
+                  bgcolor: "#1A1A1A",
+                  boxShadow: 4,
+                  "& .arrow-icon": { transform: "translateX(4px)" },
+                },
               }}
             >
               Đăng ký ngay
-              <ArrowRight size={20} className="arrow-icon" style={{ transition: "transform 0.3s" }} />
+              <ArrowRight
+                size={20}
+                className="arrow-icon"
+                style={{ transition: "transform 0.3s" }}
+              />
             </Button>
           </MotionBox>
         </Container>
